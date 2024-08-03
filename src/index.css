@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #191f1c;
+    --secondary-color: #40916C;
+    --text-color: #19201D;
+  }
+
+  label {
+    @apply text-[12px] text-[#828282]
+  }
+
+  thead tr th{
+    @apply font-[500]
+  }
