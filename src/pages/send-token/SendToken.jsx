@@ -21,7 +21,7 @@ const SendToken = ({baseUrl}) => {
     const [toggleNav, setToggleNav] = useState(false)
 
     async function getAllGuardians(){
-      const res = await fetch(`${baseUrl}/users/get-users/guardian`,{
+      const res = await fetch(`${baseUrl}/users/get-users/guardian?role=guardian`,{
           headers:{
               'Content-Type':'application/json',
               Authorization:`Bearer ${user.data.access_token}`
@@ -157,8 +157,9 @@ const SendToken = ({baseUrl}) => {
                                 <th scope="col" className="px-6 py-3 font-[700]">Profile Pic</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Name</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Email</th>
-                                <th>Select Member</th>
-                                <th>Number of tokens</th>
+                                <th scope="col" className="px-6 py-3 font-[700]">No. of Mem.</th>
+                                <th scope="col" className="px-6 py-3 font-[700]">Select Member</th>
+                                <th scope="col" className="px-6 py-3 font-[700]">No. of tokens</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -174,6 +175,7 @@ const SendToken = ({baseUrl}) => {
                                           </td>
                                           <td className="px-6 py-4">{sub.fullName}</td>
                                           <td className="px-6 py-4">{sub.defaultEmail}</td>
+                                          <td className="px-6 py-4">{sub?.children.length}</td>
                                           <td>
                                             <input type="checkbox" checked={!!selectedGuardian} onChange={() => handleCheckboxChange(sub._id)} />
                                           </td>
