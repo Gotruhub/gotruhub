@@ -122,7 +122,7 @@ const UpdateBankAccount = ({baseUrl}) => {
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] ml-auto pb-5 h-[100dvh]">
-            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
+            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div>
@@ -199,7 +199,7 @@ const UpdateBankAccount = ({baseUrl}) => {
                     <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                         <div className='w-full'>
                             <label className='block text-left mb-2'>Description</label>
-                            <input type="text" onChange={e => setDescription(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                            <input type="text" placeholder='Account description either savings or current account' onChange={e => setDescription(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                         </div>
                     </div>
 

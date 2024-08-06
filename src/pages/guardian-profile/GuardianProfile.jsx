@@ -79,7 +79,7 @@ const GuardianProfile = ({baseUrl}) => {
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] ml-auto pb-5">
-            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
+            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
                 <div className="flex justify-between items-start bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">

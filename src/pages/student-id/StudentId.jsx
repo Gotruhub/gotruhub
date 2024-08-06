@@ -17,6 +17,7 @@ const StudentId = ({ baseUrl }) => {
   const [companyName, setCompanyName] = useState('');
   const [bgColor, setBgColor] = useState('#F2FCF8');
   const [textColor, setTextColor] = useState('#333');
+  const [address, setAddress] = useState('');
 
   const divRef = useRef(null);
 
@@ -52,6 +53,7 @@ const StudentId = ({ baseUrl }) => {
     });
     const data = await res.json();
     setUserId(data.data.user);
+    getOrganizationInfo(data.data.user.organization)
     console.log(data.data.user);
   }
 
@@ -65,6 +67,18 @@ const StudentId = ({ baseUrl }) => {
     const data = await res.json();
     setCompanyName(data.data.nameOfEstablishment);
     console.log(data.data.nameOfEstablishment);
+  }
+
+  async function getOrganizationInfo() {
+    console.log(`${baseUrl}/profile/get-profile/${id}`, user.data.access_token);
+    const res = await fetch(`${baseUrl}/profile/get-profile`, {
+      headers: {
+        Authorization: `Bearer ${user.data.access_token}`,
+      },
+    });
+    const data = await res.json();
+    // setCompanyName(data.data.nameOfEstablishment);
+    setAddress(data.data.businessAddress);
   }
 
   useEffect(() => {
@@ -89,7 +103,7 @@ const StudentId = ({ baseUrl }) => {
           </div>
         </div>
 
-        <div ref={divRef} className='flex items-center justify-center gap-10'>
+        <div ref={divRef} className='flex flex-col sm:flex-row items-center justify-center gap-10'>
           <div className='flex items-center justify-center text-center flex-col gap-2'>
             <div className="border relative w-[2.125in] h-[3.375in] bg-white rounded-lg shadow-md flex flex-col items-center mx-auto p-4">
               <div className="h-[120px] z-[1] w-full absolute top-0 rounded-t-lg" style={{ backgroundColor: bgColor }}></div>
@@ -141,6 +155,7 @@ const StudentId = ({ baseUrl }) => {
                     />
                   }
                 </div>
+                <p className='text-[12px]'>{address}</p>
                 <div className="mt-3 text-left">
                   <p className="text-sm text-gray-600 font-semibold capitalize my-3 text-left">
                     Motto:
@@ -152,7 +167,7 @@ const StudentId = ({ baseUrl }) => {
           </div>
         </div>
         <div>
-          <div className='flex w-[500px] mx-auto flex-col mt-10'>
+          <div className='flex max-w-[500px] mx-auto flex-col mt-10 px-2'>
             <p className='font-[500] text-[20px] mb-1 text-left'>Settings</p>
             <input onChange={e => setBgColor(e.target.value)} type="text" className='mb-5 border py-3 px-3 rounded w-full outline-none' placeholder='Enter background colour e.g red, blue, #123abc, #ffa326' />
             <input onChange={e => setTextColor(e.target.value)} type="text" className='border py-3 px-3 rounded w-full outline-none' placeholder='Enter text colour e.g red, blue, #123abc, #ffa326' />

@@ -29,6 +29,11 @@ const NewProductInfo = ({baseUrl}) => {
     const [productName, setProductName] = useState('')
     const [quantity, setQuantity] = useState()
     const [minimumQuantity, setMinimumQuantity] = useState()
+    const [toggleNav, setToggleNav] = useState(false)
+
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedFlavors, setSelectedFlavors] = useState([]);
 
     const { id } = useParams()
 
@@ -56,7 +61,7 @@ const NewProductInfo = ({baseUrl}) => {
             }
         })
         const data = await res.json()
-        console.log(data.data.productExist);
+        console.log(data.data.productExist.size);
         if(res) setLoading(false)
         if(res.ok){
             setProductName(data.data.productExist.productName)
@@ -66,8 +71,8 @@ const NewProductInfo = ({baseUrl}) => {
             setMinimumQuantity(data.data.productExist.minimumQuantity)
             setSelectedCategory(data.data.productExist.category)
             setSelectedColors(data.data.productExist.colors)
-            setSelectedSizes(data.data.productExist.sizes)
-            setSelectedFlavors(data.data.productExist.flavors)
+            setSelectedSizes(data.data.productExist.size)
+            setSelectedFlavors(data.data.productExist.flavor)
             setProductCoverImage(data.data.productExist.productCoverImage)
         }
     }
@@ -76,10 +81,6 @@ const NewProductInfo = ({baseUrl}) => {
         getCategories()
         getProductInfo()
     },[])
-
-    const [selectedColors, setSelectedColors] = useState([]);
-    const [selectedSizes, setSelectedSizes] = useState([]);
-    const [selectedFlavors, setSelectedFlavors] = useState([]);
 
     async function handleFileUpload(file){
         console.log('file upload');
@@ -162,9 +163,9 @@ const NewProductInfo = ({baseUrl}) => {
 
   return (
     <div>
-        <SideNav />
-        <div className="w-[78%] ml-auto pb-5 h-[100vh]">
-            <TopNav />
+        <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
+        <div className="w-full lg:w-[78%] ml-auto pb-5 h-[100vh]">
+            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div>
@@ -268,7 +269,7 @@ const NewProductInfo = ({baseUrl}) => {
                                                 <div className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedColors.some(c => c === color)}
+                                                        checked={selectedColors?.some(c => c === color)}
                                                         onChange={(e) => handleCheckboxChangeForColor(e, color)}
                                                     />
                                                     <p className='text-[#1D1D1D] capitalize text-[12px]'>{color}</p>
@@ -300,7 +301,7 @@ const NewProductInfo = ({baseUrl}) => {
                                                 <div className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedSizes.some(s => s === size)}
+                                                        checked={selectedSizes?.some(s => s === size)}
                                                         onChange={(e) => handleCheckboxChangeForSizes(e, size)}
                                                     />
                                                     <p className='text-[#1D1D1D] capitalize text-[12px]'>{size}</p>
@@ -334,7 +335,7 @@ const NewProductInfo = ({baseUrl}) => {
                                                 <div className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedFlavors.some(f => f === flavor)}
+                                                        checked={selectedFlavors?.some(f => f === flavor)}
                                                         onChange={(e) => handleCheckboxChangeForFlavors(e, flavor)}
                                                     />
                                                     <p className='text-[#1D1D1D] capitalize text-[12px]'>{flavor}</p>

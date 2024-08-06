@@ -118,7 +118,7 @@ const Dashboard = ({ baseUrl }) => {
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] bg-[#F2FCF7] ml-auto">
-          <TopNav setToggleNav={setToggleNav} toggleNav={toggleNav}/>
+          <TopNav setToggleNav={setToggleNav} toggleNav={toggleNav} baseUrl={baseUrl}/>
           <div className="px-[10px] md:px-[30px] py-[1rem]">
             <div className="flex items-start justify-between mb-[1rem] flex-col md:flex-row">
               <p className="lg:text-[28px] text-[24px] mb-4 text-primary-color font-[600] w-full">Dashboard</p>

@@ -464,7 +464,7 @@ const CreateUser = ({baseUrl}) => {
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] bg-[#F2FCF7] ml-auto pb-5">
-        <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
+        <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="lg:px-[30px] px-[10px] py-[1rem]">
                 <div className="flex items-center justify-between mb-[3rem]">
                     

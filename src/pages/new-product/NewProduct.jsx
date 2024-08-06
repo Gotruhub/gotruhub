@@ -139,7 +139,7 @@ const NewProduct = ({baseUrl}) => {
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] ml-auto pb-5 h-[100vh]">
-            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
+            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div>
