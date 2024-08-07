@@ -105,7 +105,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                                 <tr>
                                     <th scope="col" class="py-3 th1 font-[700]">S/N</th>
                                     <th scope="col" class="py-3 font-[700]">Assignment</th>
-                                    <th scope="col" class="py-3 font-[700]">Validity</th>
+                                    {/* <th scope="col" class="py-3 font-[700]">Validity</th> */}
                                     <th scope="col" class="py-3 font-[700]">Pricing</th>
                                     <th scope="col" class="py-3 font-[700]">Action</th>
                                 </tr>
@@ -118,7 +118,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                                             <tr className='relative'>
                                                 <td className='py-3'>{index + 1}</td>
                                                 <td>{item?.course?.name}</td>
-                                                <td></td>
+                                                {/* <td></td> */}
                                                 <td>100</td>
                                                 <td> <button onClick={() => setDeleteAssignment(item._id)} className='bg-[#9A2525] px-[16px] py-[7px] rounded-[8px] text-white'>Remove</button> </td>
                                             </tr>

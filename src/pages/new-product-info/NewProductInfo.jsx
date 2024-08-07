@@ -349,7 +349,7 @@ const NewProductInfo = ({baseUrl}) => {
                         <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                             {productCoverImage ? (
                                 <div className='py-[10px] flex items-center flex-col gap-3'>
-                                    <img src={productCoverImage?.file} />
+                                    <img src={productCoverImage?.file} className='w-[300px] h-[300px] object-contain'/>
                                     <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
                                     {/* <p className='text-[10px]'>{productCoverImage?.name}</p>
                                     <img src="./images/Delete.svg" alt="" /> */}

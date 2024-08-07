@@ -290,7 +290,7 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
                                         <div className='flex items-center justify-center pt-10 text-center flex-col gap-2 text-gray-500 text-[14px]'>
                                             <p>You have no semester created yet, please create one</p>
                                             <p>Note: A session should exist before creating a semester</p>
-                                            <button onClick={() => navigate('/create-session')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Session</button>
+                                            <button onClick={() => navigate('/create-session')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Semester...</button>
                                         </div>
                                     }
                                 </div>
