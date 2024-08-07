@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate } from 'react-router-dom'
+import { IoCloseOutline } from 'react-icons/io5'
+import BtnLoader from '../../components/btn-loader/BtnLoader'
+import { BsEye } from 'react-icons/bs'
+import { BiTrash } from 'react-icons/bi'
+import { PiPencil } from 'react-icons/pi'
+import Alert from '../../components/alert/Alert'
 
 const Calendar = ({baseUrl}) => {
 
@@ -11,6 +17,10 @@ const Calendar = ({baseUrl}) => {
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
     const [toggleNav, setToggleNav] = useState(false)
+    const [deleteSession, setDeleteSession] = useState()
+    const [editSession, setEditSession] = useState()
+    const [loading, setLoading] = useState(false)
+    const [name, setName] = useState('')
 
     async function getAllSessions(){
         const res = await fetch(`${baseUrl}/session`,{
@@ -30,6 +40,60 @@ const Calendar = ({baseUrl}) => {
             setAllSessions(data.data);
             setAlertType('success');
             return;
+        }
+    }
+
+    async function getSessionInfo (id) {
+        setEditSession(id)    
+        const res = await fetch(`${baseUrl}/session/${id}`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data);
+        
+        setName(data.data.name)
+    }
+
+    async function editSessionFn(){
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/session/${editSession}`,{
+            method:"PUT",
+            body: JSON.stringify({name}),
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        if(res.ok){
+            setMsg("Session updated successfully!")
+            setAlertType('success')
+            setLoading(false)
+            setEditSession(null)
+            setName('')
+            getAllSessions()
+        }
+        const data = await res.json()
+    }
+
+    async function deleteSessionFn(){
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/session/${deleteSession}`,{
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        if(res.ok){
+            setMsg("Session deleted successfully!")
+            setAlertType('success')
+            setLoading(false)
+            setDeleteSession(null)
+            setName('')
+            getAllSessions()
         }
     }
 
@@ -64,14 +128,70 @@ const Calendar = ({baseUrl}) => {
                         allSessions && allSessions.map((session) => (
                             <div className='flex items-center justify-between p-3 shadow rounded-[8px] my-4 bg-white'>
                                 <p>{session.name}</p>
+                                <div>
+                                    <button onClick={() => navigate(`/session-info/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>
+                                        <BsEye />
+                                    </button>
+                                    <button onClick={() => getSessionInfo(session._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
+                                        <PiPencil />
+                                    </button>
+                                    <button onClick={() => setDeleteSession(session._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
+                                        <BiTrash />
+                                    </button>
+                                </div>
                                 {/* <button onClick={() => navigate(`/create-semester/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Create Semester</button> */}
-                                <button onClick={() => navigate(`/session-info/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>View</button>
                             </div>
                         )).reverse()
                     }
                 </div>
             </div>
         </div>
+        {
+            deleteSession &&
+            <div>
+                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteSession(false)}></div>
+                <div className="bg-white sm:max-w-[450px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                    <div className="flex items-center justify-between border-b pb-[5px]">
+                        <p className="text-[px]">Delete Session</p>
+                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteSession(false)}/>
+                    </div>
+                    <div className='mt-5 text-center'>
+                        Are you sure, you want to delete this session?
+                    </div>
+                    {
+                        loading ? 
+                        <BtnLoader bgColor="#191f1c"/>
+                        :
+                        <button onClick={() => deleteSessionFn(deleteSession)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
+                    }
+                </div>
+            </div>
+        }
+        {
+            editSession &&
+            <div>
+                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setEditSession(false)}></div>
+                <div className="bg-white sm:max-w-[450px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                    <div className="flex items-center justify-between border-b pb-[5px]">
+                        <p className="text-[px]">Edit Session</p>
+                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setEditSession(false)}/>
+                    </div>
+                    <div className='mt-5'>
+                        <p className='text-[#19201D]'>Session</p>
+                        <input type="text" onChange={e => setName(e.target.value)} value={name} className='border py-3 px-3 rounded mt-1 w-full outline-none' placeholder='Enter unit name' />
+                    </div>
+                    {
+                        loading ? 
+                        <BtnLoader bgColor="#191f1c"/>
+                        :
+                        <button onClick={editSessionFn} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Save</button>
+                    }
+                </div>
+            </div>
+        }
+        {
+            msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
+        }
     </div>
   )
 }

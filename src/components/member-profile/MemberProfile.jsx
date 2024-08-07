@@ -11,6 +11,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 
 import Slider from "react-slick";
+import { useNavigate } from 'react-router-dom';
 
 const SummaryBar = ({ label, percentage, color }) => (
     <div className="flex items-center mb-2 w-full">
@@ -103,7 +104,7 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
 
 
 
-
+    const navigate = useNavigate()
 
     // console.log();
   return (
@@ -118,7 +119,7 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
             <div className='shadow-md rounded-[6px] p-[20px] mt-10'>
                 <div className='flex items-center justify-between mb-3'>
                     <p className='text-[#19201D] font-[600] txt-[18px]'>Authorized persons</p>
-                    <img src="./images/edit.svg" alt="" className='cursor-pointer' />
+                    <img src="./images/edit.svg" alt="" onClick={() => navigate(`/update-authorized-images/${id}`)} className='cursor-pointer' />
                 </div>
                 <div className='flex items-center gap-7'>
                     <img src={currentUser?.user?.guardians?.relationImage?.file} className='w-[45%] rounded-[6px]' alt="Relation image" />

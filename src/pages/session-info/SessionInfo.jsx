@@ -3,6 +3,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FiChevronDown } from "react-icons/fi";
+import { BiPencil, BiTrash } from 'react-icons/bi';
 
 
 const SessionInfo = ({baseUrl}) => {
@@ -72,7 +73,11 @@ const SessionInfo = ({baseUrl}) => {
                         <div className='p-3 shadow rounded-[8px] my-4 bg-white'>
                           <div className='flex items-center justify-between'>
                               <p>{session.name}</p>
-                              <FiChevronDown className='text-[22px] cursor-pointer' onClick={() => setChosenTerm(session._id)}/>
+                              <div className='flex gap-2 items-center'>
+                                <BiPencil onClick={() => navigate(`/update-semester/${session._id}`)}/>
+                                <BiTrash />
+                                <FiChevronDown className='text-[22px] cursor-pointer' onClick={() => setChosenTerm(session._id)}/>
+                              </div>
                               {/* <button onClick={() => navigate(`/create-semester/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>View</button> */}
                           </div>
                           {

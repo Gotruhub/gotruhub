@@ -78,6 +78,8 @@ import Norlics from './pages/Norlics'
 import LostId from './pages/lost-id/LostId'
 import StudentId from './pages/student-id/StudentId'
 import GenerateId from './pages/generate-id/GenerateId'
+import UpdateAuthorizedSignatures from './pages/update-authorized-signatures/UpdateAuthorizedSignatures'
+import EditSemester from './pages/edit-semester/EditSemester'
 
 function App() {
 
@@ -161,6 +163,8 @@ function App() {
             <Route path ="/recover-id" element={<LostId baseUrl={baseUrl}/>} />
             <Route path ="/student-id/:id" element={<StudentId baseUrl={baseUrl}/>} />
             <Route path ="/generate-id" element={<GenerateId baseUrl={baseUrl}/>} />
+            <Route path ="/update-authorized-images/:id" element={<UpdateAuthorizedSignatures baseUrl={baseUrl}/>} />
+            <Route path ="/update-semester/:id" element={<EditSemester baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
