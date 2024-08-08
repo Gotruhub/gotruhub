@@ -4,6 +4,9 @@ import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FiChevronDown } from "react-icons/fi";
 import { BiPencil, BiTrash } from 'react-icons/bi';
+import { IoCloseOutline } from 'react-icons/io5';
+import BtnLoader from '../../components/btn-loader/BtnLoader';
+import Alert from '../../components/alert/Alert';
 
 
 const SessionInfo = ({baseUrl}) => {
@@ -18,6 +21,8 @@ const SessionInfo = ({baseUrl}) => {
   const [chosenTerm, setChosenTerm] = useState('')
   const [alertType, setAlertType] = useState()
   const [toggleNav, setToggleNav] = useState(false)
+  const [deleteSemester, setDeleteSemester] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   async function getSessionInfo(){
     const res = await fetch(`${baseUrl}/term/${session}`,{
@@ -44,6 +49,28 @@ const SessionInfo = ({baseUrl}) => {
   useEffect(() => {
     getSessionInfo()
   },[])
+
+  const deleteSemesterFn = async (semesterId) => {
+    setLoading(true);
+    try {
+        const res = await fetch(`${baseUrl}/term/single/${semesterId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${user.data.access_token}` }
+        });
+        // const data = await res.json();
+        // if (!res.ok) throw new Error(data.message);
+
+      setDeleteSemester(false);
+      setMsg('Semester deleted successfully');
+      setAlertType('success');
+      getSessionInfo();
+    } catch (error) {
+        setMsg(error.message);
+        setAlertType('error');
+    } finally {
+        setLoading(false);
+    }
+}
 
   return (
     <div>
@@ -75,7 +102,7 @@ const SessionInfo = ({baseUrl}) => {
                               <p>{session.name}</p>
                               <div className='flex gap-2 items-center'>
                                 <BiPencil onClick={() => navigate(`/update-semester/${session._id}`)}/>
-                                <BiTrash />
+                                <BiTrash onClick={() => setDeleteSemester(session._id)}/>
                                 <FiChevronDown className='text-[22px] cursor-pointer' onClick={() => setChosenTerm(session._id)}/>
                               </div>
                               {/* <button onClick={() => navigate(`/create-semester/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>View</button> */}
@@ -103,6 +130,28 @@ const SessionInfo = ({baseUrl}) => {
               </div>
           </div>
       </div>
+      {
+          deleteSemester &&
+          <div>
+              <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteSemester(false)}></div>
+              <div className="bg-white sm:max-w-[450px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                  <div className="flex items-center justify-between border-b pb-[5px]">
+                      <p className="text-[px]">Delete Session</p>
+                      <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteSemester(false)}/>
+                  </div>
+                  <div className='mt-5 text-center'>
+                      Are you sure, you want to delete this semester/term?
+                  </div>
+                  {
+                      loading ? 
+                      <BtnLoader bgColor="#191f1c"/>
+                      :
+                      <button onClick={() => deleteSemesterFn(deleteSemester)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
+                  }
+              </div>
+          </div>
+      }
+      {msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType} />}
   </div>
   )
 }
