@@ -77,19 +77,19 @@ const UpdateBankAccount = ({baseUrl}) => {
     }
 
     async function updateMyAccountInfo(){
-        setLoading(true)
+        // setLoading(true)
         if(!selectedBank || !description || !primary_contact_email || !primary_contact_name || !primary_contact_phone || !business_name || !accNum){
             setAlertType('error')
             setMsg('All fields are required')
             return
         }else{
-            setIsLoading(true)
+            setLoading(true)
             const body = {
                 business_name,
                 description,
                 primary_contact_email,
                 primary_contact_name,
-                primary_contact_phone,
+                primary_contact_phone:`+234${primary_contact_phone}`,
                 account_number: accNum,
                 settlement_bank: bankCode
             }
@@ -175,7 +175,7 @@ const UpdateBankAccount = ({baseUrl}) => {
                         <div className='w-full'>
                             <label className='block text-left mb-2'>Account Number</label>
                             <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                                <input type="number" onChange={(e) => setAccNum(e.target.value)} placeholder='Enter Account Number' className='bg-transparent outline-none' />
+                                <input type="number" onChange={(e) => setAccNum(e.target.value)} placeholder='Enter Account Number' className='bg-transparent outline-none w-full' />
                                 {
                                     accInfoLoading && <FiLoader className='text-gray-500 animate-spin' />
                                 }
@@ -193,7 +193,10 @@ const UpdateBankAccount = ({baseUrl}) => {
                         </div>
                         <div className='w-full'>
                             <label className='block text-left mb-2'>Primary Contact Phone</label>
-                            <input type="text" onChange={e => setPrimaryContactPhone(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                            <div className='flex items-center'>
+                                <p className='bg-gray-100 p-3 rounded-l-[4px] text-gray-700 border-t border-b border-l'>+234</p>
+                                <input type="text" onChange={e => setPrimaryContactPhone(e.target.value)} placeholder='8123456789' className='px-4 py-3 outline-none border-t border-b border-r w-full rounded-r-[4px]'/>
+                            </div>
                         </div>
                     </div>
                     <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
