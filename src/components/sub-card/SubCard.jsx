@@ -9,7 +9,7 @@ const SubCard = ({ plan, setConfirmSubModal }) => {
       <div className='p-2 shadow-lg bg-white rounded-[4px]'>
         <div className='bg-[#EDEDED] h-[100px] flex items-center justify-center rounded-[4px] mb-2'>
           <p className='text-[14px] font-[500]'>
-            {plan.name.toUpperCase()}
+            {plan.name}
           </p>
         </div>
         <p className='text-[12px] mb-1 text-[#1C2320] font-[500]'>
