@@ -33,7 +33,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
     setGuardian(data.data.user)
     setSignatureImage(data.data.user.guardians.signature)
     setRelationImage(data.data.user.guardians.relationImage)
-    console.log(data.data.user.guardians)
+    console.log(data.data.user)
   }
 
   async function handleFileUpload(file){
@@ -101,7 +101,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
       signature:signatureImage._id
     });
     setLoading(true)
-    const res = await fetch(`${baseUrl}/users/get-user/${id}`,{
+    const res = await fetch(`${baseUrl}/users/get-user/${guardian.guardians._id}`,{
       method:"PUT",
       headers:{
           'Content-Type':'application/json',
