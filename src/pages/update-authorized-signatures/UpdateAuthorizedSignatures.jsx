@@ -95,6 +95,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
       fullName: guardian.guardians.fullName,
       role: 'guardian',
       email: guardian.guardians.email,
+      children: guardian.guardians.children,
       profileImage: guardian.profileImage._id,
       relationImage:relationImage._id,
       signature:signatureImage._id
@@ -109,7 +110,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
       body:JSON.stringify({
         fullName: guardian.guardians.fullName,
         role: 'guardian',
-        email: guardian.guardians.email,
+        children: guardian.guardians.children,
         profileImage: guardian.profileImage._id,
         relationImage:relationImage._id,
         signature:signatureImage._id
@@ -123,7 +124,6 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
       setMsg("Guardian's data updated successfully");
       setAlertType('success')
       setAlertTitle('Success')
-      navigate('/manage-users')
     }
     if(!res.ok){
       setMsg("Failed to update guardian's data");
