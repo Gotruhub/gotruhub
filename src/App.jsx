@@ -80,6 +80,7 @@ import StudentId from './pages/student-id/StudentId'
 import GenerateId from './pages/generate-id/GenerateId'
 import UpdateAuthorizedSignatures from './pages/update-authorized-signatures/UpdateAuthorizedSignatures'
 import EditSemester from './pages/edit-semester/EditSemester'
+import PaymentSuccessfull from './pages/payment-successful/PaymentSuccessfull'
 
 function App() {
 
@@ -165,6 +166,7 @@ function App() {
             <Route path ="/generate-id" element={<GenerateId baseUrl={baseUrl}/>} />
             <Route path ="/update-authorized-images/:id" element={<UpdateAuthorizedSignatures baseUrl={baseUrl}/>} />
             <Route path ="/update-semester/:id" element={<EditSemester baseUrl={baseUrl}/>} />
+            <Route path ="/payment-successfull" element={<PaymentSuccessfull baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
