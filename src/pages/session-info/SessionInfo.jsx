@@ -101,8 +101,8 @@ const SessionInfo = ({baseUrl}) => {
                           <div className='flex items-center justify-between'>
                               <p>{session.name}</p>
                               <div className='flex gap-2 items-center'>
-                                <BiPencil onClick={() => navigate(`/update-semester/${session._id}`)}/>
-                                <BiTrash onClick={() => setDeleteSemester(session._id)}/>
+                                <BiPencil onClick={() => navigate(`/update-semester/${session._id}`)} className='cursor-pointer'/>
+                                <BiTrash onClick={() => setDeleteSemester(session._id)} className='cursor-pointer'/>
                                 <FiChevronDown className='text-[22px] cursor-pointer' onClick={() => setChosenTerm(session._id)}/>
                               </div>
                               {/* <button onClick={() => navigate(`/create-semester/${session._id}`)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>View</button> */}
