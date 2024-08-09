@@ -229,10 +229,10 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
                         <div className='relative w-full mb-5'>
                             <p className='text-[#19201D]'>Select sub-unit</p>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'sub-units' ? false : "sub-units")}>
                                 <input type="text" value={subUnit} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{subUnitText}</p>
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'sub-units' ? false : "sub-units")}/>
+                                <IoChevronDownOutline color="d7d7d7"/>
                             </div>
                             {dropDown === 'sub-units' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -253,10 +253,10 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
                         <div className='relative w-full mb-5'>
                             <p className='text-[#19201D]'>Select session</p>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'session' ? false : "session")}>
                                 <input type="text" value={selectedSession._id} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{selectedSession?.name}</p>
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'session' ? false : "session")}/>
+                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' />
                             </div>
                             {dropDown === 'session' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -284,10 +284,10 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
                         <div className='relative w-full mb-5'>
                             <p className='text-[#19201D]'>Select semester</p>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'semester' ? false : "semester")}>
                                 <input type="text" value={selectedSemester._id} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{selectedSemester?.name}</p>
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'semester' ? false : "semester")}/>
+                                <IoChevronDownOutline color="d7d7d7" cursor='pointer'/>
                             </div>
                             {dropDown === 'semester' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
