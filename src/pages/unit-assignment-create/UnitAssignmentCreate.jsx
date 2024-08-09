@@ -316,7 +316,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
                         <div className='relative w-full mb-5'>
                             <p className='text-[#19201D]'>Select Assignment</p>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                            <div onClick={() => setDropDown(dropDown === 'assignments' ? false : 'assignments' )} className='flex items-center cursor-pointer justify-between px-4 py-3 border w-full rounded-[4px]'>
                                 {selectedAssignments.length > 0 ? (
                                     <ul className='flex items-center text-[12px] gap-2'>
                                         {selectedAssignments.map((assignment) => (
@@ -326,7 +326,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                     ) : (
                                     <p>No assignments selected.</p>
                                 )}
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'assignments' ? false : 'assignments' )}/>
+                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' />
                             </div>
                             {dropDown === 'assignments' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
