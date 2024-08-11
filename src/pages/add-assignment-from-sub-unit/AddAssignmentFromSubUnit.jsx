@@ -344,7 +344,7 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
                             loading ? 
                             <BtnLoader bgColor="#191f1c"/>
                             :
-                            <button onClick={() => navigate('/view-assignment-summary')} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>View Summary</button>
+                            <button onClick={() => navigate('/view-assignment-summary')} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>Proceed to payment</button>
                         }
                     </div>
                 </div>
