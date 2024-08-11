@@ -2,37 +2,20 @@ import React, { useEffect, useState } from 'react'
 import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate, useParams } from 'react-router-dom'
-import { IoCloseOutline } from 'react-icons/io5'
-import BtnLoader from '../../components/btn-loader/BtnLoader'
 import Alert from '../../components/alert/Alert'
-import { GoTrash } from "react-icons/go";
-import { FaRegEdit } from "react-icons/fa";
-import { LuListTodo } from "react-icons/lu";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { BiCloset } from 'react-icons/bi'
-import { MdOutlineClose } from 'react-icons/md'
 
 const ViewSubUnit = ({baseUrl}) => {
 
     const navigate = useNavigate()
     const { id } = useParams()
     const user = JSON.parse(localStorage.getItem('user'))
-    const [allSubUnits, setAllSubUnits] = useState([])
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
     const [unitName, setUnitName] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [subUnitId, setSubUnitId] = useState()
-
-    const [subUnitName, setSubUnitName] = useState()
-
-    const [editUnit, setEditUnit] = useState(false)
-    const [deleteUnit, setDeleteUnit] = useState(false)
-
-    const [editSubUnit, setEditSubUnit] = useState(false)
-    const [deleteSubUnit, setDeleteSubUnit] = useState(false)
     const [toggleNav, setToggleNav] = useState(false)
     const [subUnitInfo, setSubUnitInfo] = useState()
+    const [subUnitStats, setSubUnitStats] = useState()
+    const [staff, setStaff] = useState()
     
 
     async function getSubUnitInfo(){
@@ -43,7 +26,7 @@ const ViewSubUnit = ({baseUrl}) => {
             }
         })
         const data = await res.json()
-        console.log(data.data.unit);
+        console.log(JSON.stringify(data.data.unit));
         if(!res.ok){
             setMsg(data.message);
             setAlertType('error');
@@ -51,113 +34,47 @@ const ViewSubUnit = ({baseUrl}) => {
         }
         if(res.ok){
             setSubUnitInfo(data?.data?.unit)
-            setUnitName(data?.data?.unit?.name)
-            setAllSubUnits(data.data.units);
+            getAllStaff(data?.data?.unit.coordinator)
             setAlertType('success');
             return;
         }
     }
 
-    async function deleteUnitFn(){
-        setLoading(true)
-        const res = await fetch(`${baseUrl}/units/${id}`,{
-            method:"DELETE",
+    async function getSubUnitStats(){
+        const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/${id}`,{
+            method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
             }
         })
-        if(res) setLoading(false)
-        if(res.ok){
-            navigate('/units')
-        }
+        const data = await res.json()
+        console.log(data.data);
         if(!res.ok){
             setMsg(data.message);
             setAlertType('error');
             return;
         }
+        if(res.ok){
+            setSubUnitStats(data?.data)
+            return;
+        }
     }
 
-    async function updateUnitFn(){
-        setLoading(true)
-        const res = await fetch(`${baseUrl}/units/${id}`,{
-            method:"PUT",
+    async function getAllStaff(staffId){
+        const res = await fetch(`${baseUrl}/users/get-user/${staffId}`,{
             headers:{
                 'Content-Type':'application/json',
-                'Authorization':`Bearer ${user.data.access_token}`
-            },
-            body: JSON.stringify({name: unitName})
-        })
-        const data = await res.json()
-        if(res) {
-            setLoading(false)
-            setEditUnit(false)
-        }
-        if(res.ok){
-            setMsg(data.message);
-            setAlertType('success');
-            return;
-        }
-        if(!res.ok){
-            setMsg(data.message);
-            setAlertType('error');
-            return;
-        }
-    }
-
-    async function deleteSubUnitFn(subUnitId){
-        setLoading(true)
-        const res = await fetch(`${baseUrl}/subunits/${subUnitId}`,{
-            method:"DELETE",
-            headers:{
-                'Authorization':`Bearer ${user.data.access_token}`
+                Authorization:`Bearer ${user.data.access_token}`
             }
         })
-        if(res) setLoading(false)
-        if(res.ok){
-            getUnitInfo()
-            setDeleteSubUnit(false)
-            setMsg("Sub unit deleted successfully");
-            setAlertType('success');
-            return;
-        }
-        if(!res.ok){
-            setMsg(data.message);
-            setAlertType('error');
-            return;
-        }
-    }
-
-    async function updateSubUnitFn(subUnitId){
-        console.log(subUnitId);
-        setLoading(true)
-        const res = await fetch(`${baseUrl}/units/${subUnitId}`,{
-            method:"PUT",
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':`Bearer ${user.data.access_token}`
-            },
-            body: JSON.stringify({name: subUnitName})
-        })
         const data = await res.json()
-        if(res) {
-            setLoading(false)
-            setEditSubUnit(false)
-        }
-        if(!res.ok){
-            setMsg(data.message);
-            setAlertType('error');
-            return;
-        }
-        if(res.ok){
-            getUnitInfo()
-            setMsg(data.message);
-            setAlertType('success');
-            return;
-        }
+        console.log(data.data.user);
+        setStaff(data.data.user)
     }
 
     useEffect(() => {
         getSubUnitInfo()
+        getSubUnitStats()
     },[])
 
 
@@ -195,19 +112,19 @@ const ViewSubUnit = ({baseUrl}) => {
                         </div>
                         <div className="mb-2 flex items-center justify-between">
                             <div>Assignments</div>
-                            <div className="font-bold">2</div>
+                            <div className="font-bold">{subUnitStats?.totalAssignments}</div>
                         </div>
                         <div className="mb-2 flex items-center justify-between">
                             <div>Assignees</div>
-                            <div className="font-bold">2</div>
+                            <div className="font-bold">1</div>
                         </div>
                         <div className="mb-2 flex items-center justify-between">
                             <div>Members</div>
-                            <div className="font-bold">2</div>
+                            <div className="font-bold">{subUnitStats?.totalStudents}</div>
                         </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row w-full sm:w-1/2">
-                        <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
+                    <div className="flex flex-col sm:flex-row w-0">
+                        {/* <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">    //w-full sm:w-1/2
                             <div className="flex flex-col items-center">
                                 <div className="text-lg font-bold">Members</div>
                                 <div className="text-3xl font-bold my-2">32</div>
@@ -229,7 +146,8 @@ const ViewSubUnit = ({baseUrl}) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
+
                         {/* <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
                             <div className="flex flex-col items-center">
                                 <div className="text-lg font-bold">Assignees</div>
@@ -253,6 +171,19 @@ const ViewSubUnit = ({baseUrl}) => {
                                 </div>
                             </div>
                         </div> */}
+                    </div>
+                </div>
+
+                <div className="lg:m-[30px] m-[10px] p-4">
+                    <p className='text-[20px] mb-4 font-[500]'>Staff</p>
+                    <div className="p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div className='flex items-center gap-[1rem]'>
+                            <div className='h-[70px] w-[70px] rounded-full'>
+                                <img className='rounded-full w-full h-full object-cover' src={staff?.profileImage?.file} alt="" />
+                            </div>
+                            <p className='text-[20px] font-[500]'>{staff?.fullName}</p>
+                        </div>
+                        <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate(`/staff/${staff._id}`)} >More Info</button>
                     </div>
                 </div>
 
@@ -342,100 +273,6 @@ const ViewSubUnit = ({baseUrl}) => {
                 </div> */}
             </div>
         </div>
-
-        {
-            editUnit &&
-            <div>
-                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setEditUnit(false)}></div>
-                <div className="bg-white w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
-                    <div className="flex items-center justify-between border-b pb-[5px]">
-                        <p className="text-[px]">Edit Unit</p>
-                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setEditUnit(false)}/>
-                    </div>
-                    <div className='mt-5'>
-                        <p>Unit Name</p>
-                        <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
-                            <input type="text" value={unitName} onChange={e => setUnitName(e.target.value)} className='outline-none w-full rounded-[4px]'/>
-                        </div>
-                    </div>
-                    {
-                        loading ? 
-                        <BtnLoader bgColor="#191f1c"/>
-                        :
-                        <button onClick={updateUnitFn} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Update Unit Name</button>
-                    }
-                </div>
-            </div>
-        }
-
-        {
-            deleteUnit &&
-            <div>
-                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteUnit(false)}></div>
-                <div className="bg-white w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
-                    <div className="flex items-center justify-between border-b pb-[5px]">
-                        <p className="text-[px]">Delete Unit</p>
-                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteUnit(false)}/>
-                    </div>
-                    <div className='mt-5'>
-                        Are you sure, you want to delete this unit?
-                    </div>
-                    {
-                        loading ? 
-                        <BtnLoader bgColor="#191f1c"/>
-                        :
-                        <button onClick={deleteUnitFn} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
-                    }
-                </div>
-            </div>
-        }
-
-        {
-            editSubUnit &&
-            <div>
-                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setEditSubUnit(false)}></div>
-                <div className="bg-white w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
-                    <div className="flex items-center justify-between border-b pb-[5px]">
-                        <p className="text-[px]">Edit Unit</p>
-                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setEditSubUnit(false)}/>
-                    </div>
-                    <div className='mt-5'>
-                        <p>Sub Unit Name</p>
-                        <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
-                            <input type="text" value={subUnitName} onChange={e => setSubUnitName(e.target.value)} className='outline-none w-full rounded-[4px]'/>
-                        </div>
-                    </div>
-                    {
-                        loading ? 
-                        <BtnLoader bgColor="#191f1c"/>
-                        :
-                        <button onClick={() => updateSubUnitFn(editSubUnit)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Update Sub Unit Name</button>
-                    }
-                </div>
-            </div>
-        }
-
-        {
-            deleteSubUnit &&
-            <div>
-                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteSubUnit(false)}></div>
-                <div className="bg-white w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
-                    <div className="flex items-center justify-between border-b pb-[5px]">
-                        <p className="text-[px]">Delete Unit</p>
-                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteSubUnit(false)}/>
-                    </div>
-                    <div className='mt-5'>
-                        Are you sure, you want to delete this sub unit?
-                    </div>
-                    {
-                        loading ? 
-                        <BtnLoader bgColor="#191f1c"/>
-                        :
-                        <button onClick={() => deleteSubUnitFn(deleteSubUnit)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
-                    }
-                </div>
-            </div>
-        }
 
         {
             msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>

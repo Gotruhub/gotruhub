@@ -94,7 +94,9 @@ const Token = ({baseUrl}) => {
                                         <p className='text-[#828282]'>{sub?.quantityLeft} / {sub?.quantity} Tokens Used</p>
                                     </div>
                                     <div className='flex items-center gap-3'>
-                                        <TbTrash className='text-[20px] text-red-500 cursor-pointer' onClick={() => setDeleteToken(sub._id)}/>
+                                        {sub?.quantityLeft < 1 &&
+                                            <TbTrash className='text-[20px] text-red-500 cursor-pointer' onClick={() => setDeleteToken(sub._id)}/>
+                                        }
                                         <GoChevronRight className='text-[20px] text-[#4F4F4F] cursor-pointer' onClick={() => navigate(`/send-token/${sub._id}`)}/>
                                     </div>
                                 </div>
