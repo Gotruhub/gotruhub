@@ -108,9 +108,9 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
 
     // console.log();
   return (
-    <div className='flex items-start gap-10 px-[30px] py-[1rem]'>
+    <div className='flex items-start flex-col lg:flex-row gap-10 px-[30px] py-[1rem]'>
         <div className='w-full'>
-            <div className='shadow-md rounded-[6px] flex items-center gap-7 p-[20px] mb-10 w-full justify-between'>
+            <div className='shadow-md rounded-[6px] flex items-center gap-7 p-[20px] mb-10 w-full justify-between flex-col sm:flex-row'>
                 <img src={currentUser?.user?.profileImage?.file ? currentUser?.user?.profileImage?.file : './images/user.svg'} className='w-[200px] rounded-[6px]' alt="Member Image" />
                 <img src={currentUser?.user?.passQrcode} className='w-[200px] rounded-[6px]' alt="Passcode Image" />
             </div>
@@ -121,13 +121,13 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                     <p className='text-[#19201D] font-[600] txt-[18px]'>Authorized persons</p>
                     <img src="./images/edit.svg" alt="" onClick={() => navigate(`/update-authorized-images/${id}`)} className='cursor-pointer' />
                 </div>
-                <div className='flex items-center gap-7'>
+                <div className='flex items-center gap-7 flex-col sm:flex-row'>
                     <img src={currentUser?.user?.guardians?.relationImage?.file} className='w-[45%] rounded-[6px]' alt="Relation image" />
                     <img src={currentUser?.user?.guardians?.signature?.file} className='w-[45%] rounded-[6px]' alt="Image of signature" />
                 </div>
             </div>
         </div>
-        <div className='w-[50%]'>
+        <div className='lg:w-[50%] w-full'>
             <div className='shadow-md rounded-[6px] p-[20px] w-full'>
                 <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Wallet</p>
                 <div className='w-full'>

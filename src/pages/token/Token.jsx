@@ -3,6 +3,10 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate } from 'react-router-dom'
 import { GoChevronRight } from "react-icons/go";
+import { TbTrash } from 'react-icons/tb';
+import { IoCloseOutline } from 'react-icons/io5';
+import BtnLoader from '../../components/btn-loader/BtnLoader';
+import Alert from '../../components/alert/Alert';
 
 
 const Token = ({baseUrl}) => {
@@ -11,6 +15,10 @@ const Token = ({baseUrl}) => {
     const user = JSON.parse(localStorage.getItem('user'))
     const [activeSubs, setActiveSubs] = useState([])
     const [toggleNav, setToggleNav] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [msg, setMsg] = useState('')
+    const [alertType, setAlertType] = useState()
+    const [deleteToken, setDeleteToken] = useState()
 
     useEffect(() => {
         getMyPlans()
@@ -26,7 +34,31 @@ const Token = ({baseUrl}) => {
         const data = await res.json()
         console.log(data.data.plans);
         setActiveSubs(data.data.plans)
-      }
+    }
+
+    async function deleteTokenFn() {
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/plan/${deleteToken}`,{
+            method:"DELETE",
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${user.data.access_token}`
+            }
+        })
+        if(res) setLoading(false)
+        if(res.ok){
+            getMyPlans()
+            setDeleteToken(null)
+            setMsg("Plan deleted successfully");
+            setAlertType('success');
+            return;
+        }
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+    }
 
   return (
     <div>
@@ -61,7 +93,10 @@ const Token = ({baseUrl}) => {
                                         </p>
                                         <p className='text-[#828282]'>{sub?.quantityLeft} / {sub?.quantity} Tokens Used</p>
                                     </div>
-                                    <GoChevronRight className='text-[20px] text-[#4F4F4F] cursor-pointer' onClick={() => navigate(`/send-token/${sub._id}`)}/>
+                                    <div className='flex items-center gap-3'>
+                                        <TbTrash className='text-[20px] text-red-500 cursor-pointer' onClick={() => setDeleteToken(sub._id)}/>
+                                        <GoChevronRight className='text-[20px] text-[#4F4F4F] cursor-pointer' onClick={() => navigate(`/send-token/${sub._id}`)}/>
+                                    </div>
                                 </div>
                             ))
                         }
@@ -70,6 +105,30 @@ const Token = ({baseUrl}) => {
                 </div>
             </div>
         </div>
+        {
+            deleteToken &&
+            <div>
+                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteToken(false)}></div>
+                <div className="bg-white sm:max-w-[450px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                    <div className="flex items-center justify-between border-b pb-[5px]">
+                        <p className="text-[px]">Delete Token</p>
+                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteToken(false)}/>
+                    </div>
+                    <div className='mt-5 text-center'>
+                        Are you sure, you want to delete this token?
+                    </div>
+                    {
+                        loading ? 
+                        <BtnLoader bgColor="#191f1c"/>
+                        :
+                        <button onClick={() => deleteTokenFn(deleteToken)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
+                    }
+                </div>
+            </div>
+        }
+        {
+            msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
+        }
     </div>
   )
 }

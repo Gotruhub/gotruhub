@@ -52,7 +52,7 @@ const AttendanceSummary = ({baseUrl}) => {
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
                         <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
-                        <p className="text-[28px] text-primary-color font-[600]">Attendance Summary</p>
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Attendance Summary</p>
                     </div>
                     <div className='relative flex items-center gap-[10px]'>
                         <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>

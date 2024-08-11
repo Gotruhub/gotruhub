@@ -10,7 +10,7 @@ const GuardianCard = ({id, currentUser}) => {
     },[])
 
   return (
-    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-xl">
+    <div className="ww-full mx-auto bg-white rounded-xl shadow-md overflow-hidden">
       <div className="p-8">
         <div className="flex items-center justify-center">
         <img  className="h-[120px] w-[120px] rounded-full object-cover" src={currentUser?.user?.guardians?.profileImage?.file} alt="Guardian image" />

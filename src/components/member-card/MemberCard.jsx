@@ -7,7 +7,7 @@ const MemberCard = ({currentUser, id}) => {
     console.log(currentUser);
 
   return (
-    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-xl mb-10">
+    <div className="w-full mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-10">
       <div className="p-8">
         {/* <div className="flex items-center justify-center">
           <img className="h-[120] w-[120px] rounded-full object-cover" src="./images/member.svg" alt="Profile" />
