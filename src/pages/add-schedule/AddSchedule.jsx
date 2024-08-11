@@ -278,7 +278,7 @@ const AddSchedule = ({baseUrl}) => {
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/time-table/${id}`)} className='cursor-pointer' />
                             <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Schedule assignment</p>
                         </div>
-                        {/* <p className='text-[#4F4F4F]'>Enter your preferred bank account for wallet deposits</p> */}
+                        <p className='text-[#4F4F4F]'>Only assignments paid for will appear here</p>
                     </div>
                     {/* <div className='flex items-center gap-5'>
                         <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/update-bank-account')}>Update Account</button>

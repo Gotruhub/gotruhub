@@ -135,7 +135,7 @@ const RegisterOrgs = ({baseUrl}) => {
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                     <div className='w-full'>
                         <label className='block text-left mb-2'>Phone Number</label>
-                        <input type="text" onChange={e => setPhone(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                        <input type="number" onChange={e => setPhone(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                     </div>
                     <div className='w-full'>
                         <label className='block text-left mb-2'>Email Address</label>
