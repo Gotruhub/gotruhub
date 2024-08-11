@@ -3,13 +3,14 @@ import TopNav from '../../components/top-nav/TopNav'
 import SideNav from '../../components/side-nav/SideNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import BtnLoader from '../../components/btn-loader/BtnLoader'
+import Alert from '../../components/alert/Alert'
 
 const EditStaff = ({baseUrl}) => {
 
   const navigate = useNavigate()
   const { id } = useParams()
   const user = JSON.parse(localStorage.getItem('user'))
-  const [guardian, setGuardian] = useState({})
+  const [staff, setStaff] = useState({})
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [profileImage, setProfileImage] = useState()
@@ -21,15 +22,17 @@ const EditStaff = ({baseUrl}) => {
   const [toggleNav, setToggleNav] = useState(false)
   
 
-  async function getGuardianInfo(){
+  async function getStaffInfo(){
     const res = await fetch(`${baseUrl}/users/get-user/${id}`,{
       headers:{
           Authorization:`Bearer ${user.data.access_token}`
       }
     })
     const data = await res.json()
-    setGuardian(data?.data?.user)
+    setStaff(data?.data?.user)
     setProfileImage(data?.data?.user?.profileImage)
+    setEmail(data?.data?.user?.email)
+    setFullName(data?.data?.user?.fullName)
     console.log(data?.data?.user);
   }
 
@@ -59,8 +62,37 @@ const EditStaff = ({baseUrl}) => {
     }
   }
 
+  async function handleSubmit(e){
+    e.preventDefault()
+    console.log({
+      fullName,
+      email,
+      profileImage:profileImage._id
+    });
+    setLoading(true)
+    const res = await fetch(`${baseUrl}/users/get-user/${id}`,{
+      method:"PUT",
+      headers:{
+          'Content-Type':'application/json',
+          Authorization:`Bearer ${user.data.access_token}`
+      },
+      body:JSON.stringify({fullName, profileImage:profileImage?._id})
+    })
+    const data = await res.json()
+    if(res) setLoading(false)
+      if(res.ok) {
+        setMsg("Staff's data updated successfully");
+        setAlertType('success');
+      }
+      if(!res.ok){
+        setMsg("Staff's data wasn't updated successfully");
+        setAlertType('error');
+      }
+      console.log(data);
+  }
+
   useEffect(() => {
-    getGuardianInfo()
+    getStaffInfo()
   },[])
 
   return (
@@ -84,7 +116,7 @@ const EditStaff = ({baseUrl}) => {
                     <input
                         type="text"
                         name="fullName"
-                        value={guardian?.fullName}
+                        value={fullName}
                         onChange={e => setFullName(e.target.value)}
                         className="mt-1 p-2 border rounded w-full"
                     />
@@ -94,7 +126,7 @@ const EditStaff = ({baseUrl}) => {
                     <input
                         type="text"
                         name="fullName"
-                        value={guardian?.email}
+                        value={email}
                         onChange={e => setEmail(e.target.value)}
                         className="mt-1 p-2 border rounded w-full"
                     />
@@ -131,14 +163,14 @@ const EditStaff = ({baseUrl}) => {
                   }
               </div>
               <div className="flex justify-between items-center mt-6">
-                  <button onClick={() => navigate(`/guardian-profile/${id}`)} type="button" className="bg-white text-black border border-black py-2 px-4 rounded">
+                  <button onClick={() => navigate(`/manage-users`)} type="button" className="bg-white text-black border border-black py-2 px-4 rounded">
                       Back
                   </button>
                   {
                       loading ? 
                       <BtnLoader bgColor="#191f1c"/>
                       :
-                      <button type="submit" className="bg-primary-color text-white py-2 px-4 rounded">Save changes</button>
+                      <button type="submit" onClick={handleSubmit} className="bg-primary-color text-white py-2 px-4 rounded">Save changes</button>
                   }
               </div>
             </div>
@@ -156,6 +188,11 @@ const EditStaff = ({baseUrl}) => {
               </div>
           </div>
       }
+
+      {
+          msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
+      }
+
   </div>
   )
 }
