@@ -208,7 +208,7 @@ const Assignments = ({baseUrl}) => {
             deleteAssignment &&
             <div>
                 <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteAssignment(false)}></div>
-                <div className="bg-white sm:max-w-[450px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                <div className="bg-white w-[90%] sm:max-w-[450px] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
                     <div className="flex items-center justify-between border-b pb-[5px]">
                         <p className="text-[px]">Delete Assignment</p>
                         <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteAssignment(false)}/>

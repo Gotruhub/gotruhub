@@ -14,6 +14,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
     const [summary, setSummary] = useState([])
     const [loading, setLoading] = useState(false)
     const [deleteAssignment, setDeleteAssignment] = useState()
+    const [toggleNav, setToggleNav] = useState(false)
     const navigate = useNavigate()
 
     async function getAllAssignmentsSummary(){
@@ -88,17 +89,17 @@ const UnitAssignmentSummary = ({baseUrl}) => {
 
   return (
     <div>
-        <SideNav />
+        <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[78%] ml-auto pb-5">
-            <TopNav />
+            <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
             <div className="">
-                <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
+                <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] ppx-[10px] lg:px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
                         <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
-                        <p className="text-[28px] text-primary-color font-[600]">Assignment Summary</p>
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Assignment Summary</p>
                     </div>
                 </div>
-                <div className='px-[30px] flex items-start gap-5 w-full'>
+                <div className='lg:px-[30px] px-[10px] flex items-start flex-col gap-5 w-full'>
                     <div class="relative overflow-x-auto mx-5 mt-10 w-full">
                         <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
                             <thead class="text-[14px] border-b">
@@ -128,7 +129,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                             </tbody>
                         </table>
                     </div>
-                    <div className='shadow-lg py-5 px-3 text-[#1D1D1D] w-[50%] mt-[2.5rem]'>
+                    <div className='shadow-lg py-5 px-3 text-[#1D1D1D] w-full lg:w-[50%] mt-[2.5rem]'>
                         <p className='text-[18px] font-[500] mb-5'>Summary</p>
                         <div className='flex items-center justify-between'>
                             <p>Price per assignment</p>
@@ -160,7 +161,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
             deleteAssignment &&
             <div>
                 <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteAssignment(false)}></div>
-                <div className="bg-white w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                <div className="bg-white w-[90%] sm:max-w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
                     <div className="flex items-center justify-between border-b pb-[5px]">
                         <p className="text-[px]">Delete Unit</p>
                         <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteAssignment(false)}/>
