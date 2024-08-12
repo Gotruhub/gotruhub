@@ -99,7 +99,7 @@ const Inventory = ({baseUrl}) => {
                             <th scope="col" class="px-6 py-3 font-[700]">Category</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Product Name</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Price</th>
-                            <th scope="col" class="px-6 py-3 font-[700]">Quantity</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Minimum Quantity</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Status</th>
                             <th scope="col" class="px-2 py-3 font-[700]">Action</th>
                         </tr>
