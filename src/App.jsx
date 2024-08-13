@@ -81,6 +81,9 @@ import GenerateId from './pages/generate-id/GenerateId'
 import UpdateAuthorizedSignatures from './pages/update-authorized-signatures/UpdateAuthorizedSignatures'
 import EditSemester from './pages/edit-semester/EditSemester'
 import PaymentSuccessfull from './pages/payment-successful/PaymentSuccessfull'
+import AssignmenntLocation from './pages/assignment-location/AssignmenntLocation'
+import AddAssignmentLocation from './pages/add-assignnment-location/AddAssignmentLocation'
+import EditAssignmentLocation from './pages/edit-assignment-location/EditAssignmentLocation'
 
 function App() {
 
@@ -167,6 +170,9 @@ function App() {
             <Route path ="/update-authorized-images/:id" element={<UpdateAuthorizedSignatures baseUrl={baseUrl}/>} />
             <Route path ="/update-semester/:id" element={<EditSemester baseUrl={baseUrl}/>} />
             <Route path ="/payment-successfull" element={<PaymentSuccessfull baseUrl={baseUrl}/>} />
+            <Route path ="/assignment-location" element={<AssignmenntLocation baseUrl={baseUrl}/>} />
+            <Route path ="/add-assignment-location" element={<AddAssignmentLocation baseUrl={baseUrl}/>} />
+            <Route path ="/edit-assignment-location/:id" element={<EditAssignmentLocation baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>

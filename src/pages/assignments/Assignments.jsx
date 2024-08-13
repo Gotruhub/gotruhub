@@ -122,7 +122,7 @@ const Assignments = ({baseUrl}) => {
                     {
                         allAssignments.length < 1 &&
                         <div className="flex items-center gap-5 justify-center text-center px-[3rem]">
-                            <p>Create new sessions before updating members' units to ensure session data is accurately collated using units and their members.</p>
+                            <p>No Assignments Available</p>
                         </div>
                     }
                     <div class="relative overflow-x-auto">

@@ -24,6 +24,8 @@ const NewProductInfo = ({baseUrl}) => {
     const colorArray = ["red", 'blue', 'yellow', 'brown']
     
     const [productCoverImage, setProductCoverImage] = useState('')
+    const [newProductImage, setNewProductImage] = useState('')
+    const [productImageId, setProductImageId] = useState('')
     const [price, setPrice] = useState()
     const [description, setDescription] = useState('')
     const [productName, setProductName] = useState('')
@@ -61,7 +63,7 @@ const NewProductInfo = ({baseUrl}) => {
             }
         })
         const data = await res.json()
-        console.log(data.data.productExist.size);
+        console.log(data.data.productExist.productCoverImage.file);
         if(res) setLoading(false)
         if(res.ok){
             setProductName(data.data.productExist.productName)
@@ -73,7 +75,8 @@ const NewProductInfo = ({baseUrl}) => {
             setSelectedColors(data.data.productExist.colors)
             setSelectedSizes(data.data.productExist.size)
             setSelectedFlavors(data.data.productExist.flavor)
-            setProductCoverImage(data.data.productExist.productCoverImage)
+            setProductCoverImage(data.data)
+            setProductImageId(data.data.productExist.productCoverImage._id)
         }
     }
 
@@ -99,7 +102,10 @@ const NewProductInfo = ({baseUrl}) => {
         if(res.ok) {
           setMsg("File uploaded successfully");
           setAlertType('success')
-          setProductCoverImage(data.data._id)
+          setNewProductImage(data.data)
+          setProductImageId(data.data._id)
+          console.log(data.data.file);
+          console.log(data.data._id);
         }
         if(!res.ok){
           setMsg("File upload wasn't successfull");
@@ -132,6 +138,7 @@ const NewProductInfo = ({baseUrl}) => {
       };
 
       async function updateProduct(){
+        
         if(!productName || !selectedCategory || !price || !minimumQuantity || !quantity){
             setMsg("Please fill in the required fields")
             setAlertType('error')
@@ -144,7 +151,7 @@ const NewProductInfo = ({baseUrl}) => {
                     'Content-Type':'application/json',
                     Authorization:`Bearer ${user.data.access_token}`
                 },
-                body: JSON.stringify({price, description, category:selectedCategory._id, productCoverImage:productCoverImage._id, productName, quantity, minimumQuantity, colors:selectedColors, flavor:selectedFlavors, size:selectedSizes})
+                body: JSON.stringify({price, description, category:selectedCategory._id, productCoverImage:productImageId, productName, quantity, minimumQuantity, colors:selectedColors, flavor:selectedFlavors, size:selectedSizes})
             })
             const data = await res.json()
             console.log(data);
@@ -159,6 +166,34 @@ const NewProductInfo = ({baseUrl}) => {
             }
         }
         console.log({price, description, selectedCategory, productName, quantity, productCoverImage, minimumQuantity, colors:selectedColors, flavor:selectedFlavors, size:selectedSizes});
+      }
+
+      async function handleFileUpload(file){
+        console.log(file.size);
+        setfileUploadLoader(true)
+        console.log(`${baseUrl}/upload-media`);
+        const formData = new FormData()
+        formData.append('file', file)
+        console.log(formData);
+        const res = await fetch(`${baseUrl}/upload-media`,{
+          method:"POST",
+          body: formData
+        })
+        console.log(res);
+        const data = await res.json()
+        console.log(data.data);
+        
+        if(res) setfileUploadLoader(false)
+        if(res.ok) {
+          setMsg("File uploaded successfully");
+          setAlertType('success')
+          setNewProductImage(data.data)
+          setProductImageId(data.data._id)
+        }
+        if(!res.ok){
+          setMsg("File upload wasn't successfull");
+          setAlertType('error')
+        }
       }
 
   return (
@@ -346,26 +381,24 @@ const NewProductInfo = ({baseUrl}) => {
                                 }
                             </div>
                         </div>
-                        <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
-                            {productCoverImage ? (
-                                <div className='py-[10px] flex items-center flex-col gap-3'>
-                                    <img src={productCoverImage?.file} className='w-[300px] h-[300px] object-contain'/>
-                                    <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
-                                    {/* <p className='text-[10px]'>{productCoverImage?.name}</p>
-                                    <img src="./images/Delete.svg" alt="" /> */}
-                                </div>
-                                ) : (
-                                <>
-                                    <input
-                                        className='cursor-pointer opacity-0 w-full h-full absolute left-0'
-                                        type="file"
-                                        onChange={(e) => handleFileUpload(e.target.files[0])} 
-                                    />
-                                    <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
-                                        <MdOutlineFileUpload />
+                        <div className='flex items-center gap-3 p-4 rounded-[4px] w-full' style={{ border:'1px dashed gray' }}>
+                            {newProductImage ? (
+                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[200px] relative'>
+                                    <img src={newProductImage?.file} className='w-full object-contain'/>
+                                    <div className='relative w-[110px] cursor-pointer'>
+                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
+                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute opacity-0'/>
                                     </div>
-                                    <p className='text-[#6F7975] text-[12px]'>Product Image</p>
-                                </>
+                                </div>
+                                // .productExist.productCoverImage
+                                ) : (
+                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[200px] relative'>
+                                    <img src={productCoverImage?.productExist?.productCoverImage?.file} className='w-full object-contain'/>
+                                    <div className='relative w-[110px] cursor-pointer'>
+                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
+                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute opacity-0'/>
+                                    </div>
+                                </div>
                             )}
                         </div>
                         <div className='mb-10'>

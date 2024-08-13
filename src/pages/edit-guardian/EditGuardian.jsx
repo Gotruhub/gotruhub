@@ -118,7 +118,7 @@ const EditGuardian = ({baseUrl}) => {
                   </div>
               </div>
               <div className='flex item-center justify-center flex-col w-[90%] lg:w-[40%] mx-auto gap-8'>
-                <div className="">
+                <div>
                     <label className="block text-gray-700">Guardian's full name</label>
                     <input
                         type="text"

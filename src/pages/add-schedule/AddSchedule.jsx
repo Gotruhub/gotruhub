@@ -52,6 +52,24 @@ const AddSchedule = ({baseUrl}) => {
         }
     });
 
+    const [allAssignmentLocations, setAllAssignmentLocations] = useState([])
+
+    async function getAssignmentLocations(){
+        const res = await fetch(`${baseUrl}/locations`,{
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data.data);
+        setAllAssignmentLocations(data.data)
+    }
+
+    useEffect(() => {
+        getAssignmentLocations()
+    },[])
+
     //   const handleStartLatChange = (e) => {
     //     setLocations({
     //       ...locations,
@@ -95,6 +113,7 @@ const AddSchedule = ({baseUrl}) => {
       const [allStaffs, setAllStaffs] = useState()
       const user = JSON.parse(localStorage.getItem('user'))
       const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+      const [name, setName] = useState('')
 
       async function getAllStaffs(){
         const res = await fetch(`${baseUrl}/users/get-users/staff?role=staff`,{
@@ -360,11 +379,11 @@ const AddSchedule = ({baseUrl}) => {
                             <label className='block text-left mb-2'>Select days</label>
                             <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
                                 <input type="text" value={day} onChange={e => setDay(e.target.value)} className='outline-none w-full rounded-[4px] capitalize'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown('days')} />
+                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'days' ? false : 'days')} />
                             </div>
                             {
                                 dropDown === 'days' &&
-                                <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
+                                <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[300px] overflow-y-scroll'>
                                     {
                                         days.map(day => {
                                             return (
@@ -407,10 +426,31 @@ const AddSchedule = ({baseUrl}) => {
                         </div>
                     </div>
                     <label className='block text-left mb-2'>Assignment location</label>
+                        <div className='w-full relative mb-5'>
+                            <label className='block text-left mb-2'>Select Assignment location</label>
+                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
+                                <input type="text" value={day} onChange={e => setDay(e.target.value)} className='outline-none w-full rounded-[4px] capitalize'/>
+                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'locations' ? false : 'locations')} />
+                            </div>
+                            {
+                                dropDown === 'locations' &&
+                                <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[180px] overflow-y-scroll'>
+                                    {
+                                        allAssignmentLocations.map(location => {
+                                            return (
+                                                <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                    setDay(day)
+                                                    setDropDown(false)
+                                                }}>{location.name}</p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            }
+                        </div>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Start Coordinates</p>
-                            <button onClick={getStartLocation}>Get start</button>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
@@ -433,7 +473,6 @@ const AddSchedule = ({baseUrl}) => {
                         
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Stop Coordinates</p>
-                            <button onClick={getEndLocation}>Get End</button>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input

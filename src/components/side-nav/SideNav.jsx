@@ -9,6 +9,7 @@ import { IoBookSharp } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { IoIosLogOut } from 'react-icons/io';
 import { RiAiGenerate } from "react-icons/ri";
+import { BiLocationPlus } from 'react-icons/bi';
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
@@ -59,7 +60,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
         </div>
         <div className="px-[32px] my-10 text-white">
           <p className="text-[12px] text-[#6F7975] mb-2">FEATURES</p>
-          <Link to='/pass' className={ location.pathname === '/pass' || location.pathname.includes('location') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
+          <Link to='/pass' className={ location.pathname.includes('pass') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
             <div className="flex items-center">
               <img src="./images/scan-white.svg" className="mr-[15.67px]"/>
               <p className="">Pass</p>
@@ -118,10 +119,10 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   <IoBookSharp />
                   <p className={ location.pathname.includes("assignment") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Assignments</p>
                 </div>
-                {/* <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/grading')}>
-                  <HiCodeBracketSquare />
-                  <p className={ location.pathname.includes("/grading") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Grading System</p>
-                </div> */}
+                <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/assignment-location')}>
+                  <BiLocationPlus />
+                  <p className={ location.pathname.includes("/schedule-location") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Add Location</p>
+                </div>
               </div>
             }
           </div>
