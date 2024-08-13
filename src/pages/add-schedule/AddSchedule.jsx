@@ -26,6 +26,8 @@ const AddSchedule = ({baseUrl}) => {
     const [startPosition, setStartPosition] = useState()
     const [positionEnd, setPositionEnd] = useState()
 
+    const [locationId, setLocationId] = useState()
+
     const [latStart, setLatStart] = useState()
     const [lngStart, setLngStart] = useState()
 
@@ -166,7 +168,7 @@ const AddSchedule = ({baseUrl}) => {
 
     async function createSchedule(){
 
-        console.log(startPosition.coords.latitude, startPosition.coords.longitude);
+        // console.log(startPosition.coords.latitude, startPosition.coords.longitude);
     const ids = [];
     for (let i = 0; i < coordinators.length; i++) {
         ids.push(coordinators[i].id);
@@ -178,8 +180,7 @@ const AddSchedule = ({baseUrl}) => {
         startTime: parseInt(startTime?.replace(":", "")),
         endTime:  parseInt(endTime?.replace(":", "")),
         coordinators:ids,
-        location: {lat:startPosition.coords.latitude, long: startPosition.coords.longitude},
-        endlocation: {lat:positionEnd.coords.latitude, long:positionEnd.coords.longitude}
+        locationId
     });
     if(!course ||!day ||!startTime ||!endTime){
         setMsg("Please fill in the fields!");
@@ -199,8 +200,7 @@ const AddSchedule = ({baseUrl}) => {
                 startTime: parseInt(startTime.replace(":", "")),
                 endTime:  parseInt(endTime.replace(":", "")),
                 coordinators:ids,
-                location: {lat:startPosition.coords.latitude.toString(), long: startPosition.coords.longitude.toString()},
-                endlocation: {lat:positionEnd.coords.latitude.toString(), long:positionEnd.coords.longitude.toString()}
+                locationId
             })
         })
         const data = await res.json()
@@ -237,26 +237,6 @@ const AddSchedule = ({baseUrl}) => {
     //     { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
     //   );
 
-    function getStartLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(
-                (position) => {
-                    setStartPosition(position);
-                    console.log(position);
-                },
-                (err) => {
-                    setMsg(err.message);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 5000,
-                    maximumAge: 0,
-                }
-            );
-        } else {
-            setMsg('Geolocation is not supported by this browser.');
-        }
-    }
 
     // function getEndLocation(){
     //     navigator.geolocation.watchPosition((position) => {
@@ -264,25 +244,15 @@ const AddSchedule = ({baseUrl}) => {
     //     })
     // }
 
-    function getEndLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(
-                (position) => {
-                    setPositionEnd(position);
-                    console.log(position);
-                },
-                (err) => {
-                    setMsg(err.message);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 5000,
-                    maximumAge: 0,
-                }
-            );
-        } else {
-            setMsg('Geolocation is not supported by this browser.');
-        }
+    function selectedLocation(data){
+        console.log(data._id);
+        setLocationId(data._id)
+        setDropDown(false)
+        setName(data.name)
+        setLatStart(data.location.lat)
+        setLngStart(data.location.long)
+        setLngEnd(data.endlocation.lat)
+        setLatEnd(data.endlocation.long)
     }
 
   return (
@@ -318,7 +288,7 @@ const AddSchedule = ({baseUrl}) => {
                                 dropDown === "assignment" &&
                                 <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                     {
-                                        allAssignments.map(assignment => {
+                                        allAssignments?.map(assignment => {
                                             return (
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                     setDropDown(false)
@@ -349,7 +319,7 @@ const AddSchedule = ({baseUrl}) => {
                                 dropDown === "assignee" &&
                                 <div className=' p-[8px] absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                     {
-                                        allStaffs.map(staff => {
+                                        allStaffs?.map(staff => {
                                             return (
                                                 <div className='flex items-center gap-1 my-2'>
                                                     <input
@@ -385,7 +355,7 @@ const AddSchedule = ({baseUrl}) => {
                                 dropDown === 'days' &&
                                 <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[300px] overflow-y-scroll'>
                                     {
-                                        days.map(day => {
+                                        days?.map(day => {
                                             return (
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                     setDay(day)
@@ -426,28 +396,27 @@ const AddSchedule = ({baseUrl}) => {
                         </div>
                     </div>
                     <label className='block text-left mb-2'>Assignment location</label>
-                        <div className='w-full relative mb-5'>
-                            <label className='block text-left mb-2'>Select Assignment location</label>
-                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                                <input type="text" value={day} onChange={e => setDay(e.target.value)} className='outline-none w-full rounded-[4px] capitalize'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'locations' ? false : 'locations')} />
-                            </div>
-                            {
-                                dropDown === 'locations' &&
-                                <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[180px] overflow-y-scroll'>
-                                    {
-                                        allAssignmentLocations.map(location => {
-                                            return (
-                                                <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
-                                                    setDay(day)
-                                                    setDropDown(false)
-                                                }}>{location.name}</p>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            }
+                    <div className='w-full relative mb-5'>
+                        <label className='block text-left mb-2'>Select Assignment location</label>
+                        <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
+                            <input type="text" value={name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'locations' ? false : 'locations')} />
                         </div>
+                        {
+                            dropDown === 'locations' &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[180px] overflow-y-scroll'>
+                                {
+                                    allAssignmentLocations?.map(location => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                selectedLocation(location)
+                                            }}>{location.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Start Coordinates</p>
@@ -457,20 +426,19 @@ const AddSchedule = ({baseUrl}) => {
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Latitude'
-                            value={startPosition?.coords?.latitude}
+                            value={latStart}
                             // onChange={handleStartLatChange}
                         />
                         <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
-                            value={startPosition?.coords?.longitude}
+                            value={lngStart}
                             // onChange={handleStartLongChange}
                         />
                         </div>
                     </div>
                     <div className='mb-5'>
-                        
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Stop Coordinates</p>
                         </div>
@@ -479,14 +447,14 @@ const AddSchedule = ({baseUrl}) => {
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Latitude'
-                            value={positionEnd?.coords?.latitude}
+                            value={latEnd}
                             // onChange={handleEndLatChange}
                         />
                         <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
-                            value={positionEnd?.coords?.longitude}
+                            value={lngEnd}
                             // onChange={handleEndLongChange}
                         />
                         </div>

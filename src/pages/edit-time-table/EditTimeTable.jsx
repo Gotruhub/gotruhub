@@ -25,6 +25,8 @@ const EditTimeTable = ({baseUrl}) => {
   const [allStaffs, setAllStaffs] = useState()
   const user = JSON.parse(localStorage.getItem('user'))
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+  const [allAssignmentLocations, setAllAssignmentLocations] = useState([])
+  const [name, setName] = useState('')
   const [locations, setLocations] = useState({
       location: {
         lat: "",
@@ -36,45 +38,53 @@ const EditTimeTable = ({baseUrl}) => {
       }
     });
 
-    const handleStartLatChange = (e) => {
-      setLocations({
-        ...locations,
-        location: {
-          ...locations.location,
-          lat: e.target.value
-        }
-      });
-    };
+    const [locationId, setLocationId] = useState()
 
-    const handleStartLongChange = (e) => {
-      setLocations({
-        ...locations,
-        location: {
-          ...locations.location,
-          long: e.target.value
-        }
-      });
-    };
+    const [latStart, setLatStart] = useState()
+    const [lngStart, setLngStart] = useState()
+
+    const [latEnd, setLatEnd] = useState()
+    const [lngEnd, setLngEnd] = useState()
+
+    // const handleStartLatChange = (e) => {
+    //   setLocations({
+    //     ...locations,
+    //     location: {
+    //       ...locations.location,
+    //       lat: e.target.value
+    //     }
+    //   });
+    // };
+
+    // const handleStartLongChange = (e) => {
+    //   setLocations({
+    //     ...locations,
+    //     location: {
+    //       ...locations.location,
+    //       long: e.target.value
+    //     }
+    //   });
+    // };
   
-    const handleEndLatChange = (e) => {
-      setLocations({
-        ...locations,
-        endLocation: {
-          ...locations.endLocation,
-          lat: e.target.value
-        }
-      });
-    };
+    // const handleEndLatChange = (e) => {
+    //   setLocations({
+    //     ...locations,
+    //     endLocation: {
+    //       ...locations.endLocation,
+    //       lat: e.target.value
+    //     }
+    //   });
+    // };
   
-    const handleEndLongChange = (e) => {
-      setLocations({
-        ...locations,
-        endLocation: {
-          ...locations.endLocation,
-          long: e.target.value
-        }
-      });
-    };
+    // const handleEndLongChange = (e) => {
+    //   setLocations({
+    //     ...locations,
+    //     endLocation: {
+    //       ...locations.endLocation,
+    //       long: e.target.value
+    //     }
+    //   });
+    // };
 
     async function getScheduleInfo(){
       console.log(scheduleId);
@@ -88,21 +98,26 @@ const EditTimeTable = ({baseUrl}) => {
       console.log(data);
       console.log(data?.data);
     //   setDay(data.data.day)
-      setLocations({
-        location: {
-          lat: data?.data?.location?.lat,
-          long: data?.data?.location?.long
-        },
-        endLocation: {
-          lat: data?.data?.endlocation?.lat,
-          long: data?.data?.endlocation?.lat
-        }
-      })
+    //   setLocations({
+    //     location: {
+    //       lat: data?.data?.location?.lat,
+    //       long: data?.data?.location?.long
+    //     },
+    //     endLocation: {
+    //       lat: data?.data?.endlocation?.lat,
+    //       long: data?.data?.endlocation?.lat
+    //     }
+    //   })
       setCourse(data?.data?.course)
       setStartTime(data?.data?.startTime)
       setEndTime(data?.data?.endTime)
       setCoordinators(data?.data?.coordinators)
       setDay(data?.data?.day)
+      setName(data?.data?.name)
+      setLatStart(data?.data?.location?.lat)
+      setLngStart(data?.data?.location?.long)
+      setLngEnd(data?.data?.endlocation?.lat)
+      setLatEnd(data?.data?.endlocation?.long)
       // setAllStaffs(data.data.users)
       
     }
@@ -217,9 +232,36 @@ const EditTimeTable = ({baseUrl}) => {
           // navigate(`/time-table/${id}`)
           return;
       }
-  }
+    }
 
   }
+
+  async function getAssignmentLocations(){
+    const res = await fetch(`${baseUrl}/locations`,{
+        headers:{
+            'Content-Type':'application/json',
+            Authorization:`Bearer ${user.data.access_token}`
+        }
+    })
+    const data = await res.json()
+    console.log(data.data);
+    setAllAssignmentLocations(data.data)
+    }
+
+    useEffect(() => {
+        getAssignmentLocations()
+    },[])
+
+  function selectedLocation(data){
+    console.log(data._id);
+    setLocationId(data._id)
+    setDropDown(false)
+    setName(data.name)
+    setLatStart(data.location.lat)
+    setLngStart(data.location.long)
+    setLngEnd(data.endlocation.lat)
+    setLatEnd(data.endlocation.long)
+}
 
 return (
   <div>
@@ -359,44 +401,69 @@ return (
                       </div>
                   </div>
                   <label className='block text-left mb-2'>Assignment location</label>
-                  <div className='mb-5'>
-                      <p className='text-[#19201D]'>Start Coordinates</p>
-                      <div className='flex items-center gap-3'>
-                      <input
-                          type="text"
-                          className='border py-3 px-3 rounded mt-1 w-full'
-                          placeholder='Latitude'
-                          value={locations.location.lat}
-                          onChange={handleStartLatChange}
-                      />
-                      <input
-                          type="text"
-                          className='border py-3 px-3 rounded mt-1 w-full'
-                          placeholder='Longitude'
-                          value={locations.location.long}
-                          onChange={handleStartLongChange}
-                      />
-                      </div>
-                  </div>
-                  <div className='mb-5'>
-                      <p className='text-[#19201D]'>Stop Coordinates</p>
-                      <div className='flex items-center gap-3'>
-                      <input
-                          type="text"
-                          className='border py-3 px-3 rounded mt-1 w-full'
-                          placeholder='Latitude'
-                          value={locations.endLocation.lat}
-                          onChange={handleEndLatChange}
-                      />
-                      <input
-                          type="text"
-                          className='border py-3 px-3 rounded mt-1 w-full'
-                          placeholder='Longitude'
-                          value={locations.endLocation.long}
-                          onChange={handleEndLongChange}
-                      />
-                      </div>
-                  </div>
+                    <div className='w-full relative mb-5'>
+                        <label className='block text-left mb-2'>Select Assignment location</label>
+                        <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
+                            <input type="text" value={name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'locations' ? false : 'locations')} />
+                        </div>
+                        {
+                            dropDown === 'locations' &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[180px] overflow-y-scroll'>
+                                {
+                                    allAssignmentLocations?.map(location => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                selectedLocation(location)
+                                            }}>{location.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div className='mb-5'>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D]'>Start Coordinates</p>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Latitude'
+                            value={latStart}
+                            // onChange={handleStartLatChange}
+                        />
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Longitude'
+                            value={lngStart}
+                            // onChange={handleStartLongChange}
+                        />
+                        </div>
+                    </div>
+                    <div className='mb-5'>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D]'>Stop Coordinates</p>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Latitude'
+                            value={latEnd}
+                            // onChange={handleEndLatChange}
+                        />
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Longitude'
+                            value={lngEnd}
+                            // onChange={handleEndLongChange}
+                        />
+                        </div>
+                    </div>
                   {
                       loading ? 
                       <BtnLoader bgColor="#191f1c"/>
