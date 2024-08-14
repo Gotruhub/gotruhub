@@ -80,7 +80,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
         
         setLoading(true)
         try {
-            const response = await fetch(`${baseUrl}/locations`, {
+            const response = await fetch(`${baseUrl}/locations/${id}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
             console.log(response, data);
             
             if (response.ok) {
-                  setMsg("Assignment location added successfully!");
+                  setMsg("Assignment location updated successfully!");
                   setAlertType('success');
                   return;
             } else {

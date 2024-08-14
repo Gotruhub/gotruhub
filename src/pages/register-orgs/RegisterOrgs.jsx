@@ -5,6 +5,8 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import Alert from '../../components/alert/Alert';
 import BtnLoader from '../../components/btn-loader/BtnLoader'
 import Navbar from '../../components/navbar/Navbar';
+import { FaRegFileImage } from "react-icons/fa6";
+import { IoChevronDownOutline } from 'react-icons/io5';
 
 
 const RegisterOrgs = ({baseUrl}) => {
@@ -27,6 +29,8 @@ const RegisterOrgs = ({baseUrl}) => {
     const [businessAddress, setBusinessAddress] = useState("");
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
+    const [dropDown, setDropDown] = useState(false)
+    const [customBizType, setCustomBizType] = useState('');
 
     const handleFileChange = (file, kind) => {
         if (file[0]) {
@@ -108,6 +112,8 @@ const RegisterOrgs = ({baseUrl}) => {
         }
       }
 
+      const bizTypeArray = ["Primary", "Secondary", "Tertiary", "Others"]
+
   return (
     <div>
       <Navbar />
@@ -127,9 +133,53 @@ const RegisterOrgs = ({baseUrl}) => {
                         <label className='block text-left mb-2'>Name of Establishment</label>
                         <input type="text" onChange={e => setNameOfEstablishment(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                     </div>
-                    <div className='w-full'>
-                        <label className='block text-left mb-2'>Business Type</label>
-                        <input type="text" onChange={e => setBizType(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+
+                    <div className='w-full relative'>
+                      <label className='block text-left mb-2'>Business Type</label>
+                      <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
+                        <input
+                          type="text"
+                          value={bizType === "Others" ? customBizType : bizType} // Display customBizType if "Others" is selected
+                          className='outline-none w-full rounded-[4px]'
+                          readOnly={bizType !== "Others"} // Make input read-only unless "Others" is selected
+                          placeholder='Enter your business type'
+                          onChange={(e) => bizType === "Others" && setCustomBizType(e.target.value)} // Update customBizType when typing
+                        />
+                        <IoChevronDownOutline
+                          className='cursor-pointer'
+                          onClick={() => setDropDown(!dropDown)}
+                        />
+                      </div>
+                      {
+                        dropDown &&
+                        <div className='absolute z-10 top-[78px] border rounded-[5px] bg-white w-full h-[150px] overflow-y-scroll'>
+                          {
+                            bizTypeArray?.map(biz => (
+                              <p
+                                key={biz}
+                                className='cursor-pointer hover:bg-gray-300 p-2 capitalize text-gray-500 text-[15px]'
+                                onClick={() => {
+                                  setBizType(biz);
+                                  if (biz !== "Others") setCustomBizType(''); // Clear customBizType if "Others" is not selected
+                                  setDropDown(false);
+                                }}
+                              >
+                                {biz}
+                              </p>
+                            ))
+                          }
+                          {/* {
+                            bizType === "Others" &&
+                            <input
+                              type="text"
+                              value={customBizType} // Bind input value to customBizType state
+                              onChange={e => setCustomBizType(e.target.value)}
+                              className='mx-3 my-2 px-4 py-[10px] outline-none border w-[95%] rounded-[4px]'
+                              placeholder='Enter your business type'
+                            />
+                          } */}
+                        </div>
+                      }
                     </div>
                 </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
@@ -192,9 +242,9 @@ const RegisterOrgs = ({baseUrl}) => {
                     <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                         {opLicenceImage ? (
                             <div className='py-[10px] flex items-center gap-3'>
-                                <img src="/images/pdf-file .svg" />
+                                <FaRegFileImage className='text-[22px] text-green-700' />
                                 <p className='text-[10px]'>{opLicenceImage?.name}</p>
-                                <img src="./images/Delete.svg" alt="" />
+                                {/* <img src="./images/Delete.svg" alt="" /> */}
                             </div>
                             ) : (
                             <>
@@ -207,7 +257,7 @@ const RegisterOrgs = ({baseUrl}) => {
                                 <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
                                     <MdOutlineFileUpload />
                                 </div>
-                                <p className='text-[#6F7975] text-[12px]'>Operational License (pdf only)</p>
+                                <p className='text-[#6F7975] text-[12px]'>Institution Logo (jpeg, jpg or png only)</p>
                             </>
                         )}
                     </div>

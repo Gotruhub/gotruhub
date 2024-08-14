@@ -102,7 +102,6 @@ const AssignmenntLocation = ({baseUrl}) => {
                                                 <td class="px-6 py-4">
                                                     <span>{location.location.lat}</span>,
                                                     <span className='ml-2'>{location.location.long}</span>
-                                                    <span>2</span>
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <span>{location.endlocation.lat}</span>,
