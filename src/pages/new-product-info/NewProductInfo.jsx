@@ -37,6 +37,8 @@ const NewProductInfo = ({baseUrl}) => {
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [selectedFlavors, setSelectedFlavors] = useState([]);
 
+    const [customColor, setCustomColor] = useState('');
+
     const { id } = useParams()
 
     const [fileUploadLoader, setfileUploadLoader] = useState(false)
@@ -196,6 +198,26 @@ const NewProductInfo = ({baseUrl}) => {
         }
       }
 
+      const handleAddCustomColor = (e) => {
+        if (e.key === 'Enter' && customColor.trim() !== '') {
+            // Split the customColor string by commas and trim whitespace from each color
+            const colorsToAdd = customColor.split(',').map(color => color.trim().toLowerCase());
+            
+            // Filter out empty strings and duplicates before adding to the selectedColors array
+            const uniqueColors = colorsToAdd.filter(color => color && !selectedColors.includes(color));
+            
+            // Update the selectedColors state
+            if (uniqueColors.length > 0) {
+                setSelectedColors([...selectedColors, ...uniqueColors]);
+            }
+            setCustomColor(''); // Clear the input field after adding
+        }
+    };
+
+    const handleRemoveColor = (color) => {
+        setSelectedColors(selectedColors.filter(c => c !== color));
+    };
+
   return (
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
@@ -285,34 +307,47 @@ const NewProductInfo = ({baseUrl}) => {
                             <div className='relative w-full mb-7'>
                                 <p className='text-[#19201D] mb-1'>Color</p>
                                 <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                    {selectedColors?.length > 0 ? (
+                                    {selectedColors.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
                                             {selectedColors.map((c) => (
-                                            <li key={c} className='bg-gray-300 p-1 rounded-[4px] capitalize'>{c}</li>
+                                                <li
+                                                    key={c}
+                                                    className='bg-gray-300 p-1 rounded-[4px] capitalize cursor-pointer'
+                                                    onClick={() => handleRemoveColor(c)}
+                                                    title="Click to remove"
+                                                >
+                                                    {c}
+                                                </li>
                                             ))}
                                         </ul>
-                                        ) : (
+                                    ) : (
                                         <p>No color selected.</p>
                                     )}
                                     <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'color' ? false : 'color' )}/>
                                 </div>
-                                {
-                                    dropDown === 'color' &&
+                                {dropDown === 'color' && (
                                     <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
-                                        {
-                                            colorArray?.map(color => (
-                                                <div className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedColors?.some(c => c === color)}
-                                                        onChange={(e) => handleCheckboxChangeForColor(e, color)}
-                                                    />
-                                                    <p className='text-[#1D1D1D] capitalize text-[12px]'>{color}</p>
-                                                </div>
-                                            ))
-                                        }
+                                        {colorArray?.map(color => (
+                                            <div key={color} className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedColors.some(c => c === color)}
+                                                    onChange={(e) => handleCheckboxChangeForColor(e, color)}
+                                                />
+                                                <p className='text-[#1D1D1D] capitalize text-[12px]'>{color}</p>
+                                            </div>
+                                        ))}
+                                        <p className='text-[14px]'>Use the enter key after typing a color you want to enter</p>
+                                        <input
+                                            type="text"
+                                            placeholder='Enter colors, e.g., Red, Blue, Brown'
+                                            value={customColor}
+                                            onChange={e => setCustomColor(e.target.value)}
+                                            onKeyDown={e => handleAddCustomColor(e)}
+                                            className='px-4 py-3 outline-none border w-full rounded-[4px]'
+                                        />
                                     </div>
-                                }
+                                )}
                             </div>
                             <div className='relative w-full mb-7'>
                                 <p className='text-[#19201D] mb-1'>Size</p>
@@ -381,23 +416,22 @@ const NewProductInfo = ({baseUrl}) => {
                                 }
                             </div>
                         </div>
-                        <div className='flex items-center gap-3 p-4 rounded-[4px] w-full' style={{ border:'1px dashed gray' }}>
+                        <div className='flex items-center gap-3 rounded-[4px] px-4 pb-1 w-full' style={{ border: '1px dashed gray' }}>
                             {newProductImage ? (
-                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[200px] relative'>
-                                    <img src={newProductImage?.file} className='w-full object-contain'/>
-                                    <div className='relative w-[110px] cursor-pointer'>
-                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
-                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute opacity-0'/>
+                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[300px] relative overflow-hidden'>
+                                    <div className='relative w-[150px] cursor-pointer'>
+                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px] cursor-pointer'>Change Image..</button>
+                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'/>
                                     </div>
+                                    <img src={newProductImage?.file} className='w-full h-full object-contain'/>
                                 </div>
-                                // .productExist.productCoverImage
-                                ) : (
-                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[200px] relative'>
-                                    <img src={productCoverImage?.productExist?.productCoverImage?.file} className='w-full object-contain'/>
-                                    <div className='relative w-[110px] cursor-pointer'>
-                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button>
-                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute opacity-0'/>
+                            ) : (
+                                <div className='py-[10px] flex items-center flex-col gap-3 w-[200px] h-[300px] relative overflow-hidden'>
+                                    <div className='relative w-[150px] cursor-pointer'>
+                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px] cursor-pointer'>Change Image.</button>
+                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'/>
                                     </div>
+                                    <img src={productCoverImage?.productExist?.productCoverImage?.file} className='w-full h-full object-contain'/>
                                 </div>
                             )}
                         </div>
