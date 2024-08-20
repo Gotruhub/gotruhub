@@ -234,7 +234,7 @@ const RegisterOrgs = ({baseUrl}) => {
                                 <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
                                     <MdOutlineFileUpload />
                                 </div>
-                                <p className='text-[#6F7975] text-[12px]'>Certificate of Incorporation with CAC Number (pdf only)</p>
+                                <p className='text-[#6F7975] text-[12px]'>CAC certificate/Operational license.(pdf only)</p>
                             </>
                         )}
                     </div>

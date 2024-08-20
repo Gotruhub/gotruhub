@@ -41,7 +41,7 @@ const BarCodeView = ({baseUrl}) => {
     // };
 
     function formatTime(time) {
-        const timeStr = String(time); // Convert time to a string
+        const timeStr = String(time).padStart(4, '0'); // Convert time to a string and pad with zeros if necessary
         return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
     }
 
@@ -57,7 +57,7 @@ const BarCodeView = ({baseUrl}) => {
             <div className="bg-[#F7F7F7] pb-20">
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
-                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/')} className='cursor-pointer' />
+                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">BarCode</p>
                     </div>
                     {/* <div className='flex items-center gap-5'>
@@ -69,6 +69,10 @@ const BarCodeView = ({baseUrl}) => {
                     <div className="flex flex-col gap-5 justify-center items-center bg-white lg:w-[500px] w-[95%] mx-auto rounded-lg pb-7">
                         <div className="flex items-center">
                             <img src={classScheduleInfo.qrcode} alt="" className="w-[200px] h-[200px]" />
+                        </div>
+                        <div className="flex items-center justify-between w-full lg:px-[3rem] px-[1rem]">
+                            <p className="text-[#19201D] font-[500]">Sub Unit:</p>
+                            <p className="text-[#19201D] font-[500]">{classScheduleInfo?.course?.subUnit?.name}</p>
                         </div>
                         <div className="flex items-center justify-between w-full lg:px-[3rem] px-[1rem]">
                             <p className="text-[#19201D] font-[500]">Assignment Name:</p>

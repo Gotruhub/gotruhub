@@ -346,7 +346,7 @@ const AddSchedule = ({baseUrl}) => {
 
                     <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[1rem]'>
                         <div className='w-full relative'>
-                            <label className='block text-left mb-2'>Select days</label>
+                            <label className='block text-left mb-2'>Select day</label>
                             <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
                                 <input type="text" value={day} onChange={e => setDay(e.target.value)} className='outline-none w-full rounded-[4px] capitalize'/>
                                 <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'days' ? false : 'days')} />
