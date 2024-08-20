@@ -133,10 +133,6 @@ const TimeTable = ({ baseUrl }) => {
                                                             <HiMiniQrCode />
                                                             <p>Barcode</p>
                                                         </div>
-                                                        <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => setDeleteSchedule(editSchedule)}>
-                                                            <HiOutlineTrash />
-                                                            <p>Delete Entry</p>
-                                                        </div>
                                                         <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/attendance-summary/${editSchedule._id}`)}>
                                                             <LuEye />
                                                             <p>View Attendance</p>
@@ -144,6 +140,10 @@ const TimeTable = ({ baseUrl }) => {
                                                         <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/edit-schedule/${id}/${editSchedule._id}`)}>
                                                             <BiEdit />
                                                             <p>Edit Schedule</p>
+                                                        </div>
+                                                        <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => setDeleteSchedule(editSchedule)}>
+                                                            <HiOutlineTrash />
+                                                            <p>Delete Entry</p>
                                                         </div>
                                                     </div>
                                                 }
