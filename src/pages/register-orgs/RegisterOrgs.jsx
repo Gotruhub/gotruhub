@@ -33,6 +33,14 @@ const RegisterOrgs = ({baseUrl}) => {
     const [customBizType, setCustomBizType] = useState('');
 
     const handleFileChange = (file, kind) => {
+
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+      if(file.size > maxSizeInBytes){
+          setMsg("File size should not exceed 5MB");
+          setAlertType('error')
+          return
+      }
+
         if (file[0]) {
           if (kind == "cac") {
             setCacImage(file[0]);

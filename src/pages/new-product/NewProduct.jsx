@@ -78,6 +78,14 @@ const NewProduct = ({baseUrl}) => {
 
 
     async function handleFileUpload(file){
+
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+        if(file.size > maxSizeInBytes){
+            setMsg("File size should not exceed 5MB");
+            setAlertType('error')
+            return
+        }
+
         console.log('file upload');
         setfileUploadLoader(true)
         console.log(`${baseUrl}/upload-media`);
