@@ -72,6 +72,20 @@ const NewProduct = ({baseUrl}) => {
         }
     };
 
+    const handleAddCustomColorByButtinClick = () => {
+        // Split the customColor string by commas and trim whitespace from each color
+        const colorsToAdd = customColor.split(',').map(color => color.trim().toLowerCase());
+        
+        // Filter out empty strings and duplicates before adding to the selectedColors array
+        const uniqueColors = colorsToAdd.filter(color => color && !selectedColors.includes(color));
+        
+        // Update the selectedColors state
+        if (uniqueColors.length > 0) {
+            setSelectedColors([...selectedColors, ...uniqueColors]);
+        }
+        setCustomColor(''); // Clear the input field after adding
+    }
+
     const handleRemoveColor = (color) => {
         setSelectedColors(selectedColors.filter(c => c !== color));
     };
@@ -293,6 +307,7 @@ const NewProduct = ({baseUrl}) => {
                                             onKeyDown={e => handleAddCustomColor(e)}
                                             className='px-4 py-3 outline-none border w-full rounded-[4px]'
                                         />
+                                        <button onClick={handleAddCustomColorByButtinClick} className='text-white bg-primary-color w-[50%] rounded-[4px] mt-[.5rem] px-[35px] py-[8px] block text-center mx-auto'>Add color</button>
                                     </div>
                                 )}
                             </div>

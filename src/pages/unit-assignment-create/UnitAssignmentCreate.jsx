@@ -329,7 +329,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                 <IoChevronDownOutline color="d7d7d7" cursor='pointer' />
                             </div>
                             {dropDown === 'assignments' &&
-                                <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
+                                <div className='py-5 bg-white absolute overflow-y-scroll top-[-210px] border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                                     {
                                         allAssignments?.map(assignment => (
                                             <div className='px-3 border-b pb-3 cursor-pointer mb-3 flex gap-1'>

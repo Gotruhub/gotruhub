@@ -10,7 +10,7 @@ const Register = () => {
     <>
       <Navbar />
       <div className='w-[100%] mx-auto my-[4rem]'>
-        <div className='md:w-[60%] mx-auto'>
+        <div className='lg:w-[60%] mx-auto'>
           <p className='text-[20px] md:text-[28px] mb-[40px] text-center px-4'>What type of organization are you registering?</p>
         <p className='mb-[3rem] text-center'>Already have an account? <span className='text-secondary-color cursor-pointer' onClick={() => navigate('/login')}>Login</span> </p>
           <div className='border rounded-[4px] px-4 py-3 md:w-[80%] w-[95%] mx-[auto] cursor-pointer' onClick={() => navigate('/register-organization')}>

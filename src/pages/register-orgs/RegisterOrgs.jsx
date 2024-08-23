@@ -126,7 +126,7 @@ const RegisterOrgs = ({baseUrl}) => {
     <div>
       <Navbar />
         <div className='w-[100%] mx-auto my-[4rem]'>
-            <div className='md:w-[55%] w-[90%] mx-auto'>
+            <div className='lg:w-[55%] w-[90%] mx-auto'>
                 <div className='flex items-center justify-between'>
                     <div className='sm:flex items-center gap-1 cursor-pointer hidden' onClick={() => navigate('/register')}>
                         <GoChevronLeft />
