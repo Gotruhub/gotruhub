@@ -258,7 +258,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                     </div>
                 </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
-                    <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
+                    {/* <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                     {cacImage ? (
                         <div className='py-[10px] flex items-center gap-3'>
                             <img src="/images/pdf-file .svg" />
@@ -279,7 +279,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                                 <p className='text-[#6F7975] text-[12px]'>CAC certificate/Operational license.(pdf only)</p>
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                         {opLicenceImage ? (

@@ -187,10 +187,10 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             >
               <img src="/images/avatar.svg"className="w-[50px]" style={{ marginRight: 12, }} />
               <div>
-                <p className="text-[12px] font-[600] text-white" style={{ whiteSpace: "nowrap" }}>
-                  {user && user.data.details.email}
+                <p className="text-[14px] font-[600] text-white" style={{ whiteSpace: "nowrap" }}>
+                  {user && user.data.details.nameOfEstablishment}
                 </p>
-                <p className="text-[#6F7975] capitalize">{user && user.data.details.role}</p>
+                <p className="text-[#6F7975] text-[12px]">{user && user.data.details.email}</p>
               </div>
             </Link>
         </div>

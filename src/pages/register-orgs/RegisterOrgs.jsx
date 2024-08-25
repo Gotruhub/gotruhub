@@ -176,16 +176,6 @@ const RegisterOrgs = ({baseUrl}) => {
                               </p>
                             ))
                           }
-                          {/* {
-                            bizType === "Others" &&
-                            <input
-                              type="text"
-                              value={customBizType} // Bind input value to customBizType state
-                              onChange={e => setCustomBizType(e.target.value)}
-                              className='mx-3 my-2 px-4 py-[10px] outline-none border w-[95%] rounded-[4px]'
-                              placeholder='Enter your business type'
-                            />
-                          } */}
                         </div>
                       }
                     </div>
