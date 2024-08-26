@@ -232,7 +232,7 @@ const RegisterOrgs = ({baseUrl}) => {
                                 <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
                                     <MdOutlineFileUpload />
                                 </div>
-                                <p className='text-[#6F7975] text-[12px]'>CAC certificate/Operational license.(pdf only)</p>
+                                <p className='text-[#6F7975] text-[12px]'>CAC certificate/Operational license.(pdf only) (max. 5mb)</p>
                             </>
                         )}
                     </div>
@@ -255,7 +255,7 @@ const RegisterOrgs = ({baseUrl}) => {
                                 <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
                                     <MdOutlineFileUpload />
                                 </div>
-                                <p className='text-[#6F7975] text-[12px]'>Institution Logo (jpeg, jpg or png only)</p>
+                                <p className='text-[#6F7975] text-[12px]'>Institution Logo (jpeg, jpg or png only) (max. 5mb)</p>
                             </>
                         )}
                     </div>

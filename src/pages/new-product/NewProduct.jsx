@@ -307,7 +307,7 @@ const NewProduct = ({baseUrl}) => {
                                             onKeyDown={e => handleAddCustomColor(e)}
                                             className='px-4 py-3 outline-none border w-full rounded-[4px]'
                                         />
-                                        <button onClick={handleAddCustomColorByButtinClick} className='text-white bg-primary-color w-[50%] rounded-[4px] mt-[.5rem] px-[35px] py-[8px] block text-center mx-auto'>Add color</button>
+                                        <button onClick={handleAddCustomColorByButtinClick} className='text-white bg-primary-color sm:w-[50%] w-[100%] rounded-[4px] mt-[.5rem] px-[35px] py-[8px] block text-center mx-auto'>Add color</button>
                                     </div>
                                 )}
                             </div>
