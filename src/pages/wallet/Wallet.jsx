@@ -6,6 +6,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { IoChevronForwardOutline } from "react-icons/io5";
+import Slider from "react-slick";
 
 
 const Wallet = ({baseUrl}) => {
@@ -16,10 +17,44 @@ const Wallet = ({baseUrl}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [toggleNav, setToggleNav] = useState(false)
+  const [walletInfo, setWalletInfo] = useState(false)
 
   useEffect(() => {
     getAllWithdrawals()
+    getWalletInfo()
   },[])
+
+  const settings = {
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
   async function getAllWithdrawals(){
     setIsLoading(true)
@@ -35,6 +70,25 @@ const Wallet = ({baseUrl}) => {
     if(res) setIsLoading(false)
     if(res.ok){
       setAllWithdrawals(data.data.withdrawalRequests)
+    }
+    console.log(data);
+  }
+
+  async function getWalletInfo(){
+    setIsLoading(true)
+    const res = await fetch(`${baseUrl}/trade/trade-summary`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':`Bearer ${user.data.access_token}`
+      }
+    })
+    const data = await res.json()
+    console.log(data.data);
+    if(res) setIsLoading(false)
+    if(res.ok){
+      setWalletInfo(data.data)
+      // setAllWithdrawals(data.data.withdrawalRequests)
     }
     console.log(data);
   }
@@ -57,43 +111,105 @@ const Wallet = ({baseUrl}) => {
                 {/* <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/wallet-restriction')}>Wallet Restriction</button> */}
               </div>
           </div>
+          <div className='ml-6'>
+            <Slider {...settings}>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-sm font-medium">Wallet Balance</h3>
+                      </div>
+                    </div>
+                    <div className="mt-10">
+                      <p className="text-lg font-bold">₦{walletInfo?.balance?.toFixed(2)}</p>
+                    </div>
+                  </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <IoWalletOutline />
+                      <h3 className="text-sm font-medium">Total Transactions</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.totalTransactions?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <IoWalletOutline />
+                      <h3 className="text-sm font-medium">Total Debits</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.totalDebits?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-sm font-medium">Total Credits</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.totalCredits?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <IoWalletOutline />
+                      <h3 className="text-sm font-medium">Total Withdrawals</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.totalWithdrawals?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <IoWalletOutline />
+                      <h3 className="text-sm font-medium">Cash Sales</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.totalWithdrawals?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-[90%] flex-shrink-0 snap-center">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <IoWalletOutline />
+                      <h3 className="text-sm font-medium">Order QR Sale</h3>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <p className="text-lg font-bold">₦{walletInfo?.orderQrSale?.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+            </Slider>
+          </div>
           {/* <div className="flex items-center gap-5 px-5">
-            <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-full">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-medium">Total Sales</h3>
-                </div>
-              </div>
-              <div className="mt-10">
-                <p className="text-lg font-bold">₦100000</p>
-              </div>
-            </div>
-            <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-full">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <IoWalletOutline />
-                  <h3 className="text-sm font-medium">Wallet Balance</h3>
-                </div>
-              </div>
-              <div className="mt-10">
-                <p className="text-lg font-bold">₦100000</p>
-              </div>
-            </div>
-            <div className="cursor-pointer gradient-bg p-4 rounded-lg shadow-lg text-white w-full">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <IoWalletOutline />
-                  <h3 className="text-sm font-medium">Total Sales</h3>
-                </div>
-              </div>
-              <div className="mt-10">
-                <p className="text-lg font-bold">₦100000</p>
-              </div>
-            </div>
+
           </div> */}
           <div class="relative overflow-x-auto mx-5 mt-10 shadow-lg border p-8 rounded-[10px]">
             <div className='mb-4'>
-              <p className='tect-[#19201D]'>Withdrawal requests</p>
+              <p className='tect-[#19201D]'>Order QR Sale</p>
             </div>
             {
               isLoading &&

@@ -74,7 +74,6 @@ import GuardianProfile from './pages/guardian-profile/GuardianProfile'
 import EditGuardian from './pages/edit-guardian/EditGuardian'
 import EditUnit from './pages/edit-unit/EditUnit'
 import EditStaff from './pages/edit-staff/EditStaff'
-import Norlics from './pages/Norlics'
 import LostId from './pages/lost-id/LostId'
 import StudentId from './pages/student-id/StudentId'
 import GenerateId from './pages/generate-id/GenerateId'
@@ -163,7 +162,6 @@ function App() {
             <Route path='/guardian-profile/:id' element={<GuardianProfile baseUrl={baseUrl}/>} />
             <Route path='/edit-guardian/:id' element={<EditGuardian baseUrl={baseUrl}/>} />
             <Route path ="/edit-unit/:id" element={<EditUnit baseUrl={baseUrl}/>} />
-            <Route path ="/norlics" element={<Norlics />} />
             <Route path ="/recover-id" element={<LostId baseUrl={baseUrl}/>} />
             <Route path ="/student-id/:id" element={<StudentId baseUrl={baseUrl}/>} />
             <Route path ="/generate-id" element={<GenerateId baseUrl={baseUrl}/>} />
