@@ -31,6 +31,8 @@ const RegisterPersonalBiz = ({baseUrl}) => {
     const [cacImageId, setCacImageId] = useState('')
     const [opLicenceImage, setOpLicenceImage] = useState(null);
     const [opLicenceImageId, setOpLicenceImageId] = useState('')
+    const [motto, setMotto] = useState('')
+    const [customBizType, setCustomBizType] = useState('');
 
     const handleFileChange = (file, kind) => {
 
@@ -88,7 +90,8 @@ const RegisterPersonalBiz = ({baseUrl}) => {
         nameOfProprietor,
         businessAddress,
         personalAddress,
-        opLicenceImage:opLicenceImageId
+        logo:opLicenceImageId,
+        motto
       };
 
     async function handleSignUp(){
@@ -206,9 +209,15 @@ const RegisterPersonalBiz = ({baseUrl}) => {
                         <input type="text" onChange={e => setNameOfProprietor(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                     </div>
                 </div>
-                <div className='w-full'>
-                    <label className='block text-left mb-2'>Business ddress</label>
-                    <input type="text" onChange={e => setBusinessAddress(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
+                  <div className='w-full'>
+                      <label className='block text-left mb-2'>Business ddress</label>
+                      <input type="text" onChange={e => setBusinessAddress(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                  </div>
+                  <div className='w-full'>
+                      <label className='block text-left mb-2'>Organization Motto</label>
+                      <input onChange={e => setMotto(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                  </div>
                 </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                     {/* <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>

@@ -99,7 +99,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Assignment Summary</p>
                     </div>
                 </div>
-                <div className='lg:px-[30px] px-[10px] flex items-start flex-col gap-5 w-full'>
+                <div className='lg:px-[30px] px-[10px] flex items-start flex-col lg:flex-row gap-5 w-full'>
                     <div class="relative overflow-x-auto mx-5 mt-10 w-full">
                         <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
                             <thead class="text-[14px] border-b">

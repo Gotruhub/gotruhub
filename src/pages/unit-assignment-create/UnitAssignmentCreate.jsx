@@ -95,14 +95,16 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
 
     async function getAllAssignments(){
-        const res = await fetch(`${baseUrl}/course`,{
+        setLoading(true);
+        const res = await fetch(`${baseUrl}/course?unit=${unitInfo?._id}`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
             }
         })
         const data = await res.json()
-        console.log(data.data);
+        console.log("All assignments for this unit", data);
+        if(res) setLoading(false);
         if(!res.ok){
             setMsg(data.message);
             setAlertType('error');
@@ -117,8 +119,10 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
     useEffect(() => {
         getUnitInfo()
-        getAllAssignments()
         getAllSession()
+        // if(unitInfo){
+        //     getAllAssignments()
+        // }
     },[])
 
     async function getAllSemesters(session){
@@ -274,7 +278,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                     {
                                         allSession?.length === 0 &&
                                         <div className='flex items-center justify-center pt-10 text-center flex-col gap-7'>
-                                            <p>You have no session created yet, please create one</p>
+                                            <p>You have no session created for yet, please create one</p>
                                             <button onClick={() => navigate('/create-session')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Session</button>
                                         </div>
                                     }
@@ -326,7 +330,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                     ) : (
                                     <p>No assignments selected.</p>
                                 )}
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' />
+                                <IoChevronDownOutline color="d7d7d7" onClick={getAllAssignments} cursor='pointer' />
                             </div>
                             {dropDown === 'assignments' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll top-[-210px] border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -342,13 +346,18 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                             </div>
                                         ))
                                     }
-
                                     {
-                                        allAssignments?.length === 0 &&
-                                        <div className='flex items-center justify-center pt-10 text-center flex-col gap-2 text-gray-500 text-[14px]'>
-                                            <p>You have no assignment created yet, please create one</p>
-                                            <button onClick={() => navigate('/create-assignment')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Assignment</button>
-                                        </div>
+                                        loading ? <BtnLoader />
+                                        :
+                                        <>
+                                            {
+                                                allAssignments?.length === 0 &&
+                                                <div className='flex items-center justify-center pt-10 text-center flex-col gap-2 text-gray-500 text-[14px]'>
+                                                    <p>You have no assignment created for {unitInfo?.name} yet, please create one</p>
+                                                    <button onClick={() => navigate('/create-assignment')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Assignment</button>
+                                                </div>
+                                            }
+                                        </>
                                     }
                                 </div>
                             }
@@ -358,12 +367,12 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                             <p>Each assignment costs NGN 100</p>
                         </div>
 
-                        {
+                        {/* {
                             loading ? 
                             <BtnLoader bgColor="#191f1c"/>
                             :
-                            <button onClick={() => navigate('/view-assignment-summary')} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>Proceed to payment</button>
-                        }
+                        } */}
+                        <button onClick={() => navigate('/view-assignment-summary')} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>Proceed to payment</button>
                     </div>
                 </div>
             </div>

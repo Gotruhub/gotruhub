@@ -31,6 +31,7 @@ const RegisterOrgs = ({baseUrl}) => {
     const [alertType, setAlertType] = useState()
     const [dropDown, setDropDown] = useState(false)
     const [customBizType, setCustomBizType] = useState('');
+    const [motto, setMotto] = useState('')
 
     const handleFileChange = (file, kind) => {
 
@@ -88,7 +89,8 @@ const RegisterOrgs = ({baseUrl}) => {
         nameOfProprietor,
         businessAddress,
         cacImage:cacImageId,
-        opLicenceImage:opLicenceImageId
+        logo:opLicenceImageId,
+        motto
       };
 
       const handleSignUp = async () => {
@@ -212,6 +214,10 @@ const RegisterOrgs = ({baseUrl}) => {
                         <label className='block text-left mb-2'>Name of proprietor</label>
                         <input onChange={e => setNameOfProprietor(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                     </div>
+                </div>
+                <div className='w-full'>
+                    <label className='block text-left mb-2'>Organization Motto</label>
+                    <input onChange={e => setMotto(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                 </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                     <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
