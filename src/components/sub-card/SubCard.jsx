@@ -2,7 +2,7 @@ import React from 'react'
 import ConfirmSubModal from '../confirm-sub-modal/ConfirmSubModal'
 
 const SubCard = ({ plan, setConfirmSubModal }) => {
-  const featureNames = plan.feature.map(f => f.name).join(', ');
+  const featureNames = plan?.feature?.map(f => f.name).join(', ');
 
   return (
     <>

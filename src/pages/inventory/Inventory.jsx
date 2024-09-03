@@ -106,7 +106,7 @@ const Inventory = ({baseUrl}) => {
                     </thead>
                     <tbody>
                         {
-                            allProducts && allProducts.map((product, index) => {
+                            allProducts && allProducts?.map((product, index) => {
                                 return(
                                     <tr style={{borderBottom:"1px solid #dcdcdc"}} key={index}>
                                         <td class="px-6 py-4">{index +1}</td>

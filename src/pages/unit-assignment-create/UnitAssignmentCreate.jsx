@@ -323,7 +323,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                             <div onClick={() => setDropDown(dropDown === 'assignments' ? false : 'assignments' )} className='flex items-center cursor-pointer justify-between px-4 py-3 border w-full rounded-[4px]'>
                                 {selectedAssignments.length > 0 ? (
                                     <ul className='flex items-center text-[12px] gap-2'>
-                                        {selectedAssignments.map((assignment) => (
+                                        {selectedAssignments?.map((assignment) => (
                                         <li key={assignment._id} className='bg-gray-300 p-1 rounded-[4px]'>{assignment.courseCode}</li>
                                         ))}
                                     </ul>

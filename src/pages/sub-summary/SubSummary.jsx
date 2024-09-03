@@ -156,7 +156,7 @@ const SubSummary = ({baseUrl}) => {
                         </thead>
                         <tbody>
                             {
-                                itemsInCart && itemsInCart.map((item, index) => (
+                                itemsInCart && itemsInCart?.map((item, index) => (
                                     <tr style={{borderBottom:"1px solid #dcdcdc"}}>
                                         <td class="px-6 py-4">{index + 1}</td>
                                         <td class="px-6 py-4 capitalize">{item?.subscriptionType?.name}</td>

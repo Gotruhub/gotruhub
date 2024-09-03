@@ -144,7 +144,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                         govtlevelDropDown && 
                           <div className='absolute w-full bg-white border rounded-[4px] mt-3 px-2 z-[99]'>
                             {
-                              govtlevelArray.map((item, index) => {
+                              govtlevelArray?.map((item, index) => {
                                 return (
                                     <p onClick={() => {
                                       setGovtLevelDropDown(false)
@@ -173,7 +173,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                         stateDropDown && 
                           <div className='bg-white border rounded-[4px] mt-3 px-2 absolute w-full overflow-y-scroll h-[250px]'>
                             {
-                              states.map((state, index) => {
+                              states?.map((state, index) => {
                                 return (
                                     <p onClick={() => { 
                                       setStateDropDown(false)
@@ -199,7 +199,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                           stateDropDown && 
                             <div className='bg-white border rounded-[4px] mt-3 px-2 absolute w-full overflow-y-scroll h-[250px]'>
                               {
-                                states.map((state, index) => {
+                                states?.map((state, index) => {
                                   return (
                                       <p onClick={() => { 
                                         setStateDropDown(false)
@@ -222,7 +222,7 @@ const RegisterGovernmentBiz = ({baseUrl}) => {
                           lgaDropDown && 
                             <div className='bg-white border rounded-[4px] mt-3 px-2 absolute w-full overflow-y-scroll h-[250px]'>
                               {
-                                lgas.map((lga, index) => {
+                                lgas?.map((lga, index) => {
                                   return (
                                       <p onClick={() => { 
                                         setLgaDropDown(false)

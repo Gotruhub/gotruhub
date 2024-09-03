@@ -82,7 +82,7 @@ const Token = ({baseUrl}) => {
                                     <div>
                                         <p className='text-[#19201D] text-[18px] mb-2 font-[500]'>{
                                             sub.subscriptionType?.feature?.length > 1
-                                            ? sub.subscriptionType.feature.map((ft, i) => (
+                                            ? sub.subscriptionType?.feature?.map((ft, i) => (
                                                     <span key={i}>
                                                     {ft.name}
                                                     {i < sub?.subscriptionType?.feature?.length - 1 && <span> + </span>}

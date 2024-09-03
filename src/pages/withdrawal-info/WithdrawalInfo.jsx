@@ -131,7 +131,7 @@ const WithdrawalInfo = ({baseUrl}) => {
                                 statusDropDown &&
                                 <div className='border mt-1 rounded-[6px] bg-[#fff] text-[#6F7975]'>
                                 {
-                                    status.map((item, index) => {
+                                    status?.map((item, index) => {
                                         return (
                                             <div key={index}>
                                                 <p onClick={() => {

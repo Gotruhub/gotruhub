@@ -133,7 +133,7 @@ const Subscribe = ({baseUrl}) => {
                     <p className='font-[500] text-[20px] mb-2'>Subscription Plans</p>
                     <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4">
                         {
-                            arrayOfFeatures && arrayOfFeatures.map(plan => (
+                            arrayOfFeatures && arrayOfFeatures?.map(plan => (
                                 <SubCard plan={plan} setConfirmSubModal={setConfirmSubModal}/>
                             ))
                         }

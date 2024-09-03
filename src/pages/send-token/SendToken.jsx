@@ -119,7 +119,7 @@ const SendToken = ({baseUrl}) => {
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/token')} className='cursor-pointer' />
                             {
                               planInfo && planInfo?.subscriptionType?.feature?.length > 1 
-                              ? planInfo.subscriptionType.feature.map((ft, i) => 
+                              ? planInfo.subscriptionType?.feature?.map((ft, i) => 
                                 <div className="flex items-center gap-2" key={i}>
                                   <p className="text-[24px] text-primary-color font-[600]">{ft.name}</p>
                                   {i < planInfo.subscriptionType.feature.length - 1 && <span> + </span>}
@@ -164,7 +164,7 @@ const SendToken = ({baseUrl}) => {
                         </thead>
                         <tbody>
                             {
-                              allGuardians.map((sub, index) => {
+                              allGuardians?.map((sub, index) => {
                                   const selectedGuardian = selectedGuardians.find((guardian) => guardian.id === sub._id);
                                   const quantity = selectedGuardian ? selectedGuardian.quantity : 1;
                                   return(

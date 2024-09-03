@@ -130,7 +130,7 @@ const AddSubUnitFromUnit = ({baseUrl}) => {
                             {staffDropDown &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                                     {
-                                        allStaffs.map(stf => (
+                                        allStaffs?.map(stf => (
                                             <div className='px-3 border-b pb-3 cursor-pointer mb-3' onClick={() => {
                                                 setStaffDropDown(false) 
                                                 setStaff(stf._id)

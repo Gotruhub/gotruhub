@@ -129,7 +129,7 @@ const EditSemester = ({ baseUrl }) => {
                             </div>
                             {sessionTypeDropDown && (
                                 <div className='absolute top-[80px] border rounded-[5px] bg-white w-full h-[120px] overflow-y-scroll'>
-                                    {sessionTypesArray.map(type => (
+                                    {sessionTypesArray?.map(type => (
                                         <p
                                             key={type.name}
                                             className='cursor-pointer hover:bg-gray-300 p-2'

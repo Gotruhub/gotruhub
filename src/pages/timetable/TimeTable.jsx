@@ -115,11 +115,11 @@ const TimeTable = ({ baseUrl }) => {
                             </div>
                         }
                         <div className="mx-auto bg-white rounded-xl space-y-4">
-                            {Object.keys(groupedData).map((day) => (
+                            {Object.keys(groupedData)?.map((day) => (
                                 <div key={day} className='border-b pb-2'>
                                     <h3 className="text-lg font-semibold">{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
                                     <ul className="gap-6 mt-2 flex">
-                                        {groupedData[day].map((course) => (
+                                        {groupedData[day]?.map((course) => (
                                             <div key={course._id} className='flex items-center gap-1 relative'>
                                                 <li className="mt-1">
                                                     {course.code.toUpperCase()}

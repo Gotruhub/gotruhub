@@ -125,7 +125,7 @@ const Calendar = ({baseUrl}) => {
                         </div>
                     }
                     {
-                        allSessions && allSessions.map((session) => (
+                        allSessions && allSessions?.map((session) => (
                             <div className='flex items-center justify-between p-3 shadow rounded-[8px] my-4 bg-white'>
                                 <p>{session.name}</p>
                                 <div>

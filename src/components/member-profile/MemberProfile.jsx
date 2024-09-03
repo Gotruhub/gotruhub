@@ -155,7 +155,7 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                         paddingAngle={5}
                         dataKey="value"
                         >
-                        {graphDdata.map((entry, index) => (
+                        {graphDdata?.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                         </Pie>

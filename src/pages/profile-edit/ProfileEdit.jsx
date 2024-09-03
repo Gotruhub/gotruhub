@@ -235,7 +235,7 @@ const ProfileEdit = ({baseUrl}) => {
                             dropDown === "unit" &&
                             <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[280px] overflow-y-scroll'>
                                 {
-                                    allUnits.map(unit => {
+                                    allUnits?.map(unit => {
                                         return (
                                             <p className='cursor-pointer hover:bg-gray-300 p-2' onClick={() => {
                                                 setSelectedUnit(unit)

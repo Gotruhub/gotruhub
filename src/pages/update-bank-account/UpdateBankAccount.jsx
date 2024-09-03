@@ -159,7 +159,7 @@ const UpdateBankAccount = ({baseUrl}) => {
                                 bankDropDown &&
                                 <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                     {
-                                        allBanks.map(bank => {
+                                        allBanks?.map(bank => {
                                             return (
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2' onClick={() => {
                                                     setSelectedBank(bank.name)

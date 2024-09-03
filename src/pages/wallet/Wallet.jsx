@@ -233,7 +233,7 @@ const Wallet = ({baseUrl}) => {
                   </thead>
                   <tbody>
                     {
-                      allWithdrawals.map((withdrawal, index) => {
+                      allWithdrawals?.map((withdrawal, index) => {
                         const formattedDate = new Date(withdrawal?.createdAt).toLocaleDateString([], { year: 'numeric', month: '2-digit', day: '2-digit' });
                         const formattedTime = new Date(withdrawal?.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 

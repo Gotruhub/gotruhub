@@ -96,7 +96,7 @@ const SessionInfo = ({baseUrl}) => {
                       </div>
                   }
                   {
-                      sessionInfo && sessionInfo.map((session) => (
+                      sessionInfo && sessionInfo?.map((session) => (
                         <div className='p-3 shadow rounded-[8px] my-4 bg-white'>
                           <div className='flex items-center justify-between'>
                               <p>{session.name}</p>

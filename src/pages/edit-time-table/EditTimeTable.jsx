@@ -293,7 +293,7 @@ return (
                               dropDown === "assignment" &&
                               <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      allAssignments.map(assignment => {
+                                      allAssignments?.map(assignment => {
                                           return (
                                               <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                   setDropDown(false)
@@ -324,7 +324,7 @@ return (
                               dropDown === "assignee" &&
                               <div className=' p-[8px] absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      allStaffs.map(staff => {
+                                      allStaffs?.map(staff => {
                                           return (
                                               <div className='flex items-center gap-1 my-2'>
                                                   <input
@@ -360,7 +360,7 @@ return (
                               dropDown === 'days' &&
                               <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      days.map(day => {
+                                      days?.map(day => {
                                           return (
                                               <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                   setDay(day)

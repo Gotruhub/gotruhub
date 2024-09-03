@@ -537,7 +537,7 @@ const CreateUser = ({baseUrl}) => {
                             {userTypeDropDown &&
                                 <div className='py-5 bg-white border absolute overflow-y-scroll h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                                     {
-                                        userTypeArray.map(type => (
+                                        userTypeArray?.map(type => (
                                             <div className='px-3 border-b pb-3 cursor-pointer mb-3' onClick={() => {
                                                 setUserTypeDropDown(false)
                                                 setAsignGuardian(false)
@@ -699,7 +699,7 @@ const CreateUser = ({baseUrl}) => {
                                 {unitDropDown &&
                                     <div className='py-5 bg-white absolute overflow-y-scroll h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                                         {
-                                            unitsArray.map(unit => (
+                                            unitsArray?.map(unit => (
                                                 <div className='px-3 border-b pb-3 cursor-pointer mb-3' onClick={() => {
                                                     setUnitDropDown(false) 
                                                     setPiviotUnitText(unit.name)
@@ -723,7 +723,7 @@ const CreateUser = ({baseUrl}) => {
                                 {subUnitDropDown &&
                                     <div className='py-5 bg-white absolute overflow-y-scroll h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                                         {
-                                            subUnitsArray.map(unit => (
+                                            subUnitsArray?.map(unit => (
                                                 <div className='px-3 border-b pb-3 cursor-pointer mb-3' onClick={() => {
                                                     setSubUnitDropDown(false) 
                                                     setSubUnit(unit._id)
@@ -755,7 +755,7 @@ const CreateUser = ({baseUrl}) => {
                                 <label className='block text-text-color text-left mb-2'>Allow this admin access to <span className='text-red-500'>*</span></label>
                                 <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 items-center'>
                                     {
-                                        adminAccessArray.map(access => (
+                                        adminAccessArray?.map(access => (
                                             <div className='flex items-center gap-2 w-full rounded-[4px]'>
                                                 <input 
                                                     type="checkbox" 

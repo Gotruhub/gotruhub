@@ -61,7 +61,7 @@ const GenerateId = ({baseUrl}) => {
                   </thead>
                   <tbody>
                       {
-                        allUsers && allUsers.map((user, index) => {
+                        allUsers && allUsers?.map((user, index) => {
                             return(
                                 <tr style={{borderBottom:"1px solid #dcdcdc"}} key={index}>
                                     <td class="px-6 py-4">{index +1}</td>

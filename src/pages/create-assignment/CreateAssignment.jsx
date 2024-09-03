@@ -108,7 +108,7 @@ const CreateAssignment = ({baseUrl}) => {
                       {unitDropDown &&
                           <div className='py-5 bg-white absolute overflow-y-scroll border h-[350px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
                               {
-                                  allUnits.map(unit => (
+                                  allUnits?.map(unit => (
                                       <div className='px-3 border-b pb-3 cursor-pointer mb-3' onClick={() => {
                                           setUnitDropDown(false) 
                                           setUnit(unit._id)

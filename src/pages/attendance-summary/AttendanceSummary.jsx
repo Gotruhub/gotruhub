@@ -65,7 +65,7 @@ const AttendanceSummary = ({baseUrl}) => {
                                     filterDropDown &&
                                     <div className='border mt-1 rounded-[6px] bg-[#fff] text-[#6F7975]'>
                                     {
-                                        filterArray.map((item, index) => {
+                                        filterArray?.map((item, index) => {
                                             return (
                                                 <div key={index}>
                                                     <p onClick={() => {

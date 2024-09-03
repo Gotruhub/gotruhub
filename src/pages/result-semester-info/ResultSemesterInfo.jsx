@@ -66,7 +66,7 @@ const ResultSemesterInfo = ({baseUrl}) => {
                         </div>
                     }
                     {
-                        semesterInfo && semesterInfo.map((semester) => (
+                        semesterInfo && semesterInfo?.map((semester) => (
                             <div className='p-3 shadow rounded-[8px] my-4 bg-white'>
                                 <div className='flex items-center justify-between'>
                                     <p>{semester.name}</p>

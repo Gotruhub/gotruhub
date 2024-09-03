@@ -138,7 +138,7 @@ const Assignments = ({baseUrl}) => {
                             </thead>
                             <tbody>
                                 {
-                                    allAssignments.map((assignment, index) => {
+                                    allAssignments?.map((assignment, index) => {
                                         return(
                                             <tr style={{borderBottom:"1px solid #dcdcdc"}}>
                                                 <td class="px-6 py-4">{index +1}</td>

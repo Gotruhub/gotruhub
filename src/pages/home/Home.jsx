@@ -38,7 +38,7 @@ const Home = () => {
                 </p>
                 <div className='flex items-center justify-center gap-[20px] mt-10'>
                     {
-                        tabArray.map((tab, index) => (
+                        tabArray?.map((tab, index) => (
                             <div key={index} className='flex items-center justify-center gap-[100px]'>
                                 <p className='text-center cursor-pointer text-[#6F7975]' onClick={() => setSelectedTab(tab)}>{tab}</p>
                             </div>

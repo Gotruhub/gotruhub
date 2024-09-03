@@ -67,7 +67,7 @@ const Units = ({baseUrl}) => {
                         </div>
                     }
                     {
-                        allUnits && allUnits.map((unit) => (
+                        allUnits && allUnits?.map((unit) => (
                             <div className='flex items-center justify-between p-3 shadow rounded-[8px] my-4 bg-white'>
                                 <p>{unit.name}</p>
                                 <div className='flex gap-2'>

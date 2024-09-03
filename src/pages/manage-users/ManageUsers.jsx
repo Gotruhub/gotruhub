@@ -84,7 +84,7 @@ const ManageUsers = ({baseUrl}) => {
                   dropDown &&
                   <div className='rounded-[4px] border absolute left-0 top-[45px] bg-white z-[10] w-[130px]'>
                     {
-                      userType.map((type, index) => {
+                      userType?.map((type, index) => {
                         return (
                           <p className='text-[14px] p-2 hover:bg-gray-100 capitalize' onClick={() => { 
                             fetchSelecteduser(type)
@@ -112,7 +112,7 @@ const ManageUsers = ({baseUrl}) => {
                   </thead>
                   <tbody>
                       {
-                        allUsers && allUsers.map((user, index) => {
+                        allUsers && allUsers?.map((user, index) => {
                             return(
                                 <tr style={{borderBottom:"1px solid #dcdcdc"}} key={index}>
                                     <td class="px-6 py-4">{index +1}</td>

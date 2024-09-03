@@ -270,7 +270,7 @@ const NewProduct = ({baseUrl}) => {
                                 <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedColors.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
-                                            {selectedColors.map((c) => (
+                                            {selectedColors?.map((c) => (
                                                 <li
                                                     key={c}
                                                     className='bg-gray-300 p-1 rounded-[4px] capitalize cursor-pointer'
@@ -317,7 +317,7 @@ const NewProduct = ({baseUrl}) => {
                                 <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedSizes.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
-                                            {selectedSizes.map((s) => (
+                                            {selectedSizes?.map((s) => (
                                             <li key={s} className='bg-gray-300 p-1 rounded-[4px] capitalize'>{s}</li>
                                             ))}
                                         </ul>
@@ -351,7 +351,7 @@ const NewProduct = ({baseUrl}) => {
                                 <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedFlavors.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
-                                            {selectedFlavors.map((f) => (
+                                            {selectedFlavors?.map((f) => (
                                             <li key={f} className='bg-gray-300 p-1 rounded-[4px] capitalize'>{f}</li>
                                             ))}
                                         </ul>

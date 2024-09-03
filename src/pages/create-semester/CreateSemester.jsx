@@ -142,7 +142,7 @@ const CreateSemester = ({baseUrl}) => {
                                 sessionTypeDropDown &&
                                 <div className='absolute top-[80px] border rounded-[5px] bg-white w-full h-[120px] overflow-y-scroll'>
                                     {
-                                        sessionTypesArray.map(type => {
+                                        sessionTypesArray?.map(type => {
                                             return (
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2' onClick={() => {
                                                     setSelectedSessionType(type.value)
