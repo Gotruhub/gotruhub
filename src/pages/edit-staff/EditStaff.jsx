@@ -140,6 +140,15 @@ const EditStaff = ({baseUrl}) => {
                         className="mt-1 p-2 border rounded w-full"
                     />
                 </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700">Role</label>
+                    <input
+                        type="text"
+                        name="fullName"
+                        value={staff?.role}
+                        className="mt-1 p-2 border rounded w-full capitalize"
+                    />
+                </div>
                 <div>
                   <label className='block text-text-color text-left mb-2'>Staff's image</label>
                   {

@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import SideNav from '../../components/side-nav/SideNav';
 import TopNav from '../../components/top-nav/TopNav';
 import { BiChevronDown } from 'react-icons/bi';
+import { IoCloseOutline } from 'react-icons/io5';
+import BtnLoader from '../../components/btn-loader/BtnLoader';
+import Alert from '../../components/alert/Alert';
 
 const ManageUsers = ({baseUrl}) => {
 
@@ -10,6 +13,10 @@ const ManageUsers = ({baseUrl}) => {
   const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([])
   const [toggleNav, setToggleNav] = useState(false)
+  const [deleteUser, setDeleteUser] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [msg, setMsg] = useState('')
+  const [alertType, setAlertType] = useState('')
 
   useEffect(() => {
     getAllUsers()
@@ -54,6 +61,26 @@ const ManageUsers = ({baseUrl}) => {
     const data = await res.json()
     setAllUsers(data.data.users)
     console.log(res, data.data.users);
+  }
+
+  async function deleteUserFn(){
+    setLoading(true)
+    const res = await fetch(`${baseUrl}/users/get-user/${deleteUser}`, {
+      method: 'DELETE',
+      headers: {
+          Authorization:`Bearer ${user.data.access_token}`
+      }
+    })
+    if(res) setLoading(false)
+    if(!res.ok){
+      setMsg("Error occured, while deleting user");
+      setAlertType('error');
+      return;
+    }
+    setMsg("User deleted successfully");
+    setAlertType('success');
+    setDeleteUser(false)
+    getAllUsers()
   }
 
 
@@ -123,8 +150,8 @@ const ManageUsers = ({baseUrl}) => {
                                     <td class="px-6 py-4 text-[12px] md:text-[16px]">{user.email ? user.email : "N/A"}</td>
                                     <td class="px-6 py-4 capitalize text-[12px] md:text-[16px]">{user.role}</td>
                                     <td class="px-6 py-4 text-[12px] md:text-[16px]">{formatDate(user.createdAt)}</td>
-                                    <td>
-                                      <button className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px] md:text-[16px]' onClick={() => {
+                                    <td className='flex'>
+                                      <button className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]' onClick={() => {
                                         if(user.role === "student"){
                                           navigate(`/user/${user._id}`)
                                         }else if(user.role === "staff") {
@@ -132,7 +159,8 @@ const ManageUsers = ({baseUrl}) => {
                                         }else if(user.role === "guardian") {
                                           navigate(`/guardian-profile/${user._id}`)
                                         }
-                                      }}>View</button>  
+                                      }}>View</button>
+                                      <button className='text-white bg-red-400 px-4 py-2 rounded-[4px] text-[12px] mx-1' onClick={() => setDeleteUser(user._id)}>Delete</button>
                                     </td>
                                 </tr>
                             )
@@ -151,6 +179,30 @@ const ManageUsers = ({baseUrl}) => {
               /> */}
           </div>
         </div>
+        {
+            deleteUser &&
+            <div>
+                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteUser(false)}></div>
+                <div className="bg-white w-[90%] sm:max-w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                    <div className="flex items-center justify-between border-b pb-[5px]">
+                        <p className="text-[px]">Delete User</p>
+                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteUser(false)}/>
+                    </div>
+                    <div className='mt-5 text-center'>
+                        Are you sure, you want to delete this user?
+                    </div>
+                    {
+                        loading ? 
+                        <BtnLoader bgColor="#191f1c"/>
+                        :
+                        <button onClick={() => deleteUserFn(deleteUser)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
+                    }
+                </div>
+            </div>
+        }
+        {
+          msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
+        }
     </div>
   )
 }
