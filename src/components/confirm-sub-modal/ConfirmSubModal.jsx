@@ -60,13 +60,13 @@ const ConfirmSubModal = ({setConfirmSubModal, baseUrl, setAlertType, setMsg}) =>
                         <p className="text-[22px]"></p>
                     </div>
                     <div className='bg-[#EDEDED] h-[100px] flex items-center justify-center rounded-[4px] mb-2'>
-                        <div className='bg-white p-3 inline-block text-[14px]'>
+                        <div className='p-3 inline-block text-[13px]'>
                             {/* <img src="./images/scan.svg" alt="" /> */}
                             <p>{plan?.name}</p>
                         </div>
                     </div>
                     <p className='text-[14px] mb-1 text-[#1C2320] font-[500]'>{plan?.feature?.map(f => f.name).join(', ')}/<span className='text-gray-400 font-[400] text-[12px]'>{plan.duration}</span> </p>
-                    <p className='font-[500]'>#{plan.amount.$numberDecimal}</p>
+                    <p className='font-[500]'>₦{plan.amount.$numberDecimal}</p>
                 </div>
             </div>
             <div className='bg-[#fff] w-full py-[30px] md:px-[2rem]'>
