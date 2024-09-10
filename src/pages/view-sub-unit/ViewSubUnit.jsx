@@ -26,7 +26,7 @@ const ViewSubUnit = ({baseUrl}) => {
             }
         })
         const data = await res.json()
-        console.log(JSON.stringify(data.data.unit));
+        console.log(data.data.unit, data);
         if(!res.ok){
             setMsg(data.message);
             setAlertType('error');
@@ -34,6 +34,7 @@ const ViewSubUnit = ({baseUrl}) => {
         }
         if(res.ok){
             setSubUnitInfo(data?.data?.unit)
+            getSubUnitCourses(data?.data?.unit?._id)
             getAllStaff(data?.data?.unit.coordinator)
             setAlertType('success');
             return;
@@ -56,6 +57,28 @@ const ViewSubUnit = ({baseUrl}) => {
         }
         if(res.ok){
             setSubUnitStats(data?.data)
+            return;
+        }
+    }
+
+    async function getSubUnitCourses(unitId){
+        console.log(`${baseUrl}/sub-unit/course/single/${id}`);
+        
+        const res = await fetch(`${baseUrl}/sub-unit/course/single/${id}`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data);
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+        if(res.ok){
+            // setSubUnitCourses(data?.data)
             return;
         }
     }
@@ -87,7 +110,7 @@ const ViewSubUnit = ({baseUrl}) => {
                 <div className="flex justify-between items-center mb-[3rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
                         <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
-                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">About {unitName}</p>
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">About {subUnitInfo?.name}</p>
                     </div>
                     <div className='flex items-center gap-5'>
                         {/* <button className='font-[600] text-[#25751E] text-[14px]' onClick={() => navigate(`/co-ordinator/${id}`)} >Coordinator</button> */}
@@ -101,7 +124,7 @@ const ViewSubUnit = ({baseUrl}) => {
                 </div>
 
                 <div className="lg:m-[30px] m-[10px] p-4 rounded-lg shadow-md flex flex-col sm:flex-row gap-[3rem]">
-                    <div className="p-4 rounded-lg flex-1 mr-4 w-full sm:w-1/2">
+                    <div className="p-4 rounded-lg flex-1 w-full sm:w-1/2">
                         <div className="mb-2 flex items-center justify-between">
                             <div>Created</div>
                             <div className="font-bold">{new Date(subUnitInfo?.createdAt).toDateString()}</div>
@@ -122,55 +145,6 @@ const ViewSubUnit = ({baseUrl}) => {
                             <div>Members</div>
                             <div className="font-bold">{subUnitStats?.totalStudents}</div>
                         </div>
-                    </div>
-                    <div className="flex flex-col sm:flex-row w-0">
-                        {/* <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">    //w-full sm:w-1/2
-                            <div className="flex flex-col items-center">
-                                <div className="text-lg font-bold">Members</div>
-                                <div className="text-3xl font-bold my-2">32</div>
-                                <div className="w-full flex justify-between text-sm">
-                                    <div className="flex flex-col items-center">
-                                        <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
-                                        <div>Early</div>
-                                        <div>70%</div>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
-                                        <div>Late</div>
-                                        <div>20%</div>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
-                                        <div>Absent</div>
-                                        <div>10%</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-
-                        {/* <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
-                            <div className="flex flex-col items-center">
-                                <div className="text-lg font-bold">Assignees</div>
-                                <div className="text-3xl font-bold my-2">32</div>
-                                <div className="w-full flex justify-between text-sm">
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Early</div>
-                                    <div>70%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Late</div>
-                                    <div>20%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Absent</div>
-                                    <div>10%</div>
-                                </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
 

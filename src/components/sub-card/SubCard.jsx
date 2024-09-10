@@ -5,11 +5,11 @@ const SubCard = ({ plan, setConfirmSubModal }) => {
   const featureNames = plan?.feature?.map(f => f.name).join(', ');
 
   function getBoxColor(planName) {
-    if (planName.includes("BASIC") || planName.includes("Baic")) {
+    if (planName.includes("BASIC") || planName.includes("Basic")) {
       return "bg-[#E0F7FA]"; // Light blue color
-    }else if (planName.includes("BULK")) {
+    }else if (planName.includes("BULK") || planName.includes("Bulk")) {
       return "bg-[#F1F8E9]"; // Light green color
-    } else if (planName.includes("COMBO")) {
+    } else if (planName.includes("COMBO") || planName.includes("Combo")) {
       return "bg-[#FFCDD2]"; // Light red color
     } else if (planName.includes("Result") || planName.includes("RESULT")) {
       return "bg-blue-300"; // Light red color
@@ -22,7 +22,7 @@ const SubCard = ({ plan, setConfirmSubModal }) => {
   return (
     <>
       <div className='p-2 shadow-lg bg-white rounded-[4px]'>
-        <div className={`bg-[#EDEDED] h-[100px] flex items-center justify-center rounded-[4px] mb-2 ${getBoxColor(plan.name)}`}>
+        <div className={`h-[100px] flex items-center justify-center rounded-[4px] mb-2 ${getBoxColor(plan.name)}`}>
           <p className='text-[13px] font-[500] text-center px-1'>
             {plan.name}
           </p>
