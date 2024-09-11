@@ -18,7 +18,6 @@ const Inventory = ({baseUrl}) => {
     const [selectedStaff, setSelectedStaff] = useState()
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false)
-    const [name, setName] = useState('')
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
     const [toggleNav, setToggleNav] = useState(false)
@@ -40,37 +39,6 @@ const Inventory = ({baseUrl}) => {
         setAllProducts(data.data.products)
     }
 
-    async function addCategory(){
-        if(!name){
-            setMsg('Please enter a category name.');
-            setAlertType('error');
-            return;
-        }else{
-            setLoading(true)
-            const res = await fetch(`${baseUrl}/trade/category`,{
-                method:"POST",
-                headers:{
-                    'Content-Type':'application/json',
-                    Authorization:`Bearer ${user.data.access_token}`
-                },
-                body:JSON.stringify({name})
-            })
-            const data = await res.json()
-            console.log(data);
-            if(res.ok){
-                setMsg('Category created successfully.');
-                setAlertType('success');
-                setModal(false);
-                setName('');
-                getAllProducts()
-            }else{
-                setMsg(data.message);
-                setAlertType('error');
-            }
-            setLoading(false)
-        }
-    }
-
 
   return (
     <div>
@@ -87,7 +55,7 @@ const Inventory = ({baseUrl}) => {
                       <p className='text-[#4F4F4F]'>Manage stock available in your inventory</p>
                   </div>
                   <div className='flex items-center gap-5'>
-                      <button className="text-[#2D3934] bg-white px-5 py-3 rounded-[8px] text-[14px] font-bold" onClick={() => setModal(true)} >Create category</button>
+                      <button className="text-[#2D3934] bg-white px-5 py-3 rounded-[8px] text-[14px] font-bold" onClick={() => navigate('/categories')} >Category</button>
                       <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px] font-bold" onClick={() => navigate('/new-product')}>Add new product</button>
                   </div>
               </div>
@@ -182,37 +150,6 @@ const Inventory = ({baseUrl}) => {
               </div> */}
           </div>
       </div>
-      {
-        modal &&
-          <>
-            <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => {setModal('')}}></div>
-            <div className="flex items-center flex-col text-center justify-center gap-3 bg-white sm:w-[500px] w-[95%] fixed top-[50%] left-[50%] py-[30px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
-                <div className="flex items-center justify-between border-b pb-[5px] w-full mb-7">
-                    <p className="text-[18px] text-[#19201D]">Create category</p>
-                    <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setModal(false)}/>
-                </div>
-                <div className='text-left w-full'>
-                    <p className='text-[#828282] text-[14px] mb-3'>What would you like to call this category? </p>
-                    <p className='text-[#19201D] text-[14px] mb-2'>Category Name</p>
-                    <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
-                        <input type="text" placeholder='e.g Snacks' onChange={e => setName(e.target.value)} className='outline-none w-full rounded-[4px]'/>
-                    </div>
-                </div>
-                <div className='flex items-center justify-end gap-2 w-full mt-5'>
-                    <button className="text-[#2D3934] border px-5 py-3 rounded-[8px] text-[14px] font-bold" onClick={() => setModal(false)}>Cancel</button>
-                    {
-                        loading ? 
-                        <button className="bg-[#2D3934] text-white px-3 py-3 rounded-[8px] text-[14px] font-bold">
-                            <img src="./images/loader.gif" className='w-[30px] mx-auto' alt="" />
-                        </button>
-                        :
-                        <button className="bg-[#2D3934] text-white px-3 py-3 rounded-[8px] text-[14px] font-bold" onClick={addCategory}>Create Category</button>
-                    }
-                    
-                </div>
-            </div>
-        </>
-      }
     {
         msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
     }

@@ -80,7 +80,7 @@ const RegisterOrgs = ({baseUrl}) => {
       }
 
       const raw = {
-        email,
+        email: email.trim(),
         phone,
         bizType,
         yearOfEstablishment,
@@ -94,7 +94,7 @@ const RegisterOrgs = ({baseUrl}) => {
       };
 
       const handleSignUp = async () => {
-        console.log(JSON.stringify(raw));
+        console.log(raw);
         if(!email || !yearOfEstablishment || !nameOfEstablishment || !phone || !businessAddress || !nameOfProprietor || !cacImageId || !opLicenceImageId){
           setMsg("Please fill in all fields");
           setAlertType('error')

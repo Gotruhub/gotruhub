@@ -83,6 +83,7 @@ import PaymentSuccessfull from './pages/payment-successful/PaymentSuccessfull'
 import AssignmenntLocation from './pages/assignment-location/AssignmenntLocation'
 import AddAssignmentLocation from './pages/add-assignnment-location/AddAssignmentLocation'
 import EditAssignmentLocation from './pages/edit-assignment-location/EditAssignmentLocation'
+import Category from './pages/category/Category'
 
 function App() {
 
@@ -171,6 +172,7 @@ function App() {
             <Route path ="/assignment-location" element={<AssignmenntLocation baseUrl={baseUrl}/>} />
             <Route path ="/add-assignment-location" element={<AddAssignmentLocation baseUrl={baseUrl}/>} />
             <Route path ="/edit-assignment-location/:id" element={<EditAssignmentLocation baseUrl={baseUrl}/>} />
+            <Route path ="/categories" element={<Category baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
