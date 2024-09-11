@@ -81,7 +81,7 @@ const RegisterPersonalBiz = ({baseUrl}) => {
         }
 
     const raw = {
-        email,
+        email: email.trim(),
         phone,
         bizType,
         yearOfEstablishment,
