@@ -118,7 +118,7 @@ const Inventory = ({baseUrl}) => {
                           <p className='text-[#19201D] mb-1'>Sub-unit coordinator</p>
                           <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                               <input type="text" value={selectedStaff?.fullName} placeholder='Select coordinator' className='outline-none rounded-[4px] bg-transparent w-full'/>
-                              <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'co-ordinator' ? false : "co-ordinator")}/>
+                              <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'co-ordinator' ? false : "co-ordinator")}/>
                           </div>
                           {dropDown === 'co-ordinator' &&
                               <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>

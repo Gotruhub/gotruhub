@@ -209,7 +209,7 @@ const Wallet = ({baseUrl}) => {
           </div> */}
           <div class="relative overflow-x-auto mx-5 mt-10 shadow-lg border p-8 rounded-[10px]">
             <div className='mb-4'>
-              <p className='tect-[#19201D]'>Order QR Sale</p>
+              <p className='tect-[#19201D]'>Withdrawal Requests</p>
             </div>
             {
               isLoading &&

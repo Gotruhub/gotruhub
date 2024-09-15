@@ -24,7 +24,7 @@ const SummaryBar = ({ label, percentage, color }) => (
 
 const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
 
-  console.log(currentUser);
+  console.log(passSummary);
 
     Chart.register(CategoryScale);
 
@@ -243,12 +243,12 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                     </div>
                     <div className="flex items-center">
                         <div className="w-6 h-6 rounded-[5px] bg-[#FFDB58] mr-2"></div>
-                        <span>Other</span>
+                        <span>Authorize</span>
                     </div>
-                    {/* <div className="flex items-center">
+                    <div className="flex items-center">
                         <div className="w-6 h-6 rounded-[5px] bg-[#967BB6] mr-2"></div>
                         <span>Signature</span>
-                    </div> */}
+                    </div>
                 </div>
             </div>
             <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>

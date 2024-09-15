@@ -150,6 +150,7 @@ const RegisterPersonalBiz = ({baseUrl}) => {
                           onChange={(e) => bizType === "Others" && setCustomBizType(e.target.value)} // Update customBizType when typing
                         />
                         <IoChevronDownOutline
+                          color="black"
                           className='cursor-pointer'
                           onClick={() => setDropDown(!dropDown)}
                         />

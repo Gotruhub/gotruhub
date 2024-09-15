@@ -236,7 +236,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                             <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'sub-units' ? false : "sub-units")}>
                                 <input type="text" value={subUnit} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{subUnitText}</p>
-                                <IoChevronDownOutline color="d7d7d7"/>
+                                <IoChevronDownOutline color="black"/>
                             </div>
                             {dropDown === 'sub-units' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -260,7 +260,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                             <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'session' ? false : "session")}>
                                 <input type="text" value={selectedSession._id} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{selectedSession?.name}</p>
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer' />
+                                <IoChevronDownOutline color="black" cursor='pointer' />
                             </div>
                             {dropDown === 'session' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -291,7 +291,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                             <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] cursor-pointer' onClick={() => setDropDown(dropDown === 'semester' ? false : "semester")}>
                                 <input type="text" value={selectedSemester._id} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{selectedSemester?.name}</p>
-                                <IoChevronDownOutline color="d7d7d7" cursor='pointer'/>
+                                <IoChevronDownOutline color="black" cursor='pointer'/>
                             </div>
                             {dropDown === 'semester' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -310,8 +310,8 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                         allSemesters?.length === 0 &&
                                         <div className='flex items-center justify-center pt-10 text-center flex-col gap-2 text-gray-500 text-[14px]'>
                                             <p>You have no semester created yet, please create one</p>
-                                            <p>Note: A session should exist before creating a semester</p>
-                                            <button onClick={() => navigate('/calendar')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Semester</button>
+                                            <p>Note: A session should exist before creating a semester/term</p>
+                                            <button onClick={() => navigate('/calendar')} className='text-white bg-primary-color w-1/2 rounded-[4px] mt-[.5rem] px-[15px] py-[8px] text-center mx-auto'>Create Semester/Term</button>
                                         </div>
                                     }
                                 </div>
@@ -330,7 +330,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                                     ) : (
                                     <p>No assignments selected.</p>
                                 )}
-                                <IoChevronDownOutline color="d7d7d7" onClick={getAllAssignments} cursor='pointer' />
+                                <IoChevronDownOutline color="black" onClick={getAllAssignments} cursor='pointer' />
                             </div>
                             {dropDown === 'assignments' &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll top-[-210px] border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>

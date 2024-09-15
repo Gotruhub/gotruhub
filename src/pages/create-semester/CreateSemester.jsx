@@ -118,7 +118,7 @@ const CreateSemester = ({baseUrl}) => {
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
                         <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/calendar')} className='cursor-pointer' />
-                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Create Semester</p>
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Create Semester/Term</p>
                     </div>
                 </div>
                 <div className="flex items-center flex-col justify-center gap-5 px-5 max-w-[500px] mx-auto">
@@ -169,7 +169,7 @@ const CreateSemester = ({baseUrl}) => {
                         loading ? 
                         <BtnLoader bgColor="#191f1c"/>
                         :
-                    <button onClick={createSemester} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>Create Semester</button>
+                    <button onClick={createSemester} className='text-white bg-primary-color w-full rounded-[4px] mt-[.5rem] px-[35px] py-[16px] text-center mx-auto'>Create Semester/Term</button>
                     }
                 </div>
             </div>

@@ -229,7 +229,7 @@ const ProfileEdit = ({baseUrl}) => {
                         <label className='block text-left mb-2'>Unit.</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
                             <input type="text" value={selectedUnit?.name} className='outline-none w-full rounded-[4px]'/>
-                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "unit" ? false : 'unit') } />
+                            <IoChevronDownOutline color="black" className='cursor-pointer' onClick={() => setDropDown(dropDown === "unit" ? false : 'unit') } />
                         </div>
                         {
                             dropDown === "unit" &&
@@ -253,7 +253,7 @@ const ProfileEdit = ({baseUrl}) => {
                         <label className='block text-left mb-2'>Sub-unit..</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
                             <input type="text" value={selectedSubUnit?.name} className='outline-none w-full rounded-[4px]'/>
-                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'subUnit' ? false : 'subUnit')} />
+                            <IoChevronDownOutline color="black" className='cursor-pointer' onClick={() => setDropDown(dropDown === 'subUnit' ? false : 'subUnit')} />
                         </div>
                         {
                             dropDown === "subUnit" &&

@@ -208,7 +208,7 @@ const NewProduct = ({baseUrl}) => {
                                     <p className='text-[#19201D] mb-1'>Category</p>
                                     <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                         <input type="text" placeholder='Select category' value={selectedCategory?.name} className='outline-none rounded-[4px] bg-transparent w-full'/>
-                                        <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'category' ? false : "category")}/>
+                                        <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'category' ? false : "category")}/>
                                     </div>
                                     {
                                         dropDown === 'category' &&
@@ -284,7 +284,7 @@ const NewProduct = ({baseUrl}) => {
                                     ) : (
                                         <p>No color selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'color' ? false : 'color' )}/>
+                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'color' ? false : 'color' )}/>
                                 </div>
                                 {dropDown === 'color' && (
                                     <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -324,7 +324,7 @@ const NewProduct = ({baseUrl}) => {
                                         ) : (
                                         <p>No size selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'size' ? false : 'size' )}/>
+                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'size' ? false : 'size' )}/>
                                 </div>
                                 {
                                     dropDown === 'size' &&
@@ -358,7 +358,7 @@ const NewProduct = ({baseUrl}) => {
                                         ) : (
                                         <p>No flavor selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setDropDown(dropDown === 'flavor' ? false : 'flavor' )}/>
+                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'flavor' ? false : 'flavor' )}/>
                                 </div>
                                 {
                                     dropDown === 'flavor' &&
