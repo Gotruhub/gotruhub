@@ -51,7 +51,8 @@ const Home = () => {
                         <img src="./trade_img.svg" className='max-w-[100%]' alt="" />
                         <div className='g:w-[50%] w-[90%]'>
                             <p className='text-[32px] font-[500] mb-3'>Gotru Trade</p>
-                            <p className='text-[#6F7975]'>With our ready to use inventory and ledger management systems, sales and payment management is seamless and can be done without cash. It is most suitable for cooperative trading.</p>
+                            <p className='text-[#6F7975]'>This is a cooperative trading feature designed to raise capital for stocking through crowd funding. It has a digitalized  User-friendly Inventory Managemen System (IMS) for Organization's stores, mobile money for purchases by way of personal wallet provisions. It as well ensures proper sales accounting and detailed records of all transactions. 
+                            Gotrutrade is so designed that benefactors can monitor fund availability to beneficiaries and check reckless spending through proper interface. This feature will bring everyone involved up to speed with the prevailing technology.</p>
                             <div className=''>
                                 <button onClick={() => navigate('/register')} className='text-white bg-primary-color rounded-[8px] mt-[2.5rem] px-[35px] py-[16px] text-center'>Get Started</button>
                             </div>
@@ -64,7 +65,7 @@ const Home = () => {
                         <img src="./images/go-tru-pass.svg" className='max-w-[100%]' alt="" />
                         <div className='g:w-[50%] w-[90%]'>
                             <p className='text-[32px] font-[500] mb-3'>Gotru Pass</p>
-                            <p className='text-[#6F7975]'>With this feature, schools/corporate organizations captures resumption you and exit times of students/members of staff in real time, it also sends automatic and instant notifications to parent's/Management's contacts at each capture.</p>
+                            <p className='text-[#6F7975]'>This is a security feature that keeps track of members of staff, students or workers  movement with a Digitalized Gate Pass capturing system. It also does empirical investigation of identities and as well keeps detailed records of attendance and exit in real time. It gives intelligent and instructive alerts both on and offline to supervisors and guardians on the state of the members location (wether safe or suspicious) with the aid of GPS. In addition  it keeps proper account of who is in custody of minors - between Organizations and guardians. Its promptness, accuracy and incorruptible reportage helps minimize security risks, curtails truancy among students and  members of staff. Gotrupass not only keeps record of all the above but also evaluates them overtime.</p>
                             <div className=''>
                                 <button onClick={() => navigate('/register')} className='text-white bg-primary-color rounded-[8px] mt-[2.5rem] px-[35px] py-[16px] text-center'>Get Started</button>
                             </div>
@@ -90,7 +91,9 @@ const Home = () => {
                         <img src="./trade_img.svg" className='max-w-[100%]' alt="" />
                         <div className='g:w-[50%] w-[90%]'>
                             <p className='text-[32px] font-[500] mb-3'>Gotru Monitor</p>
-                            <p className='text-[#6F7975]'>This feature captures resumption and exit times to distinct assignments in real time. With this, promptness and due diligence to duty will be enshrined.</p>
+                            <p className='text-[#6F7975]'>This feature is a carefully designed structure that ensures daily tasks are defined, sectionalized, structured and timed for effective digital monitoring and evaluation. It has two ends: Monitor-Source and Monitor-End.</p>
+                            <p className='text-[#6F7975] my-3'>Monitor-source is designed for staff administration, steming from Man-power requirements and assessment to Man-hour assessment based on the established foundation mentioned above. This App takes record of task attendance promptness, ensures time use optimization,  nips to bud dereliction of duties and ensures due diligence in discharge of duties.</p>
+                            <p className='text-[#6F7975]'>Monitor-end  is programmed for service receivers like students. Relying on the structure mentioned in paragraph one above, it ensures students comply with academic responsibilities aimed at controlling truancy. Like Source, it takes record of attendance to classes through Digital Capturing with the aid of GPS and other technologies. Equally, it ensures there is no foul play and reveals any attempt to manipulate the system to the management and guardians. Over time, it evaluates and displays attendance rating to interested parties.</p>
                             <div className=''>
                                 <button onClick={() => navigate('/register')} className='text-white bg-primary-color rounded-[8px] mt-[2.5rem] px-[35px] py-[16px] text-center'>Get Started</button>
                             </div>

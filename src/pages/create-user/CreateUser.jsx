@@ -416,7 +416,7 @@ const CreateUser = ({baseUrl}) => {
                     'Content-Type':'application/json',
                     Authorization:`Bearer ${user.data.access_token}`
                 },
-                body:JSON.stringify({ fullName, profileImage, role:userType, piviotUnit, subUnit, regNum, guardians:guardian?._id })
+                body:JSON.stringify({ fullName, email:"frankstu@gmail.com", profileImage, role:userType, piviotUnit, subUnit, regNum, guardians:guardian?._id })
             })
             const data = await res.json()
             if(res) setIsLoading(false)

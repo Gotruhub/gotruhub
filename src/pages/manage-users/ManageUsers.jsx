@@ -23,7 +23,7 @@ const ManageUsers = ({baseUrl}) => {
   },[])
 
   async function getAllUsers(){
-    const res = await fetch(`${baseUrl}/users/get-users/role`,{
+    const res = await fetch(`${baseUrl}/users/get-users/role?page=6`,{
         headers:{
             'Content-Type':'application/json',
             Authorization:`Bearer ${user.data.access_token}`
