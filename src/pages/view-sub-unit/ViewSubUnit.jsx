@@ -3,6 +3,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import Alert from '../../components/alert/Alert'
+import { LuListTodo } from 'react-icons/lu'
 
 const ViewSubUnit = ({baseUrl}) => {
 
@@ -11,7 +12,7 @@ const ViewSubUnit = ({baseUrl}) => {
     const user = JSON.parse(localStorage.getItem('user'))
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
-    const [unitName, setUnitName] = useState('')
+    const [subUnitCourses, setSubUnitCourses] = useState('')
     const [toggleNav, setToggleNav] = useState(false)
     const [subUnitInfo, setSubUnitInfo] = useState()
     const [subUnitStats, setSubUnitStats] = useState()
@@ -61,10 +62,10 @@ const ViewSubUnit = ({baseUrl}) => {
         }
     }
 
-    async function getSubUnitCourses(unitId){
-        console.log(`${baseUrl}/sub-unit/course/single/${id}`);
+    async function getSubUnitCourses(){
+        console.log(`${baseUrl}/sub-unit/course/paid/${id}`);
         
-        const res = await fetch(`${baseUrl}/sub-unit/course/single/${id}`,{
+        const res = await fetch(`${baseUrl}/sub-unit/course/paid/${id}`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
@@ -78,7 +79,7 @@ const ViewSubUnit = ({baseUrl}) => {
             return;
         }
         if(res.ok){
-            // setSubUnitCourses(data?.data)
+            setSubUnitCourses(data?.data)
             return;
         }
     }
@@ -161,66 +162,40 @@ const ViewSubUnit = ({baseUrl}) => {
                     </div>
                 </div>
 
-                    {/* <div class="relative overflow-x-auto mx-5 mt-10">
+                    <div class="relative overflow-x-auto lg:m-[30px] m-[10px]">
                         <div className='flex items-center justify-between mb-2'>
-                            <div className='flex items-center gap-2 text-[18px]'>
+                            <div className='flex items-center gap-2 text-[18px] mb-5'>
                                 <LuListTodo />
-                                <p className='text-[#1D1D1D] font-[600]'>List of Assignees</p>
+                                <p className='text-[#1D1D1D] font-[600]'>List of Assignments</p>
                             </div>
-                            <p className='text-[#828282] font-[600]'>Total - {allSubUnits?.length}</p>
+                            <p className='text-[#828282] font-[600]'>Total - {subUnitCourses?.length}</p>
                         </div>
                         <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
                             <thead class="text-[14px] border-b">
                                 <tr>
                                     <th scope="col" class="py-3 th1 font-[700]">S/N</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignment</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignee 1</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignee 2</th>
-                                    <th scope="col" class="py-3 font-[700]">Members</th>
-                                    <th scope="col" class="py-3 font-[700]">Avg. duration</th>
+                                    <th scope="col" class="py-3 font-[700]">Assignment Code</th>
+                                    <th scope="col" class="py-3 font-[700]">Assignment Name</th>
+                                    <th scope="col" class="py-3 font-[700]">Date Added</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    allSubUnits && allSubUnits?.map((item, index) => {
+                                    subUnitCourses && subUnitCourses?.map((item, index) => {
 
                                         return (
                                             <tr className='relative'>
                                                 <td className='py-3'>{index + 1}</td>
-                                                <td>{item?.name}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td> <BsThreeDotsVertical  className="cursor-pointer" onClick={() => setSubUnitId(item._id)}/> </td>
-
-                                                {subUnitId === item._id &&
-                                                    <div className='z-[1] absolute right-[110px] w-[200px] top-0 py-3 bg-white border rounded-[10px]'>
-                                                        <div className='my-2 mr-4 flex justify-end'>
-                                                            <MdOutlineClose className='text-lg cursor-pointer mt-[-5px]' onClick={() => setSubUnitId('')} />
-                                                        </div>
-                                                        <div className='flex flex-col'>
-                                                            <div onClick={() => navigate(`/view-sub-unit/${item._id}`)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                                <LuListTodo />
-                                                                <p>View sub-unit</p>
-                                                            </div>
-                                                            <div className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                                <LuListTodo />
-                                                                <p>Edit time-table</p>
-                                                            </div>
-                                                            <div onClick={() => setDeleteSubUnit(item._id)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                                <LuListTodo />
-                                                                <p>Delete sub-unit</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
+                                                <td>{item?.course?.name}</td>
+                                                <td>{item?.course?.courseCode}</td>
+                                                <td>{ new Date(item?.createdAt).toDateString() }</td>
                                             </tr>
                                         )
                                     })
                                 }
                             </tbody>
                         </table>
-                    </div> */}
+                    </div>
 
                 {/* <div className='px-[30px]'>
                     <p className='text-[#19201D] text-[18px] font-[600] mb-3'>All Sub-units</p>
