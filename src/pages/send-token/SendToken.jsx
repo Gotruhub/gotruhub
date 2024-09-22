@@ -95,7 +95,7 @@ const SendToken = ({baseUrl}) => {
         setSendTokenModal(false)
         setAlertTitle('Successfull')
         setAlertType('success')
-        setMsg('The tokens have been successfully sent to the selected members. This process may take about 48 hours to show up in their registered email address.')
+        setMsg('The token(s) have been successfully sent to the selected members. This process may take about 48 hours to show up in their registered email address.')
       }else{
         setMsg(data.message)
         setSendTokenModal(false)
@@ -145,7 +145,12 @@ const SendToken = ({baseUrl}) => {
                       className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => {
                         setAlertTitle('Confirm')
                         setAlertType('success')
-                        setSendTokenModal(`By clicking the confirm button, ${selectedGuardians.length} token(s) will be sent to the selected members email.`)
+                        const totalQuantity = selectedGuardians.reduce(
+                          (acc, member) => acc + member.quantity,
+                          0
+                        );
+
+                        setSendTokenModal(`By clicking the confirm button, ${totalQuantity} token(s) will be sent to the selected members email.`)
                     }}>Send Token
                     </button>
                 </div>

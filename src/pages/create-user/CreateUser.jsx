@@ -436,8 +436,8 @@ const CreateUser = ({baseUrl}) => {
 
     async function handleGuardianCreate(){
         console.log({fullName, profileImage:guardians, children, relationImage, role:userType, signature, email, regNum});
-        if(!fullName || !email || !guardians || !userType){
-            setMsg("All fields are required");
+        if(!fullName || !email || !guardians || !userType || !relationImage || !signature || !guardians){
+            setMsg("All fields are required, please also upload all necessary files, documents or images.");
             setAlertType('error')
             setAlertTitle('Failed')
             return;
