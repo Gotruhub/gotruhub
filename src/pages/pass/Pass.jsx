@@ -25,7 +25,7 @@ const Pass = ({baseUrl}) => {
         })
         const data = await res.json()
         setPassHistory(data.data)
-        console.log(data.data[1]);
+        console.log(data.data);
     }
 
     useEffect(() => {
@@ -86,7 +86,7 @@ const Pass = ({baseUrl}) => {
                         </thead>
                         <tbody>
                         {
-                            passHistory && passHistory?.map((item, index) => {
+                            passHistory && passHistory?.history?.map((item, index) => {
                                 const formattedTime = new Date(item?.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
                                 return (
@@ -96,7 +96,7 @@ const Pass = ({baseUrl}) => {
                                             <img src={item?.user?.profileImage?.file} className='w-[30px]' alt="" />
                                             <p>{item?.user?.fullName}</p>
                                         </td>
-                                        <td className='px-6'>{item.user.role}</td>
+                                        <td className='px-6'>{item?.user?.role}</td>
                                         <td className='text-[#25751E] underline px-6'>{item?.coordinate[0]}, {item?.coordinate[1]}</td>
                                         <td className='px-6'>{formattedTime}</td>
                                         <td className='px-6'>
