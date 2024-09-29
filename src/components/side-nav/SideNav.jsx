@@ -119,6 +119,10 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   <IoBookSharp />
                   <p className={ location.pathname.includes("assignment") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Assignments</p>
                 </div>
+                <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/grading-system')}>
+                  <BiLocationPlus />
+                  <p className={ location.pathname.includes("/grading-system") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Grading System</p>
+                </div>
                 <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/assignment-location')}>
                   <BiLocationPlus />
                   <p className={ location.pathname.includes("/schedule-location") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Add Location</p>

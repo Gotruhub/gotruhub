@@ -84,6 +84,7 @@ import AssignmenntLocation from './pages/assignment-location/AssignmenntLocation
 import AddAssignmentLocation from './pages/add-assignnment-location/AddAssignmentLocation'
 import EditAssignmentLocation from './pages/edit-assignment-location/EditAssignmentLocation'
 import Category from './pages/category/Category'
+import GradingSystem from './pages/grading-system/GradingSystem'
 
 function App() {
 
@@ -145,7 +146,7 @@ function App() {
             <Route path='/orgz-profile' element={<OrgzProfile baseUrl={baseUrl}/>} />
             <Route path='/attendance-summary/:id' element={<AttendanceSummary baseUrl={baseUrl}/>} />
             <Route path='/summary' element={<Summary baseUrl={baseUrl}/>} />
-            <Route path='/grading' element={<Grading baseUrl={baseUrl}/>} />
+            <Route path='/grading-system' element={<GradingSystem baseUrl={baseUrl}/>} />
             <Route path='/co-ordinator/:id' element={<CoOrdinator baseUrl={baseUrl}/>} />
             <Route path='/view-assignment-summary' element={<UnitAssignmentSummary baseUrl={baseUrl}/>} />
             <Route path='/staff/:id' element={<EditStaff baseUrl={baseUrl}/>} />

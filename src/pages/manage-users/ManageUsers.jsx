@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import SideNav from '../../components/side-nav/SideNav';
 import TopNav from '../../components/top-nav/TopNav';
 import { BiChevronDown } from 'react-icons/bi';
@@ -12,25 +12,29 @@ const ManageUsers = ({baseUrl}) => {
   const user = JSON.parse(localStorage.getItem('user'))
   const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams();
   const [toggleNav, setToggleNav] = useState(false)
   const [deleteUser, setDeleteUser] = useState(false)
   const [loading, setLoading] = useState(false)
   const [msg, setMsg] = useState('')
   const [alertType, setAlertType] = useState('')
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || 1)); // Get the current page from the URL query params
 
   useEffect(() => {
-    getAllUsers()
-  },[])
+    getAllUsers(currentPage);
+  }, [currentPage, searchParams]);
 
-  async function getAllUsers(){
-    const res = await fetch(`${baseUrl}/users/get-users/role`,{
+  async function getAllUsers(page){
+    console.log(`${baseUrl}/users/get-users/role?page=${page}`);
+    
+    const res = await fetch(`${baseUrl}/users/get-users/role?page=${page}`,{
         headers:{
             'Content-Type':'application/json',
             Authorization:`Bearer ${user.data.access_token}`
         }
     })
     const data = await res.json()
-    console.log(data.data);
+    console.log(data);
     setAllUsers(data.data.users)
   }
 
@@ -82,6 +86,21 @@ const ManageUsers = ({baseUrl}) => {
     setDeleteUser(false)
     getAllUsers()
   }
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+      setCurrentPage(prevPage); // Update the currentPage state
+      setSearchParams({ page: prevPage }); // Update the URL query param
+    }
+  };
+  
+  const handleNextPage = () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage); // Update the currentPage state
+    setSearchParams({ page: nextPage }); // Update the URL query param
+  };
+  
 
 
   return (
@@ -168,6 +187,21 @@ const ManageUsers = ({baseUrl}) => {
                       }
                   </tbody>
               </table>
+                        {/* Pagination Buttons */}
+              <div className="flex justify-end gap-5 p-6 items-center mt-5">
+                <button
+                  onClick={handlePreviousPage}
+                  className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={handleNextPage}
+                  className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'
+                >
+                  Next
+                </button>
+              </div>
               {/* <ReactPaginate
                   previousLabel={'Prev'}
                   nextLabel = {'Next'}
