@@ -97,7 +97,7 @@ const Pass = ({baseUrl}) => {
                                             <p>{item?.user?.fullName}</p>
                                         </td>
                                         <td className='px-6'>{item?.user?.role}</td>
-                                        <td className='text-[#25751E] underline px-6'>{item?.coordinate[0]}, {item?.coordinate[1]}</td>
+                                        <td className='text-[#25751E] underline px-6'>{item?.coordinate?.lat}, {item?.coordinate?.long}</td>
                                         <td className='px-6'>{formattedTime}</td>
                                         <td className='px-6'>
                                             <p className={item?.actionType === "sign-out" ? 'text-[#255e9a] py-1 px-2 rounded-[3px] bg-[#25589a66] inline':'text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'}>{item?.actionType}</p>
