@@ -188,7 +188,7 @@ const Dashboard = ({ baseUrl }) => {
                 <p className="text-[#4F4F4F] text-[14px] font-[500]">Recent Activities</p>
                 <p className="text-[#828282] text-[14px] mt-7 mb-1 font-[500]">Today</p>
                 {
-                  passHistory?.map((item, index) => {
+                  passHistory && passHistory?.history?.map((item, index) => {
                     const formattedTime = new Date(item?.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
                     return (
@@ -201,7 +201,7 @@ const Dashboard = ({ baseUrl }) => {
                           <div>
                             <p className={item?.actionType === "sign-out" ? 'text-[#255e9a] py-1 px-2 rounded-[3px] bg-[#25589a66] inline':'text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'}>{item?.actionType}</p>
                           </div>
-                          <div className='text-[#25751E] underline'>{item?.coordinate[0]}, {item?.coordinate[1]}</div>
+                          <div className='text-[#25751E] underline'>{item?.coordinate?.lat}, {item?.coordinate?.long}</div>
                           <div className="text-[#4F4F4F]">{formattedTime}</div>
                         </div>
                         <div className="flex item-center justify-between">
