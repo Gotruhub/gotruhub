@@ -3,7 +3,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { CiFilter } from 'react-icons/ci'
 import { GoChevronDown } from 'react-icons/go'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { TbCurrencyNaira } from 'react-icons/tb'
 
 const Orders = ({baseUrl}) => {
@@ -16,9 +16,11 @@ const Orders = ({baseUrl}) => {
     const filterArray = ['All', "Admin sales", "Admin Purchases"]
     const user = JSON.parse(localStorage.getItem('user'))
     const [toggleNav, setToggleNav] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || 1)); // Get the current page from the URL query params
 
-    async function getAllOrders(){
-        const res = await fetch(`${baseUrl}/trade/admin/orders`,{
+    async function getAllOrders(page){
+        const res = await fetch(`${baseUrl}/trade/admin/orders?page=${page}`,{
             headers:{
                 Authorization:`Bearer ${user.data.access_token}`
             }
@@ -29,8 +31,22 @@ const Orders = ({baseUrl}) => {
     }
 
     useEffect(() => {
-        getAllOrders()
-    },[])
+        getAllOrders(currentPage);
+    }, [currentPage, searchParams])
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+          const prevPage = currentPage - 1;
+          setCurrentPage(prevPage); // Update the currentPage state
+          setSearchParams({ page: prevPage }); // Update the URL query param
+        }
+    };
+      
+      const handleNextPage = () => {
+        const nextPage = currentPage + 1;
+        setCurrentPage(nextPage); // Update the currentPage state
+        setSearchParams({ page: nextPage }); // Update the URL query param
+    };
 
 
   return (
@@ -97,6 +113,14 @@ const Orders = ({baseUrl}) => {
                         msg && <p className='text-[#9A2525] text-center'>{msg}</p>
                     } */}
                 </div>
+                <div className="flex justify-end gap-5 p-6 items-center mt-5">
+                    <button onClick={handlePreviousPage} className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>
+                        Previous
+                    </button>
+                    <button onClick={handleNextPage} className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>
+                        Next
+                    </button>
+              </div>
             </div>
         </div>
     </div>
