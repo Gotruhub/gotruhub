@@ -136,7 +136,7 @@ const Dashboard = ({ baseUrl }) => {
               </div>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 bg-white px-5 py-5 rounded-[12px]">
-              <div className="border-r pr-5">
+              <div className="border-r md:md:pr-5 pr-1">
                 <div className="flex items-center justify-between mb-5">
                   <p className="text-[#4F4F4F]">Students</p>
                   <div className="bg-[#3EB7B7] p-2 text-white rounded-full">
@@ -149,7 +149,7 @@ const Dashboard = ({ baseUrl }) => {
                   <p className="text-[#25751E] text-[12px]">+15% this week</p>
                 </div> */}
               </div>
-              <div className="lg:border-r pr-5">
+              <div className="lg:border-r md:pr-5">
                 <div className="flex items-center justify-between mb-5">
                   <p className="text-[#4F4F4F]">Guardian</p>
                   <img src="./images/members.svg" alt="" />
@@ -160,7 +160,7 @@ const Dashboard = ({ baseUrl }) => {
                   <p className="text-[#9A2525] text-[12px]">-15% this week</p>
                 </div> */}
               </div>
-              <div className="border-r pr-5">
+              <div className="border-r md:pr-5 pr-1">
                 <div className="flex items-center justify-between mb-5">
                   <p className="text-[#4F4F4F]">Staff</p>
                   <img src="./images/members.svg" alt="" />
@@ -201,7 +201,10 @@ const Dashboard = ({ baseUrl }) => {
                           <div>
                             <p className={item?.actionType === "sign-out" ? 'text-[#255e9a] py-1 px-2 rounded-[3px] bg-[#25589a66] inline':'text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'}>{item?.actionType}</p>
                           </div>
-                          <div className='text-[#25751E] underline'>{item?.coordinate?.lat}, {item?.coordinate?.long}</div>
+                          <div className='text-[#25751E] flex items-center gap-2'>
+                            <p>{Number(item?.coordinate?.lat).toFixed(4)},</p>
+                            <p>{Number(item?.coordinate?.long).toFixed(4)}</p>
+                          </div>
                           <div className="text-[#4F4F4F]">{formattedTime}</div>
                         </div>
                         <div className="flex item-center justify-between">

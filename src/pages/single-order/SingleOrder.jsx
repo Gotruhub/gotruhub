@@ -45,7 +45,7 @@ const SingleOrder = ({baseUrl}) => {
                         </div>
                     </div>
                 </div>
-                <div class="relative overflow-x-auto mx-5 p-8 flex flex-col justify-center items-center gap-3">
+                <div class="relative overflow-x-auto py-8 px-4 md:px-8 flex flex-col justify-center items-center gap-3">
                     <div className='flex items-center justify-center flex-col'>
                         <p className='text-[#4F4F4F] font-[600] text-[24px]'>{order?.user?.fullName}</p>
                         <p className='text-[#757575] mb-2 capitalize'>{order?.user?.role} - {order?.user?.subUnit?.name}</p>
@@ -71,7 +71,7 @@ const SingleOrder = ({baseUrl}) => {
                             </div>
                         </div>
                     </div> */}
-                    <div className='w-[400px] mt-5 pb-5'>
+                    <div className='md:w-[400px] w-[95%] mt-5 pb-5'>
                         <div className='flex items-center justify-between text-[#828282] mb-2'>
                             <div className='flex items-center gap-6'>
                                 <p>S/N</p>

@@ -99,7 +99,7 @@ const Orders = ({baseUrl}) => {
 
                             return(
                                 <div className='bg-[#F7F7F7] flex  items-center justify-between px-5 py-3 rounded-[8px] text-[12px] text-[#4F4F4F]'>
-                                    <p className='font-[600] text-black'>#{index + 1}</p>
+                                    <p className='font-[600] text-black'>{index + 1}</p>
                                     <p className='text-[#333] flex items-center'><TbCurrencyNaira className="text-[16px]"/>{order.totalAmount}</p>
                                     <p>{order?.attendant?.fullName} - {order?.attendant?.role}</p>
                                     <p className='text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize'>{order.status}</p>

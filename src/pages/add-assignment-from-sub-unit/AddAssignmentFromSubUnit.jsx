@@ -267,7 +267,7 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
                         </div>
 
                         <div className='relative w-full mb-5'>
-                            <p className='text-[#19201D]'>Select semester</p>
+                            <p className='text-[#19201D]'>Select semester / Term</p>
                             <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                 <input type="text" value={selectedSemester._id} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                                 <p className='text-[14px]'>{selectedSemester?.name}</p>

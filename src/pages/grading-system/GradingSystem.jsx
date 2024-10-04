@@ -134,7 +134,7 @@ const GradingSystem = ({baseUrl}) => {
                             <header className="mb-4 flex sm:items-center justify-between flex-col sm:flex-row gap-2">
                                 <h1 className="text-[##19201D]">Configure grading system</h1>
                                 <div className='flex bg-[#F2FCF8] px-2 py-2 rounded-full items-center gap-3'>
-                                    <p className='bg-[#2C3933] text-[white] rounded-full py-2 px-4 cursor-pointer' onClick={() => setMonitorType('monitorSource')} >Asignee</p>
+                                    <p className='bg-[#2C3933] text-[white] rounded-full py-2 px-4 cursor-pointer' onClick={() => setMonitorType('monitorSource')} >Staff</p>
                                     <p className='pr-2 cursor-pointer' onClick={() => setMonitorType('monitorEnd')} >Member</p>
                                 </div>
                             </header>
@@ -176,7 +176,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -195,7 +195,7 @@ const GradingSystem = ({baseUrl}) => {
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
+                                                    <span className="text-gray-400 ml-2">%</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -207,7 +207,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -222,11 +222,11 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full text-center outline-none"
+                                                        className="w-full text-start outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
+                                                    <span className="text-gray-400 ml-2">%</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,7 +238,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -253,11 +253,11 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full text-center outline-none"
+                                                        className="w-full text-start outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
+                                                    <span className="text-gray-400 ml-2">%</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,7 +285,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -301,7 +301,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -317,7 +317,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -339,7 +339,7 @@ const GradingSystem = ({baseUrl}) => {
                             <header className="mb-4 flex sm:items-center justify-between flex-col sm:flex-row gap-2">
                                 <h1 className="text-[##19201D]">Configure grading system</h1>
                                 <div className='flex bg-[#F2FCF8] px-2 py-2 rounded-full items-center gap-3'>
-                                    <p className='pl-2 cursor-pointer' onClick={() => setMonitorType('monitorSource')} >Asignee</p>
+                                    <p className='pl-2 cursor-pointer' onClick={() => setMonitorType('monitorSource')} >Staff</p>
                                     <p className='bg-[#2C3933] text-[white] rounded-full py-2 px-4 cursor-pointer' onClick={() => setMonitorType('monitorEnd')} >Member</p>
                                 </div>
                             </header>
@@ -381,7 +381,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -400,40 +400,7 @@ const GradingSystem = ({baseUrl}) => {
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
-                                                </div>
-                                                {/* <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" /> */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start justify-between py-4 rounded-md">
-                                    {/* Title Section */}
-                                        <div className="flex items-center gap-3 w-full">
-                                            <div>
-                                                <h4 className="text-sm font-medium text-gray-900">On Time</h4>
-                                                <div className="flex items-center border px-3 py-2 rounded-md w-full">
-                                                    <input
-                                                        type="number"
-                                                        className="w-full px-2 outline-none"
-                                                        value={earlyMins}
-                                                        onChange={(e) => setEarlyMins(e.target.value)}
-                                                    />
-                                                    <span className="text-gray-400 pl-2 border-l">Mins</span>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className='flex items-center justify-between'>
-                                                    <h4 className="text-sm font-medium text-gray-900">Value</h4>
-                                                    <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" />
-                                                </div>
-                                                <div className="flex items-center border px-3 py-2 rounded-md w-full">
-                                                    <input
-                                                        type="number"
-                                                        className="w-full text-center outline-none"
-                                                        value={earlyMins}
-                                                        onChange={(e) => setEarlyMins(e.target.value)}
-                                                    />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
+                                                    <span className="text-gray-400 ml-2">%</span>
                                                 </div>
                                                 {/* <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" /> */}
                                             </div>
@@ -447,7 +414,7 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full px-2 outline-none"
+                                                        className="w-full outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
@@ -462,11 +429,44 @@ const GradingSystem = ({baseUrl}) => {
                                                 <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                                     <input
                                                         type="number"
-                                                        className="w-full text-center outline-none"
+                                                        className="w-full text-start outline-none"
                                                         value={earlyMins}
                                                         onChange={(e) => setEarlyMins(e.target.value)}
                                                     />
-                                                    <span className="text-gray-400 ml-2">Mins</span>
+                                                    <span className="text-gray-400 ml-2">%</span>
+                                                </div>
+                                                {/* <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" /> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start justify-between py-4 rounded-md">
+                                    {/* Title Section */}
+                                        <div className="flex items-center gap-3 w-full">
+                                            <div>
+                                                <h4 className="text-sm font-medium text-gray-900">Late</h4>
+                                                <div className="flex items-center border px-3 py-2 rounded-md w-full">
+                                                    <input
+                                                        type="number"
+                                                        className="w-full outline-none"
+                                                        value={earlyMins}
+                                                        onChange={(e) => setEarlyMins(e.target.value)}
+                                                    />
+                                                    <span className="text-gray-400 pl-2 border-l">Mins</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className='flex items-center justify-between'>
+                                                    <h4 className="text-sm font-medium text-gray-900">Value</h4>
+                                                    <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" />
+                                                </div>
+                                                <div className="flex items-center border px-3 py-2 rounded-md w-full">
+                                                    <input
+                                                        type="number"
+                                                        className="w-full text-start outline-none"
+                                                        value={earlyMins}
+                                                        onChange={(e) => setEarlyMins(e.target.value)}
+                                                    />
+                                                    <span className="text-gray-400 ml-2">%</span>
                                                 </div>
                                                 {/* <TbPencilDiscount className="w-5 h-5 text-green-600 cursor-pointer" /> */}
                                             </div>
@@ -496,7 +496,7 @@ const GradingSystem = ({baseUrl}) => {
                                         <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                             <input
                                                 type="number"
-                                                className="w-full px-2 outline-none"
+                                                className="w-full outline-none"
                                                 value={earlyMins}
                                                 onChange={(e) => setEarlyMins(e.target.value)}
                                             />
@@ -527,7 +527,7 @@ const GradingSystem = ({baseUrl}) => {
                                         <div className="flex items-center border px-3 py-2 rounded-md w-full">
                                             <input
                                                 type="number"
-                                                className="w-full px-2 outline-none"
+                                                className="w-full outline-none"
                                                 value={earlyMins}
                                                 onChange={(e) => setEarlyMins(e.target.value)}
                                             />
