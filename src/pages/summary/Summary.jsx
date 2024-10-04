@@ -247,6 +247,7 @@ const Summary = ({baseUrl}) => {
                             <th scope="col" class="px-6 py-3 font-[700]">Sub Unit</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">End Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Location</th>
@@ -257,7 +258,7 @@ const Summary = ({baseUrl}) => {
                         {
                             allAttendanceSummary && allAttendanceSummary?.map((item, index) => {
                                 const formatTime = (time) => {
-                                    const timeStr = String(time); // Convert time to a string
+                                    const timeStr = String(time).padStart(4, '0'); // Convert time to a string
                                     return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
                                 };
 
@@ -267,6 +268,7 @@ const Summary = ({baseUrl}) => {
                                         <td className='px-6 py-3'>{item?.classScheduleId?.course?.subUnit?.name}</td>
                                         <td className='px-6 py-3'>{item?.attendanceType}</td>
                                         <td className='px-6 py-3'>{item?.remark}</td>
+                                        <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.endTime)}</td>
                                         <td className='px-6 py-3'>{Number(item?.classScheduleId?.location?.lat).toFixed(3)}, {Number(item?.classScheduleId?.location?.long).toFixed(3)}</td>

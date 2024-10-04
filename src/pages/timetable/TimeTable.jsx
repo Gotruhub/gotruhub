@@ -114,66 +114,78 @@ const TimeTable = ({ baseUrl }) => {
                                 <p>No Schedules to display.</p>
                             </div>
                         }
-                        <div className="mx-auto bg-white rounded-xl space-y-4">
-                            {Object.keys(groupedData)?.map((day) => (
-                                <div key={day} className='border-b pb-2'>
-                                    <h3 className="text-lg font-semibold">{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
-                                    <ul className="gap-6 mt-2 flex">
-                                        {groupedData[day]?.map((course) => (
-                                            <div key={course._id} className='flex items-center gap-1 relative'>
-                                                <li className="mt-1">
-                                                    {course.code.toUpperCase()}
-                                                </li>
-                                                <RxDotsVertical className='cursor-pointer' onClick={() => setEditSchedule(course)} />
-                                                {
-                                                    editSchedule && editSchedule._id === course._id &&
-                                                    <div className='bg-white w-[200px] text-[14px] pb-3 px-3 py-1 rounded absolute z-[99] border'>
-                                                        <p className='text-end text-[20px] cursor-pointer' onClick={() => setEditSchedule(null)}>&times;</p>
-                                                        <div onClick={() => navigate(`/class-schedule-info/${editSchedule._id}`)} className='flex items-center cursor-pointer gap-1'>
-                                                            <HiMiniQrCode />
-                                                            <p>Barcode</p>
-                                                        </div>
-                                                        <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/attendance-summary/${editSchedule._id}`)}>
-                                                            <LuEye />
-                                                            <p>View Attendance</p>
-                                                        </div>
-                                                        <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/edit-schedule/${id}/${editSchedule._id}`)}>
-                                                            <BiEdit />
-                                                            <p>Edit Schedule</p>
-                                                        </div>
-                                                        <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => setDeleteSchedule(editSchedule)}>
-                                                            <HiOutlineTrash />
-                                                            <p>Delete Entry</p>
-                                                        </div>
+                        <div className="mx-auto bg-white rounded-xl space-y-4 overflow-x-scroll">
+                            {Object.keys(groupedData)?.map((day) => {
+                                const formatTime = (time) => {
+                                    const timeStr = String(time).padStart(4, '0'); // Convert time to a string
+                                    return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
+                                };
+                                return(
+                                    <div key={day} className='border-b pb-2'>
+                                        <h3 className="text-lg font-semibold">{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
+                                        <ul className="gap-6 mt-1 flex">
+                                            {groupedData[day]?.map((course) => (
+                                                <div key={course._id} className='flex flex-col items-start gap-1 relative border-r pr-5'>
+                                                    <div className='flex items-center gap-3 font-[600] mb-2'>
+                                                        <p>{formatTime(course.endTime)}</p>
+                                                        <p>-</p>
+                                                        <p>{formatTime(course.startTime)}</p>
                                                     </div>
-                                                }
-                                            </div>
-                                        ))}
-                                    </ul>
-                                    {
-                                        deleteSchedule &&
-                                        <div>
-                                            <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteSchedule(false)}></div>
-                                            <div className="bg-white w-[90%] sm:max-w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
-                                                <div className="flex items-center justify-between border-b pb-[5px]">
-                                                    <p className="text-[px]">Delete Schedule</p>
-                                                    <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteSchedule(false)}/>
+                                                    <li className="mt-1 flex items-center gap-5">
+                                                        <p>{course.code.toUpperCase()}</p>
+                                                        <RxDotsVertical className='cursor-pointer' onClick={() => setEditSchedule(course)} />
+                                                    </li>
+                                                    {
+                                                        editSchedule && editSchedule._id === course._id &&
+                                                        <div className='bg-white w-[200px] text-[14px] pb-3 px-3 py-1 rounded absolute z-[99] border'>
+                                                            <p className='text-end text-[20px] cursor-pointer' onClick={() => setEditSchedule(null)}>&times;</p>
+                                                            <div onClick={() => navigate(`/class-schedule-info/${editSchedule._id}`)} className='flex items-center cursor-pointer gap-1'>
+                                                                <HiMiniQrCode />
+                                                                <p>Barcode</p>
+                                                            </div>
+                                                            <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/attendance-summary/${editSchedule._id}`)}>
+                                                                <LuEye />
+                                                                <p>View Attendance</p>
+                                                            </div>
+                                                            <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => navigate(`/edit-schedule/${id}/${editSchedule._id}`)}>
+                                                                <BiEdit />
+                                                                <p>Edit Schedule</p>
+                                                            </div>
+                                                            <div className='flex items-center cursor-pointer gap-1 mt-2' onClick={() => setDeleteSchedule(editSchedule)}>
+                                                                <HiOutlineTrash />
+                                                                <p>Delete Entry</p>
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </div>
-                                                <div className='mt-5'>
-                                                    Are you sure, you want to delete this schedule?
-                                                    {/* {deleteSchedule?._id} */}
+                                            ))}
+                                        </ul>
+                                        {
+                                            deleteSchedule &&
+                                            <div>
+                                                <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setDeleteSchedule(false)}></div>
+                                                <div className="bg-white w-[90%] sm:max-w-[450px] fixed top-[50%] left-[50%] pt-[20px] px-[2rem] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                                                    <div className="flex items-center justify-between border-b pb-[5px]">
+                                                        <p className="text-[px]">Delete Schedule</p>
+                                                        <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setDeleteSchedule(false)}/>
+                                                    </div>
+                                                    <div className='mt-5'>
+                                                        Are you sure, you want to delete this schedule?
+                                                        {/* {deleteSchedule?._id} */}
+                                                    </div>
+                                                    {
+                                                        loading ? 
+                                                        <BtnLoader bgColor="#191f1c"/>
+                                                        :
+                                                        <button onClick={() => deleleteScheduleFn(deleteSchedule)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
+                                                    }
                                                 </div>
-                                                {
-                                                    loading ? 
-                                                    <BtnLoader bgColor="#191f1c"/>
-                                                    :
-                                                    <button onClick={() => deleleteScheduleFn(deleteSchedule)} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Yes, Delete</button>
-                                                }
                                             </div>
-                                        </div>
-                                    }
-                                </div>
-                            ))}
+                                        }
+                                    </div>
+                                )
+                            }
+                            )}
                         </div>
                     </div>
                 </div>
