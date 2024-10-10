@@ -584,7 +584,7 @@ const GradingSystem = ({baseUrl}) => {
                             <input type="text" onChange={e => setValue(e.target.value)} value={value} className='border py-3 px-3 rounded mt-1 w-full outline-none' placeholder='100' />
                         </div>
                     </div>
-                    <div className='mt-5'>
+                    {/* <div className='mt-5'>
                         <p>Select when this tag applies</p>
                         <div className='cursor-pointer border rounded-[4px] px-[6px] py-3 relative'>
                             <div className='flex items-center justify-between' onClick={() => setDropDown(dropDown === 'tag-applies' ? false : 'tag-applies')}>
@@ -608,7 +608,7 @@ const GradingSystem = ({baseUrl}) => {
                                 </div>
                             }
                         </div>
-                    </div>
+                    </div> */}
                     {
                         loading ? 
                         <BtnLoader bgColor="#191f1c"/>

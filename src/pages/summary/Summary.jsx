@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import SideNav from '../../components/side-nav/SideNav';
 import TopNav from '../../components/top-nav/TopNav';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CiFilter } from 'react-icons/ci';
+import { CiFilter, CiSearch } from 'react-icons/ci';
 import { GoChevronDown } from 'react-icons/go';
 import { IoChevronDownOutline } from 'react-icons/io5';
+import { HiSearchCircle } from 'react-icons/hi';
 
 const Summary = ({baseUrl}) => {
 
-    const [filterDropDown, setFilterDropdown] = useState(false)
+    const [searchText, setSearchText] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [allOrders, setAllOrders] = useState([])
     const [msg, setMsg] = useState('')
@@ -240,6 +241,10 @@ const Summary = ({baseUrl}) => {
                             allAttendanceSummary && allAttendanceSummary.length < 1 &&
                             <p className='text-center p-5 text-[14px]'>No Attendance Summary for the selected unit, subunit and schedule</p>
                         }
+                    <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
+                        <CiSearch className='text-primary-color text-[20px]'/>
+                        <input type="text" placeholder='Search by remark, location and scaned time' className='w-full outline-none' onChange={(e) => setSearchText(e.target.value)} />
+                    </div>
                     <table class="w-full text-sm text-left rtl:text-left">
                     <thead class="text-[14px] border-b">
                         <tr>
@@ -256,7 +261,13 @@ const Summary = ({baseUrl}) => {
                     </thead>
                     <tbody>
                         {
-                            allAttendanceSummary && allAttendanceSummary?.map((item, index) => {
+                            allAttendanceSummary && allAttendanceSummary?.filter((item) => {
+                                if (searchText === "") return item
+                                else if (item?.remark.toLowerCase().includes(searchText.toLowerCase())
+                                        || item?.classScheduleId?.location?.lat.includes(searchText)
+                                        || item?.classScheduleId?.location?.long.includes(searchText)
+                                        || item?.scanned_time.toString().includes(searchText)) return item
+                            }).map((item, index) => {
                                 const formatTime = (time) => {
                                     const timeStr = String(time).padStart(4, '0'); // Convert time to a string
                                     return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
