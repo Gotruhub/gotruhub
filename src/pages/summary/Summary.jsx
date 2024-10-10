@@ -243,16 +243,16 @@ const Summary = ({baseUrl}) => {
                         }
                     <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
                         <CiSearch className='text-primary-color text-[20px]'/>
-                        <input type="text" placeholder='Search by remark, location and scaned time' className='w-full outline-none' onChange={(e) => setSearchText(e.target.value)} />
+                        <input type="text" placeholder='Search by remark, location, scaned date and scaned time' className='w-full outline-none text-[13px]' onChange={(e) => setSearchText(e.target.value)} />
                     </div>
                     <table class="w-full text-sm text-left rtl:text-left">
-                    <thead class="text-[14px] border-b">
+                    <thead class="text-[12px] border-b">
                         <tr>
                             <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
-                            <th scope="col" class="px-6 py-3 font-[700]">Sub Unit</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">End Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Location</th>
@@ -266,7 +266,9 @@ const Summary = ({baseUrl}) => {
                                 else if (item?.remark.toLowerCase().includes(searchText.toLowerCase())
                                         || item?.classScheduleId?.location?.lat.includes(searchText)
                                         || item?.classScheduleId?.location?.long.includes(searchText)
-                                        || item?.scanned_time.toString().includes(searchText)) return item
+                                        || item?.scanned_time.toString().includes(searchText)
+                                        || new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).includes(searchText)
+                                    ) return item
                             }).map((item, index) => {
                                 const formatTime = (time) => {
                                     const timeStr = String(time).padStart(4, '0'); // Convert time to a string
@@ -276,10 +278,10 @@ const Summary = ({baseUrl}) => {
                                 return (
                                     <tr className='text-[#19201D]' key={index}>
                                         <td className='px-6  py-3'>{index + 1}</td>
-                                        <td className='px-6 py-3'>{item?.classScheduleId?.course?.subUnit?.name}</td>
                                         <td className='px-6 py-3'>{item?.attendanceType}</td>
                                         <td className='px-6 py-3'>{item?.remark}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
+                                        <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.endTime)}</td>
                                         <td className='px-6 py-3'>{Number(item?.classScheduleId?.location?.lat).toFixed(3)}, {Number(item?.classScheduleId?.location?.long).toFixed(3)}</td>
