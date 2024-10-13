@@ -230,9 +230,9 @@ const AssignPickup = ({baseUrl}) => {
                                                 <button onClick={() => getPickupInfo(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
                                                     <PiPencil />
                                                 </button>
-                                                <button onClick={() => setDeletePickup(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
+                                                {/* <button onClick={() => setDeletePickup(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
                                                     <BiTrash />
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </td>
                                     </tr>
