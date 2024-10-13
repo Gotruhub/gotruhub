@@ -20,7 +20,7 @@ const Result = ({baseUrl}) => {
     const [allUnits, setAllUnits] = useState()
     const [subunit, setSubunit] = useState()
     const [unit, setUnit] = useState()
-    const [loading, setLoading] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     const [result, setResult] = useState()
     const [toggleNav, setToggleNav] = useState(false)
 
@@ -247,6 +247,38 @@ const Result = ({baseUrl}) => {
                     {
                         result?.length === 0 &&
                         <p>No Result for the selected session, term and subunit</p>
+                    }
+                </div>
+
+                <div className='p-[30px]'>
+                    {
+                        result?.length > 0 &&
+                        <div class="relative overflow-x-auto">
+                        <table class="w-full text-sm text-left rtl:text-left">
+                            <thead class="text-[14px] border-b">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
+                                    <th scope="col" class="px-6 py-3 font-[700]">Name</th>
+                                    <th scope="col" class="px-6 py-3 font-[700]">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    result?.map((res, index) => {
+                                        return(
+                                            <tr style={{borderBottom:"1px solid #dcdcdc"}}>
+                                                <td class="px-6 py-4">{index +1}</td>
+                                                <td class="px-6 py-4">{res?.user?.fullName}</td>
+                                                <td class="px-6 py-4">
+                                                    <button onClick={() => showResult(true)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>View</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                     }
                 </div>
                 {/* <div className='px-[30px]'>

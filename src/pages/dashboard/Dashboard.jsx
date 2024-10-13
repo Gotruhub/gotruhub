@@ -138,7 +138,7 @@ const Dashboard = ({ baseUrl }) => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 bg-white px-5 py-5 rounded-[12px]">
               <div className="border-r md:md:pr-5 pr-1">
                 <div className="flex items-center justify-between mb-5">
-                  <p className="text-[#4F4F4F]">Students</p>
+                  <p className="text-[#4F4F4F]">Students/Members</p>
                   <div className="bg-[#3EB7B7] p-2 text-white rounded-full">
                     <PiStudentDuotone />
                   </div>
