@@ -106,50 +106,6 @@ const Pass = ({baseUrl}) => {
                                 )
                             })
                         }
-                        {/* <tr className='text-[#19201D]'>
-                            <td className='py-3'>2.</td>
-                            <td>Timi Gowon</td>
-                            <td>Member</td>
-                            <td>Aisha Nwosu</td>
-                            <td className='text-[#9A2525] underline'>40.7128, -74.0060</td>
-                            <td>08:15AM</td>
-                            <td>
-                                <p className='text-[#9A2525] py-1 px-2 rounded-[3px] bg-[#9A252566] inline'>Sign-Out</p>
-                            </td>
-                        </tr>
-                        <tr className='text-[#19201D]'>
-                            <td className='py-3'>3.</td>
-                            <td>Timi Gowon</td>
-                            <td>Member</td>
-                            <td>Aisha Nwosu</td>
-                            <td className='text-[#25751E] underline'>40.7128, -74.0060</td>
-                            <td>08:15AM</td>
-                            <td>
-                                <p className='text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'>Sign-in</p>
-                            </td>
-                        </tr>
-                        <tr className='text-[#19201D]'>
-                            <td className='py-3'>4.</td>
-                            <td>Timi Gowon</td>
-                            <td>Member</td>
-                            <td>Aisha Nwosu</td>
-                            <td className='text-[#9A2525] underline'>40.7128, -74.0060</td>
-                            <td>08:15AM</td>
-                            <td>
-                                <p className='text-[#9A2525] py-1 px-2 rounded-[3px] bg-[#9A252566] inline'>Sign-Out</p>
-                            </td>
-                        </tr>
-                        <tr className='text-[#19201D]'>
-                            <td className='py-3'>5.</td>
-                            <td>Timi Gowon</td>
-                            <td>Member</td>
-                            <td>Aisha Nwosu</td>
-                            <td className='text-[#25751E] underline'>40.7128, -74.0060</td>
-                            <td>08:15AM</td>
-                            <td>
-                                <p className='text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'>Sign-in</p>
-                            </td>
-                        </tr> */}
                         </tbody>
                     </table>
                 </div>

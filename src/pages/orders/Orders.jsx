@@ -3,7 +3,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { CiFilter } from 'react-icons/ci'
 import { GoChevronDown } from 'react-icons/go'
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { TbCurrencyNaira } from 'react-icons/tb'
 
 const Orders = ({baseUrl}) => {
@@ -58,11 +58,11 @@ const Orders = ({baseUrl}) => {
                 <div className="flex justify-between items-start mb-[1rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div>
                         <div className="flex items-center gap-2">
-                            <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/wallet')} className='cursor-pointer' />
+                            <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/')} className='cursor-pointer' />
                             <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Orders</p>
                         </div>
                     </div>
-                    {/* <div className='relative flex items-center gap-[10px]'>
+                    <div className='relative flex items-center gap-[10px]'>
                         <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
                             <CiFilter className='mr-1'/>
                             <p className='px-5 border-l'>Filter</p>
@@ -86,7 +86,8 @@ const Orders = ({baseUrl}) => {
                                 </div>
                             }
                         </div>
-                    </div> */}
+                        <Link to="/assign-pickup" className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px]' >Assign pick up</Link>
+                    </div>
                 </div>
                 <div class="relative overflow-x-auto mx-5 p-2 lg:p-8 flex flex-col gap-3">
                     {/* <div>
