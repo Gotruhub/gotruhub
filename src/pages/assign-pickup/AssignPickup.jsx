@@ -55,19 +55,34 @@ const AssignPickup = ({baseUrl}) => {
 
     async function getPickupInfo(id) {
         setEditPickup(id)
-        console.log(`${baseUrl}/trade/order-pickups/${id}`);
-        
-        const res = await fetch(`${baseUrl}/trade/order-pickups/${id}`,{
-            headers:{
-                Authorization:`Bearer ${user.data.access_token}`
-            }
-        })
-        const data = await res.json()
-
-        console.log(data);
+        const foundItem = allPickUps.find(item => item._id === id);
+        setUnit(foundItem.unit)
+        setSubunit(foundItem.subunit)
+        setAssignee(foundItem.assignee)
+        console.log(foundItem);
     }
 
-    async function editPickUpFn() { }
+    async function editPickUpFn() { 
+        console.log({assignee:assignee._id, subunit:subunit._id, unit:unit._id});
+        
+        const res = await fetch(`${baseUrl}/trade/order-pickups/${editPickup}`,{
+            method:"PUT",
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${user.data.access_token}`
+            },
+            body:JSON.stringify({assignee:assignee._id, subunit:subunit._id, unit:unit._id})
+        })
+        if(res.ok){
+            getAllPickUps()
+            setAddPickup(false)
+            setMsg('Pickup successfully updated');
+            setAlertType('success');
+            setUnit('')
+            setSubunit('')
+            setAssignee('')
+        }
+    }
 
     async function deletePickUpFn() {
         console.log(`${baseUrl}/trade/order-pickups/${deletePickup}`);
@@ -158,6 +173,9 @@ const AssignPickup = ({baseUrl}) => {
             setAddPickup(false)
             setMsg('Pickup assigned successfully');
             setAlertType('success');
+            setUnit('')
+            setSubunit('')
+            setAssignee('')
         }
     }
 
@@ -176,7 +194,7 @@ const AssignPickup = ({baseUrl}) => {
                         </div>
                     </div>
                     <div className='relative flex items-center gap-[10px]'>
-                        <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
+                        {/* <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
                             <CiFilter className='mr-1'/>
                             <p className='px-5 border-l'>Filter</p>
                             <GoChevronDown />
@@ -198,7 +216,7 @@ const AssignPickup = ({baseUrl}) => {
                                     }
                                 </div>
                             }
-                        </div>
+                        </div> */}
                         <button onClick={() => setAddPickup(true)} className='bg-[#19201D] text-white px-[20px] text-[15px] py-2 rounded-[6px]' >Assign pick up</button>
                     </div>
                 </div>
@@ -230,9 +248,9 @@ const AssignPickup = ({baseUrl}) => {
                                                 <button onClick={() => getPickupInfo(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
                                                     <PiPencil />
                                                 </button>
-                                                {/* <button onClick={() => setDeletePickup(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
+                                                <button onClick={() => setDeletePickup(pickup._id)} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px] ml-3'>
                                                     <BiTrash />
-                                                </button> */}
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -276,7 +294,7 @@ const AssignPickup = ({baseUrl}) => {
                     <div className='relative w-[100%] my-7'>
                         <label className='block text-left mb-2'>Select Asignee</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                            <input type="text" value={assignee?.fullName} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
+                            <input onChange={e => setAssignee(e.target.value)} type="text" value={assignee.fullName} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
                             <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "asignee" ? false : "asignee")} />
                         </div>
                         {
@@ -298,7 +316,7 @@ const AssignPickup = ({baseUrl}) => {
                     <div className='relative w-[100%] my-7'>
                         <label className='block text-left mb-2'>Select Unit</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                            <input type="text" value={unit?.name} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
+                            <input onChange={e => setUnit(e.target.value)} type="text" value={unit.name} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
                             <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "unit" ? false : "unit")} />
                         </div>
                         {
@@ -321,7 +339,7 @@ const AssignPickup = ({baseUrl}) => {
                     <div className='relative w-[100%]'>
                         <label className='block text-left mb-2'>Select Sub-Unit</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                            <input type="text" value={subunit?.name} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
+                            <input type="text" onChange={e => setSubunit(e.target.value)} value={subunit.name} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
                             <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "sub-unit" ? false : "sub-unit")} />
                         </div>
                         {
@@ -340,9 +358,9 @@ const AssignPickup = ({baseUrl}) => {
                             </div>
                         }
                     </div>
-                    <div className="flex justify-end gap-5 p-6 items-center mt-5">
-                        <button className='text-[#2D3934] border border-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Back</button>
-                        <button onClick={assignPickup} className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Assign</button>
+                    <div className="flex justify-end gap-5 py-6 items-center mt-5">
+                        <button onClick={() => setEditPickup(false)} className='text-[#2D3934] border border-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Back</button>
+                        <button onClick={editPickUpFn} className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Update</button>
                     </div>
                 </div>
             </div>
@@ -439,8 +457,8 @@ const AssignPickup = ({baseUrl}) => {
                             </div>
                         }
                     </div>
-                    <div className="flex justify-end gap-5 p-6 items-center mt-5">
-                        <button className='text-[#2D3934] border border-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Back</button>
+                    <div className="flex justify-end gap-5 py-6 items-center mt-5">
+                        <button onClick={() => setAddPickup(false)} className='text-[#2D3934] border border-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Back</button>
                         <button onClick={assignPickup} className='text-white bg-[#2D3934] px-4 py-2 rounded-[4px] text-[12px]'>Assign</button>
                     </div>
                 </div>
