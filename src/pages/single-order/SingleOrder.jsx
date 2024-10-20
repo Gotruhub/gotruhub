@@ -41,15 +41,44 @@ const SingleOrder = ({baseUrl}) => {
                     <div>
                         <div className="flex items-center gap-2">
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/orders')} className='cursor-pointer' />
-                            <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Order Info</p>
+                            <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">
+                                #{order?._id?.substring(0, 9)}...
+                            </p>
                         </div>
                     </div>
+                </div>
+                <div className='flex items-center px-[10px] lg:px-[30px] gap-2'>
+                    <img className='w-[30px] h-[30px] rounded-full' src={order?.attendant?.profileImage?.file} alt="" />
+                    <p className='font-bold'>{order?.attendant?.fullName}</p>
+                    <p>-</p>
+                    <p className='capitalize'>{order?.attendant?.role}</p>
                 </div>
                 <div class="relative overflow-x-auto py-8 px-4 md:px-8 flex flex-col justify-center items-center gap-3">
                     <div className='flex items-center justify-center flex-col'>
                         <p className='text-[#4F4F4F] font-[600] text-[24px]'>{order?.user?.fullName}</p>
                         <p className='text-[#757575] mb-2 capitalize'>{order?.user?.role} - {order?.user?.subUnit?.name}</p>
                         <p className='text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] font-[500] capitalize'>{order?.status}</p>
+                    </div>
+                    <div className='md:w-[400px] w-[95%] mt-5'>
+                        <p className='text-[#828282]'>Received by</p>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D] font-[500] capitalize'>{order?.collectedBy?.fullName}</p>
+                            <p className='text-[#25751E] capitalize'>{order?.collectedBy?.role}</p>
+                        </div>
+                    </div>
+                    <div className='md:w-[400px] w-[95%]'>
+                        <p className='text-[#828282]'>Delivered by</p>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D] font-[500] capitalize'>{order?.attendant?.fullName}</p>
+                            <p className='text-[#25751E] capitalize'>{order?.attendant?.role}</p>
+                        </div>
+                    </div>
+                    <div className='md:w-[400px] w-[95%] mb-5'>
+                        <p className='text-[#828282]'>Delivered on</p>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D] font-[500] capitalize'>{ new Date(order?.updatedAt).toDateString() }</p>
+                            {/* <p className='text-[#25751E] capitalize'>{order?.attendant?.role}</p> */}
+                        </div>
                     </div>
                     {/* <div className='w-[400px] mt-5 border-b pb-5'>
                         <div>

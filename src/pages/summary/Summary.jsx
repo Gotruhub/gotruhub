@@ -276,7 +276,7 @@ const Summary = ({baseUrl}) => {
                                 };
 
                                 return (
-                                    <tr className='text-[#19201D]' key={index}>
+                                    <tr className={item?.flag !== false ? `text-[#19201D] bg-yellow-500` : `text-[#19201D]`} key={index}>
                                         <td className='px-6  py-3'>{index + 1}</td>
                                         <td className='px-6 py-3'>{item?.attendanceType}</td>
                                         <td className='px-6 py-3'>{item?.remark}</td>
