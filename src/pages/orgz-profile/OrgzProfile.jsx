@@ -117,10 +117,13 @@ const OrgzProfile = ({baseUrl}) => {
           body: formData
         })
         const data = await res.json()
+        console.log(data.data.file);
+        
         if(res) setfileUploadLoader(false)
         if(res.ok) {
           setMsg("File uploaded successfully");
           setAlertType('success')
+          setOpLicenceImage(data.data)
           setOpLicenceImageId(data.data._id)
         }
         if(!res.ok){
@@ -186,12 +189,44 @@ const OrgzProfile = ({baseUrl}) => {
                             <input value={nameOfProprietor} onChange={e => setNameOfProprietor(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                         </div>
                     </div>
-                    <div className='relative mt-5 flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
+                    <div className="mt-7">
+                        <label className='block text-text-color text-left mb-2'>Organization's Logo</label>
+                        {
+                            opLicenceImage?
+                            <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
+                                <img src={opLicenceImage?.file} alt="" className='absolute overflow-hidden h-[250px]'/>
+                                <p className='text-text-color font-[600] mt-5 opacity-0'>Click to upload </p>
+                                <p className='text-[#98A2B3] opacity-0'>PNG, JPG (max. 5mb)</p>
+                                <div className='flex items-center gap-[15px] w-full mt-5 opacity-0'>
+                                    <div className='w-[35%] ml-auto h-[2px] bg-[#F0F2F5] opacity-0'></div>
+                                    <p className='opacity-0'>OR</p>
+                                    <div className='w-[35%] mr-auto h-[2px] bg-[#F0F2F5] opacity-0'></div>
+                                </div>
+                                <input onChange={(e) => handleFileChange(e.target.files, "opLic")} type="file" className='cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                                <button className='text-white bg-primary-color rounded-[4px] mt-[2.5rem] px-[28px] py-[10px] text-center mx-auto opacity-0'>Browse Files</button>
+                            </div>
+                            :
+                            <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
+                                <img src="./images/file-upload.svg" alt="" />
+                                <p className='text-text-color font-[600] mt-5'>Click to upload </p>
+                                <p className='text-[#98A2B3]'>PNG, JPG (max. 5mb)</p>
+                                <div className='flex items-center gap-[15px] w-full mt-5'>
+                                    <div className='w-[35%] ml-auto h-[2px] bg-[#F0F2F5]'></div>
+                                    <p>OR</p>
+                                    <div className='w-[35%] mr-auto h-[2px] bg-[#F0F2F5]'></div>
+                                </div>
+                                <input onChange={(e) => handleFileChange(e.target.files, "opLic")} type="file" className='cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                                <button className='text-white bg-primary-color rounded-[4px] mt-[2.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
+                            </div>
+                        }
+                    </div>
+                    
+                    {/* <div className='relative mt-5 flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                         {opLicenceImage ? (
                             <div className='py-[10px] flex items-center gap-3'>
                                 <FaRegFileImage className='text-[22px] text-green-700' />
                                 <p className='text-[10px]'>{opLicenceImage?.name}</p>
-                                {/* <img src="./images/Delete.svg" alt="" /> */}
+                                <img src="./images/Delete.svg" alt="" />
                             </div>
                             ) : (
                             <>
@@ -207,7 +242,7 @@ const OrgzProfile = ({baseUrl}) => {
                                 <p className='text-[#6F7975] text-[12px]'>Institution Logo (jpeg, jpg or png only) (max. 5mb)</p>
                             </>
                         )}
-                    </div>
+                    </div> */}
                     {
                         loading ? 
                         <BtnLoader bgColor="#191f1c"/>

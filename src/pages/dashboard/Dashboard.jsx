@@ -218,7 +218,7 @@ const Dashboard = ({ baseUrl }) => {
                   })
                 }
                 {
-                  passHistory?.length === 0 && <p className="text-[#4F4F4F] text-[14px] text-center mt-20">No activities have been recorded for today yet.</p>
+                  passHistory?.history?.length === 0 && <p className="text-[#4F4F4F] text-[14px] text-center mt-20">No activities have been recorded for today yet.</p>
                 }
               </div>
               <div className="w-[100%] md:w-[40%] self-start">
