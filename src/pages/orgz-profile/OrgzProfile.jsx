@@ -80,6 +80,7 @@ const OrgzProfile = ({baseUrl}) => {
             setMotto(data?.data?.motto);
             setNameOfEstablishment(data.data.nameOfEstablishment);
             setBusinessAddress(data.data.businessAddress);
+            setOpLicenceImage(data.data);
         }
         console.log(data);
     }
