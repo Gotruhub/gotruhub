@@ -60,7 +60,7 @@ const SingleOrder = ({baseUrl}) => {
                         <img src={order?.user?.profileImage?.file} className='w-[60px] h-[60px] mb-1 object-cover rounded-full' alt="" />
                         <p className='text-[#4F4F4F] font-[600] text-[24px]'>{order?.user?.fullName}</p>
                         <p className='text-[#757575] mb-2 capitalize'>{order?.user?.role} - {order?.user?.subUnit?.name}</p>
-                        <p className={order?.status === 'delivered' ? 'text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize':'text-[#9A7225] bg-[#9A72251A] px-3 rounded-full py-[2px] capitalize'}>{order.status}</p>
+                        <p className={order?.status === 'delivered' ? 'text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize':'text-[#9A7225] bg-[#9A72251A] px-3 rounded-full py-[2px] capitalize'}>{order?.status}</p>
                     </div>
                     {
                         order?.status === 'delivered' &&
