@@ -243,7 +243,7 @@ const Orders = ({baseUrl}) => {
                                     <p className='font-[600] text-black'>{index + 1}</p>
                                     <p className='text-[#333] flex items-center'><TbCurrencyNaira className="text-[16px]"/>{order.totalAmount}</p>
                                     <p>{order?.user?.fullName} - {order?.user?.role}</p>
-                                    <p className='text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize'>{order.status}</p>
+                                    <p className={order?.status === 'delivered' ? 'text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize':'text-[#9A7225] bg-[#9A72251A] px-3 rounded-full py-[2px] capitalize'}>{order.status}</p>
                                     <p>{formattedDate}, {formattedTime}</p>
                                     <button className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px]' onClick={() => navigate(`/order/${order._id}`)} >View</button>
                                 </div>

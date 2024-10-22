@@ -47,20 +47,20 @@ const SingleOrder = ({baseUrl}) => {
                         </div>
                     </div>
                 </div>
-                {order?.status !== 'delivered' &&
+                {/* {order?.status !== 'delivered' &&
                     <div className='flex items-center px-[10px] lg:px-[30px] gap-2'>
                         <img className='w-[30px] h-[30px] rounded-full' src={order?.attendant?.profileImage?.file} alt="" />
                         <p className='font-bold'>{order?.attendant?.fullName}</p>
                         <p>-</p>
                         <p className='capitalize'>{order?.attendant?.role}</p>
                     </div>
-                }
+                } */}
                 <div class="relative overflow-x-auto py-8 px-4 md:px-8 flex flex-col justify-center items-center gap-3">
                     <div className='flex items-center justify-center flex-col'>
                         <img src={order?.user?.profileImage?.file} className='w-[60px] h-[60px] mb-1 object-cover rounded-full' alt="" />
                         <p className='text-[#4F4F4F] font-[600] text-[24px]'>{order?.user?.fullName}</p>
                         <p className='text-[#757575] mb-2 capitalize'>{order?.user?.role} - {order?.user?.subUnit?.name}</p>
-                        <p className='text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] font-[500] capitalize'>{order?.status}</p>
+                        <p className={order?.status === 'delivered' ? 'text-[#25751E] bg-[#25751E1A] px-3 rounded-full py-[2px] capitalize':'text-[#9A7225] bg-[#9A72251A] px-3 rounded-full py-[2px] capitalize'}>{order.status}</p>
                     </div>
                     {
                         order?.status === 'delivered' &&

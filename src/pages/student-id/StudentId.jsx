@@ -19,6 +19,9 @@ const StudentId = ({ baseUrl }) => {
   const [textColor, setTextColor] = useState('#333');
   const [address, setAddress] = useState('');
 
+  console.log('user', user.data.details);
+  
+
   const divRef = useRef(null);
 
   const handleExportAsPDF = () => {
@@ -108,7 +111,7 @@ const StudentId = ({ baseUrl }) => {
             <div className="border relative w-[2.125in] h-[3.375in] bg-white rounded-lg shadow-md flex flex-col items-center mx-auto p-4">
               <div className="h-[120px] z-[1] w-full absolute top-0 rounded-t-lg" style={{ backgroundColor: bgColor }}></div>
               <div className="w-full flex justify-center items-center mb-4 text-center">
-                <span className="text-lg font-bold relative z-[2]" style={{ color: textColor }}>{companyName}</span>
+                <span className="text-[14px] font-bold relative z-[2]" style={{ color: textColor }}>{companyName}</span>
               </div>
               <div className="flex flex-col items-center relative z-[2]">
                 <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-2">
@@ -122,7 +125,7 @@ const StudentId = ({ baseUrl }) => {
                   }
                 </div>
                 <div className="text-center">
-                  <p className="text-md text-gray-600 font-semibold capitalize">{userId?.role}/Member</p>
+                  <p className="text-[12px] text-gray-600 font-semibold capitalize">{userId?.role}/Member</p>
                 </div>
               </div>
               <div className="mt-auto">
@@ -157,8 +160,11 @@ const StudentId = ({ baseUrl }) => {
                 </div>
                 <p className='text-[12px]'>{address}</p>
                 <div className="mt-3 text-left">
-                  <p className="text-sm text-gray-600 font-semibold capitalize my-3 text-left">
-                    Motto:
+                  <p className="text-gray-600 font-semibold capitalize my-3 text-left text-[12px]">
+                    Motto: <span className='font-[400]'>{user.data.details.motto}</span>
+                  </p>
+                  <p className="text-[12px] text-gray-600 font-semibold capitalize my-3 text-left">
+                    Phone: <span className='font-[400]'>{user.data.details.phone}</span>
                   </p>
                 </div>
               </div>
