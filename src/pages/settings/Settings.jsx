@@ -182,7 +182,7 @@ const Settings = ({baseUrl}) => {
                             <img src="./images/edit.svg" alt="" className='w-[15px]' />
                             <p className='text-[#19201D]'>My Account</p>
                         </div>
-                        <p className='text-[gray] mt-4 cursor-pointer inline-block' onClick={() => navigate('/update-orgs')}>Update my organization</p>
+                        <p className='text-[gray] mt-4 cursor-pointer inline-block' onClick={() => navigate('/orgz-profile')}>Update my organization</p>
                     </div>
                     <div className='bg-[#F7F7F7] px-8 py-6 w-[100%] rounded-[16px]'>
                         <div className='flex items-center gap-3'>

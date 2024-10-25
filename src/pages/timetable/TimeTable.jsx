@@ -117,19 +117,28 @@ const TimeTable = ({ baseUrl }) => {
                         <div className="mx-auto bg-white rounded-xl space-y-4 overflow-x-scroll">
                             {Object.keys(groupedData)?.map((day) => {
                                 const formatTime = (time) => {
-                                    const timeStr = String(time).padStart(4, '0'); // Convert time to a string
-                                    return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
+                                    const timeStr = String(time).padStart(4, '0'); // Ensure time is a 4-digit string
+                                    let hours = parseInt(timeStr.slice(0, 2), 10);
+                                    const minutes = timeStr.slice(2);
+
+                                    // Determine AM or PM
+                                    const period = hours >= 12 ? 'PM' : 'AM';
+
+                                    // Convert 24-hour time to 12-hour format
+                                    hours = hours % 12 || 12; // Convert hour '0' to '12' for midnight and adjust for PM hours
+
+                                    return `${hours}:${minutes} ${period}`;
                                 };
                                 return(
                                     <div key={day} className='border-b pb-2'>
-                                        <h3 className="text-lg font-semibold">{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
+                                        <h3 className="font-semibold text-[15px]">{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
                                         <ul className="gap-6 mt-1 flex">
                                             {groupedData[day]?.map((course) => (
                                                 <div key={course._id} className='flex flex-col items-start gap-1 relative border-r pr-5'>
-                                                    <div className='flex items-center gap-3 font-[600] mb-2'>
-                                                        <p>{formatTime(course.endTime)}</p>
-                                                        <p>-</p>
+                                                    <div className='flex items-center gap-3 font-[600] mb-2 text-[13px]'>
                                                         <p>{formatTime(course.startTime)}</p>
+                                                        <p>-</p>
+                                                        <p>{formatTime(course.endTime)}</p>
                                                     </div>
                                                     <li className="mt-1 flex items-center gap-5">
                                                         <p>{course.code.toUpperCase()}</p>

@@ -91,6 +91,7 @@ const Token = ({baseUrl}) => {
                                                 : sub.subscriptionType?.feature[0]?.name
                                             }
                                         </p>
+                                        <p className='mb-1 text-[#828282] mt-3'>Duration: <span className='font-[500]'>{sub?.subscriptionType?.duration}</span> </p>
                                         <p className='text-[#828282]'>{sub?.quantity} Tokens: <span className='font-bold'>{sub?.quantityLeft} Available</span>  - {sub?.quantity - sub?.quantityLeft} Used</p>
                                     </div>
                                     <div className='flex items-center gap-3'>

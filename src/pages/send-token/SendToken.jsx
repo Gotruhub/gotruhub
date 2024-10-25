@@ -93,6 +93,7 @@ const SendToken = ({baseUrl}) => {
       if(res.ok){
         getPlanInfo()
         setSendTokenModal(false)
+        setSelectedGuardians([])
         setAlertTitle('Successfull')
         setAlertType('success')
         setMsg('The token(s) have been successfully sent to the selected members. This process may take about 48 hours to show up in their registered email address.')
@@ -157,7 +158,7 @@ const SendToken = ({baseUrl}) => {
                 <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-left">
                         <thead className="text-[14px] border-b">
-                            <tr>
+                            <tr className='text-center'>
                                 <th scope="col" className="px-6 py-3 th1 font-[700]">S/N</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Profile Pic</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Name</th>
@@ -173,7 +174,7 @@ const SendToken = ({baseUrl}) => {
                                   const selectedGuardian = selectedGuardians.find((guardian) => guardian.id === sub._id);
                                   const quantity = selectedGuardian ? selectedGuardian.quantity : 1;
                                   return(
-                                      <tr key={sub._id} style={{borderBottom:"1px solid #dcdcdc"}}>
+                                      <tr key={sub._id} style={{borderBottom:"1px solid #dcdcdc"}} className='text-center'>
                                           <td className="px-6 py-4">{index +1}</td>
                                           <td className="px-6 py-4">
                                             <img className='w-[30px] h-[30px] rounded-full' src={sub.profileImage.file} alt={`${sub.fullName} img`} />
@@ -182,7 +183,7 @@ const SendToken = ({baseUrl}) => {
                                           <td className="px-6 py-4">{sub.defaultEmail}</td>
                                           <td className="px-6 py-4">{sub?.children.length}</td>
                                           <td>
-                                            <input type="checkbox" checked={!!selectedGuardian} onChange={() => handleCheckboxChange(sub._id)} />
+                                            <input type="checkbox" checked={!!selectedGuardian} className='cursor-pointer' onChange={() => handleCheckboxChange(sub._id)} />
                                           </td>
                                           <td>
                                             <input 
