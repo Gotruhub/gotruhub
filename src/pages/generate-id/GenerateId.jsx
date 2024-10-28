@@ -43,7 +43,7 @@ const GenerateId = ({baseUrl}) => {
         <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
           <div className="lg:px-[30px] px-[10px] py-[1rem]">
             <div className="flex items-center justify-between mb-[3rem]">
-              <p className="text-[22px] lg:text-[28px] text-primary-color font-[600]">Generage Id For Students</p>
+              <p className="text-[22px] lg:text-[28px] text-primary-color font-[600]">Generate Id For Students</p>
             </div>
           </div>
 

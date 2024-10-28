@@ -17,6 +17,7 @@ const ViewSubUnit = ({baseUrl}) => {
     const [subUnitInfo, setSubUnitInfo] = useState()
     const [subUnitStats, setSubUnitStats] = useState()
     const [staff, setStaff] = useState()
+    const [members, setMembers] = useState([])
     
 
     async function getSubUnitInfo(){
@@ -84,6 +85,28 @@ const ViewSubUnit = ({baseUrl}) => {
         }
     }
 
+    async function getAllMembers(){
+        console.log(`${baseUrl}/sub-unit/course/paid/${id}`);
+        
+        const res = await fetch(`${baseUrl}/users/get-users/student?role=student&page=2&subunit=${id}`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data);
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+        if(res.ok){
+            setMembers(data?.data?.users)
+            return;
+        }
+    }
+
     async function getAllStaff(staffId){
         const res = await fetch(`${baseUrl}/users/get-user/${staffId}`,{
             headers:{
@@ -99,6 +122,7 @@ const ViewSubUnit = ({baseUrl}) => {
     useEffect(() => {
         getSubUnitInfo()
         getSubUnitStats()
+        getAllMembers()
     },[])
 
 
@@ -162,40 +186,75 @@ const ViewSubUnit = ({baseUrl}) => {
                     </div>
                 </div>
 
-                    <div class="relative overflow-x-auto lg:m-[30px] m-[10px]">
-                        <div className='flex items-center justify-between mb-2'>
-                            <div className='flex items-center gap-2 text-[18px] mb-5'>
-                                <LuListTodo />
-                                <p className='text-[#1D1D1D] font-[600]'>List of Assignments</p>
-                            </div>
-                            <p className='text-[#828282] font-[600]'>Total - {subUnitCourses?.length}</p>
+                <div class="relative overflow-x-auto lg:m-[30px] m-[10px]">
+                    <div className='flex items-center justify-between mb-2'>
+                        <div className='flex items-center gap-2 text-[18px] mb-5'>
+                            <LuListTodo />
+                            <p className='text-[#1D1D1D] font-[600]'>List of Assignments</p>
                         </div>
-                        <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
-                            <thead class="text-[14px] border-b">
-                                <tr>
-                                    <th scope="col" class="py-3 th1 font-[700]">S/N</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignment Code</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignment Name</th>
-                                    <th scope="col" class="py-3 font-[700]">Date Added</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    subUnitCourses && subUnitCourses?.map((item, index) => {
-
-                                        return (
-                                            <tr className='relative'>
-                                                <td className='py-3'>{index + 1}</td>
-                                                <td>{item?.course?.name}</td>
-                                                <td>{item?.course?.courseCode}</td>
-                                                <td>{ new Date(item?.createdAt).toDateString() }</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                        <p className='text-[#828282] font-[600]'>Total - {subUnitCourses?.length}</p>
                     </div>
+                    <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
+                        <thead class="text-[14px] border-b">
+                            <tr>
+                                <th scope="col" class="py-3 th1 font-[700]">S/N</th>
+                                <th scope="col" class="py-3 font-[700]">Assignment Code</th>
+                                <th scope="col" class="py-3 font-[700]">Assignment Name</th>
+                                <th scope="col" class="py-3 font-[700]">Date Added</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                subUnitCourses && subUnitCourses?.map((item, index) => {
+
+                                    return (
+                                        <tr className='relative'>
+                                            <td className='py-3'>{index + 1}</td>
+                                            <td>{item?.course?.name}</td>
+                                            <td>{item?.course?.courseCode}</td>
+                                            <td>{ new Date(item?.createdAt).toDateString() }</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="relative overflow-x-auto lg:mx-[30px] lg:mb-[30px] mx-[10px] mb-[10px] mt-[6rem]">
+                    <div className='flex items-center justify-between mb-2'>
+                        <div className='flex items-center gap-2 text-[18px] mb-5'>
+                            <LuListTodo />
+                            <p className='text-[#1D1D1D] font-[600]'>List of Members</p>
+                        </div>
+                        <p className='text-[#828282] font-[600]'>Total - {members?.length}</p>
+                    </div>
+                    <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
+                        <thead class="text-[14px] border-b">
+                            <tr>
+                                <th scope="col" class="py-3 th1 font-[700]">S/N</th>
+                                <th scope="col" class="py-3 font-[700]">Full Name</th>
+                                {/* <th scope="col" class="py-3 font-[700]">Assignment Name</th>
+                                <th scope="col" class="py-3 font-[700]">Date Added</th> */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                members && members?.map((member, index) => {
+
+                                    return (
+                                        <tr className='relative'>
+                                            <td className='py-3'>{index + 1}</td>
+                                            <td>{member?.fullName}</td>
+                                            {/* <td>{item?.course?.courseCode}</td>
+                                            <td>{ new Date(item?.createdAt).toDateString() }</td> */}
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
 
                 {/* <div className='px-[30px]'>
                     <p className='text-[#19201D] text-[18px] font-[600] mb-3'>All Sub-units</p>

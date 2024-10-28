@@ -119,7 +119,7 @@ const StudentId = ({ baseUrl }) => {
                     userId &&
                     <img
                       src={userId?.profileImage?.file}
-                      alt="Profile"
+                      alt="Profile Pic."
                       className="w-full h-full object-cover"
                     />
                   }
@@ -152,7 +152,7 @@ const StudentId = ({ baseUrl }) => {
                   {
                     userId &&
                     <img
-                      src=""
+                      src={user?.data?.details?.logo?.file}
                       alt="School Logo"
                       className="w-full h-full object-cover"
                     />

@@ -120,6 +120,31 @@ const Summary = ({baseUrl}) => {
         }
     }
 
+    const formatedTime = (time) => {
+        // Convert time to a string and pad with zeros if needed
+        const timeStr = time.toString().padStart(4, '0');
+    
+        // Extract hours and minutes from the string
+        const hours = parseInt(timeStr.slice(0, 2), 10);
+        const minutes = timeStr.slice(2);
+    
+        // Create a Date object with the extracted hours and minutes
+        const date = new Date();
+        date.setHours(hours);
+        date.setMinutes(minutes);
+    
+        // Format options to convert to 12-hour format with AM/PM
+        const options = {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        };
+    
+        return date.toLocaleTimeString([], options);
+    };
+    
+
+
   return (
     <div>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
@@ -236,9 +261,71 @@ const Summary = ({baseUrl}) => {
                         </div>
                     </div>
                 </div>
+                <div className='grid lg:grid-cols-4 text-center gap-3 mt-5 px-[10px] lg:px-[30px] w-full grid-cols-2'>
+                    <div className='bg-gray-200 py-3'>
+                        <p className='mb-5'>Start Time</p>
+                        <p>
+                            {
+                                
+                                allAttendanceSummary && formatedTime(allAttendanceSummary?.classSchedule?.startTime)
+                            }
+                        </p>
+                    </div>
+                    <div className='border bg-gray-200 py-3'>
+                        <p className='mb-5'>End Time</p>
+                        <p>
+                            {
+                                
+                                allAttendanceSummary && formatedTime(allAttendanceSummary?.classSchedule?.endTime)
+                            }
+                        </p>
+                    </div>
+                    <div className='bg-gray-200 py-3'>
+                        <p>Signing Coordinate</p>
+                        <div className='flex gap-1 items-center justify-center'>
+                            <p>Lat :</p>
+                            <p>
+                                {
+                                    
+                                    allAttendanceSummary && allAttendanceSummary?.classSchedule?.location?.lat
+                                }
+                            </p>
+                        </div>
+                        <div className='flex gap-1 items-center justify-center'>
+                            <p>Long :</p>
+                            <p>
+                                {
+                                    
+                                    allAttendanceSummary && allAttendanceSummary?.classSchedule?.location?.long
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div className='bg-gray-200 py-3'>
+                        <p>Signout Coordinate</p>
+                        <div className='flex gap-1 items-center justify-center'>
+                            <p>Lat :</p>
+                            <p>
+                                {
+                                    
+                                    allAttendanceSummary && allAttendanceSummary?.classSchedule?.endlocation?.lat
+                                }
+                            </p>
+                        </div>
+                        <div className='flex gap-1 items-center justify-center'>
+                            <p>Long :</p>
+                            <p>
+                                {
+                                    
+                                    allAttendanceSummary && allAttendanceSummary?.classSchedule?.endlocation?.long
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="relative overflow-x-auto lg:mx-5 mt-10 lg:p-8 p-4">
                         {
-                            allAttendanceSummary && allAttendanceSummary.length < 1 &&
+                            allAttendanceSummary && allAttendanceSummary?.attendances.length < 1 &&
                             <p className='text-center p-5 text-[14px]'>No Attendance Summary for the selected unit, subunit and schedule</p>
                         }
                     <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
@@ -253,15 +340,15 @@ const Summary = ({baseUrl}) => {
                             <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
-                            <th scope="col" class="px-6 py-3 font-[700]">Start Time</th>
+                            {/* <th scope="col" class="px-6 py-3 font-[700]">Start Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">End Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Location</th>
-                            <th scope="col" class="px-6 py-3 font-[700]">End Location</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">End Location</th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            allAttendanceSummary && allAttendanceSummary?.filter((item) => {
+                            allAttendanceSummary && allAttendanceSummary?.attendances?.filter((item) => {
                                 if (searchText === "") return item
                                 else if (item?.remark.toLowerCase().includes(searchText.toLowerCase())
                                         || item?.classScheduleId?.location?.lat.includes(searchText)
@@ -282,10 +369,10 @@ const Summary = ({baseUrl}) => {
                                         <td className='px-6 py-3'>{item?.remark}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                         <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                        <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
+                                        {/* <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.endTime)}</td>
                                         <td className='px-6 py-3'>{Number(item?.classScheduleId?.location?.lat).toFixed(3)}, {Number(item?.classScheduleId?.location?.long).toFixed(3)}</td>
-                                        <td className='px-6 py-3'>{Number(item?.classScheduleId?.endlocation?.lat).toFixed(3)}, {Number(item?.classScheduleId?.endlocation?.long).toFixed(2)}</td>
+                                        <td className='px-6 py-3'>{Number(item?.classScheduleId?.endlocation?.lat).toFixed(3)}, {Number(item?.classScheduleId?.endlocation?.long).toFixed(2)}</td> */}
                                     </tr>
                                 )
                             })

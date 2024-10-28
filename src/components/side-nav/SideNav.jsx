@@ -189,7 +189,12 @@ const SideNav = ({toggleNav, setToggleNav}) => {
               }}
               className="flex align-center hover"
             >
-              <img src="/images/avatar.svg"className="w-[50px]" style={{ marginRight: 12, }} />
+              {
+                user?.data?.details?.logo?.file ?
+                <img src={user?.data?.details?.logo?.file} alt="" className="w-[50px] h-[50px] rounded-full object-cover" style={{ marginRight: 12, }} />
+                :
+                <img src="/images/avatar.svg" className="w-[50px]" style={{ marginRight: 12, }} />
+              }
               <div>
                 <p className="text-[14px] font-[600] text-white" style={{ whiteSpace: "nowrap" }}>
                   {user && user.data.details.nameOfEstablishment}
