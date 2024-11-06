@@ -175,7 +175,7 @@ const Dashboard = ({ baseUrl }) => {
               </div>
               <div className="">
                 <div className="flex items-center justify-between mb-5">
-                  <p className="text-[#4F4F4F]">Stocks</p>
+                  <p className="text-[#4F4F4F]">Stock</p>
                   <img src="./images/stock.svg" alt="" />
                 </div>
                 <p className="font-[600] text-text-color lg:text-[24px] text-[20px]">{orgzHistory?.totalStocks}</p>
@@ -218,7 +218,7 @@ const Dashboard = ({ baseUrl }) => {
                   })
                 }
                 {
-                  passHistory?.history?.length === 0 && <p className="text-[#4F4F4F] text-[14px] text-center mt-20">No activities have been recorded for today yet.</p>
+                  passHistory?.history?.length === 0 && <p className="text-[#4F4F4F] text-[14px] text-center mt-20">No activities have been recorded for today</p>
                 }
               </div>
               <div className="w-[100%] md:w-[40%] self-start">

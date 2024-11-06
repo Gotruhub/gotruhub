@@ -577,22 +577,21 @@ const CreateUser = ({baseUrl}) => {
                                 </div>
                             } */}
                         </div>
-                        <div className='w-full'>
-                            <label className='flex items-center justify-between text-left mb-2 text-text-color'>
-                                <p>Email</p>
-                                <p className='text-gray-400'>(Optional)</p>
-                            </label>
-                            <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
-                                <input onChange={(e => setEmail(e.target.value))} placeholder='Enter email address' type="text" className='outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
-                            </div>
-                            {/* {
-                                userType === 'student' && 
-                                <div className='flex items-center gap-1 mt-1'>
-                                    <input type="checkbox" className='cursor-pointer' onChange={e => setAsignGuardian(e.target.checked)} />
-                                    <p className='text-[#6F7975] text-[12px]'>Click to assign a guardian/supervisor to this member</p>
+                        {
+                            userType === 'student' &&
+                                <div className='w-full'>
+                                        <div>
+                                            <label className='flex items-center justify-between text-left mb-2 text-text-color'>
+                                                <p>Email</p>
+                                                <p className='text-gray-400'>(Optional)</p>
+                                            </label>
+                                            <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
+                                                <input onChange={(e => setEmail(e.target.value))} placeholder='Enter email address' type="text" className='outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                                            </div>
+                                            <p className='text-[12px] text-yellow-600'>Use if monitor feeature would be enabled</p>
+                                        </div>
                                 </div>
-                            } */}
-                        </div>
+                        }
                         {
                             userType !== 'student' &&
                             <div className='w-full'>

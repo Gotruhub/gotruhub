@@ -170,11 +170,11 @@ const Orders = ({baseUrl}) => {
                                     filterDropDown &&
                                     <div className='border mt-1 rounded-[6px] bg-[#fff] text-[#6F7975] p-3'>
                                         <div>
-                                            <label className='block text-left mb-2'>Date</label>
+                                            <label className='block text-left mt-2'>Start Date</label>
                                             <input onChange={e => setStartDateFilter(e.target.value)} type="date" className='outline-none w-full rounded-[4px] capitalize bg-transparent border p-3'/>
                                         </div>
                                         <div>
-                                            <label className='block text-left mb-2'>Date</label>
+                                            <label className='block text-left mt-2'>End Date</label>
                                             <input onChange={e => setEndDateFilter(e.target.value)} type="date" className='outline-none w-full rounded-[4px] capitalize bg-transparent border p-3'/>
                                         </div>
                                         <div className='w-full relative my-6'>

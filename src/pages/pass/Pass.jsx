@@ -210,6 +210,7 @@ const Pass = ({baseUrl}) => {
                                 <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Member</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Role</th>
+                                <th scope="col" class="px-6 py-3 font-[700]">Admin</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Location</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Time</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Date</th>
@@ -225,10 +226,11 @@ const Pass = ({baseUrl}) => {
                                     <tr className='text-[#19201D]'>
                                         <td className='px-6 py-3'>{index + 1}</td>
                                         <td className='px-6 flex items-center gap-1 py-3'>
-                                            <img src={item?.user?.profileImage?.file} className='w-[30px]' alt="" />
+                                            <img src={item?.user?.profileImage?.file} className='w-[30px] rounded-full h-[30px] object-cover' alt="" />
                                             <p>{item?.user?.fullName}</p>
                                         </td>
                                         <td className='px-6'>{item?.user?.role}</td>
+                                        <td className='px-6'>{item?.scannedBy?.fullName}</td>
                                         <td className='text-[#25751E] underline px-6'>{item?.coordinate?.lat}, {item?.coordinate?.long}</td>
                                         <td className='px-6'>{formattedTime}</td>
                                         <td className='px-6'>{new Date(item?.createdAt).toLocaleDateString()}</td>

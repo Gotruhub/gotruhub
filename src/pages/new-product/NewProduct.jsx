@@ -249,6 +249,7 @@ const NewProduct = ({baseUrl}) => {
                                 <div className='w-full'>
                                     <label className='block text-left mb-2'>Minimum quantity</label>
                                     <input type="number" onChange={e => setMinimumQuantity(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+                                    <p className='text-[12px] mt-1 text-gray-500'>Total Quantity, including varients</p>
                                 </div>
                             </div>
                             <div className='flex flex-col sm:flex-row items-center gap-5 w-full'>
