@@ -281,7 +281,7 @@ const Summary = ({baseUrl}) => {
                         </p>
                     </div>
                     <div className='bg-gray-200 py-3'>
-                        <p>Signing Coordinate</p>
+                        <p>Saved Location/Start</p>
                         <div className='flex gap-1 items-center justify-center'>
                             <p>Lat :</p>
                             <p>
@@ -302,7 +302,7 @@ const Summary = ({baseUrl}) => {
                         </div>
                     </div>
                     <div className='bg-gray-200 py-3'>
-                        <p>Signout Coordinate</p>
+                        <p>Saved Location/End</p>
                         <div className='flex gap-1 items-center justify-center'>
                             <p>Lat :</p>
                             <p>
@@ -340,6 +340,8 @@ const Summary = ({baseUrl}) => {
                             <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Scan Coordinate</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Alloted Time</th>
                             {/* <th scope="col" class="px-6 py-3 font-[700]">Start Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">End Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Start Location</th>
@@ -369,6 +371,8 @@ const Summary = ({baseUrl}) => {
                                         <td className='px-6 py-3'>{item?.remark}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                         <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                        <td className='px-6 py-3'>{item?.location.lat}, {item?.location.long}</td>
+                                        <td className='px-6 py-3'>{item?.classScheduleId?.endTime}mins</td>
                                         {/* <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.endTime)}</td>
                                         <td className='px-6 py-3'>{Number(item?.classScheduleId?.location?.lat).toFixed(3)}, {Number(item?.classScheduleId?.location?.long).toFixed(3)}</td>
