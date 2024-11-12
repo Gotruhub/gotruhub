@@ -337,6 +337,8 @@ const Summary = ({baseUrl}) => {
                         <tr>
                             <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Name</th>
+                            <th scope="col" class="px-6 py-3 font-[700]">Role</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
                             <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
@@ -368,6 +370,8 @@ const Summary = ({baseUrl}) => {
                                     <tr className={item?.flag !== false ? `text-[#19201D] bg-yellow-500` : `text-[#19201D]`} key={index}>
                                         <td className='px-6  py-3'>{index + 1}</td>
                                         <td className='px-6 py-3'>{item?.attendanceType}</td>
+                                        <td className='px-6 py-3'>{item?.remark}</td>
+                                        <td className='px-6 py-3'>{item?.remark}</td>
                                         <td className='px-6 py-3'>{item?.remark}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                         <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
