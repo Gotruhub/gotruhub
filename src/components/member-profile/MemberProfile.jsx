@@ -122,8 +122,8 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                     <img src="./images/edit.svg" alt="" onClick={() => navigate(`/update-authorized-images/${id}`)} className='cursor-pointer' />
                 </div>
                 <div className='flex items-center gap-7 flex-col sm:flex-row'>
-                    <img src={currentUser?.user?.guardians?.relationImage?.file} className='w-[45%] rounded-[6px]' alt="Relation image" />
-                    <img src={currentUser?.user?.guardians?.signature?.file} className='w-[45%] rounded-[6px]' alt="Image of signature" />
+                    <img src={currentUser?.user?.guardians?.relationImage?.file} className='w-[200px] h-[200px] object-cover rounded-[6px]' alt="Relation image" />
+                    <img src={currentUser?.user?.guardians?.signature?.file} className='w-[200px] h-[200px] object-cover rounded-[6px]' alt="Image of signature" />
                 </div>
             </div>
         </div>

@@ -41,8 +41,8 @@ const SingleOrder = ({baseUrl}) => {
                     <div>
                         <div className="flex items-center gap-2">
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/orders')} className='cursor-pointer' />
-                            <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">
-                                #{order?._id?.substring(0, 9)}...
+                            <p className="text-[14px] lg:text-[20px] text-primary-color font-[600]">
+                                #{order?._id}
                             </p>
                         </div>
                     </div>

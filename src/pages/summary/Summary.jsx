@@ -261,8 +261,8 @@ const Summary = ({baseUrl}) => {
                         </div>
                     </div>
                 </div>
-                <div className='grid lg:grid-cols-4 text-center gap-3 mt-5 px-[10px] lg:px-[30px] w-full grid-cols-2'>
-                    <div className='bg-gray-200 py-3'>
+                <div className='grid lg:grid-cols-4 text-center gap-3 mt-5 px-[10px] lg:px-[30px] w-full grid-cols-2 text-[14px]'>
+                    <div className='border bg-[#F2FCF8] py-3 rounded-[8px]'>
                         <p className='mb-5'>Start Time</p>
                         <p>
                             {
@@ -271,7 +271,7 @@ const Summary = ({baseUrl}) => {
                             }
                         </p>
                     </div>
-                    <div className='border bg-gray-200 py-3'>
+                    <div className='border bg-[#F2FCF8] py-3 rounded-[8px]'>
                         <p className='mb-5'>End Time</p>
                         <p>
                             {
@@ -280,7 +280,7 @@ const Summary = ({baseUrl}) => {
                             }
                         </p>
                     </div>
-                    <div className='bg-gray-200 py-3'>
+                    <div className='border bg-[#F2FCF8] py-3 rounded-[8px]'>
                         <p>Saved Location/Start</p>
                         <div className='flex gap-1 items-center justify-center'>
                             <p>Lat :</p>
@@ -301,7 +301,7 @@ const Summary = ({baseUrl}) => {
                             </p>
                         </div>
                     </div>
-                    <div className='bg-gray-200 py-3'>
+                    <div className='border bg-[#F2FCF8] py-3 rounded-[8px]'>
                         <p>Saved Location/End</p>
                         <div className='flex gap-1 items-center justify-center'>
                             <p>Lat :</p>
@@ -376,7 +376,7 @@ const Summary = ({baseUrl}) => {
                                         <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                         <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
                                         <td className='px-6 py-3'>{item?.location.lat}, {item?.location.long}</td>
-                                        <td className='px-6 py-3'>{item?.classScheduleId?.endTime}mins</td>
+                                        <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
                                         {/* <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.startTime)}</td>
                                         <td className='px-6 py-3'>{formatTime(item?.classScheduleId?.endTime)}</td>
                                         <td className='px-6 py-3'>{Number(item?.classScheduleId?.location?.lat).toFixed(3)}, {Number(item?.classScheduleId?.location?.long).toFixed(3)}</td>

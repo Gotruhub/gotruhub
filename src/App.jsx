@@ -86,6 +86,7 @@ import EditAssignmentLocation from './pages/edit-assignment-location/EditAssignm
 import Category from './pages/category/Category'
 import GradingSystem from './pages/grading-system/GradingSystem'
 import AssignPickup from './pages/assign-pickup/AssignPickup'
+import MemberProfile from './pages/member-profile/MemberProfile'
 
 function App() {
 
@@ -176,6 +177,7 @@ function App() {
             <Route path ="/edit-assignment-location/:id" element={<EditAssignmentLocation baseUrl={baseUrl}/>} />
             <Route path ="/categories" element={<Category baseUrl={baseUrl}/>} />
             <Route path ="/assign-pickup" element={<AssignPickup baseUrl={baseUrl}/>} />
+            <Route path ="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
