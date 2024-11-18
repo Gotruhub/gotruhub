@@ -80,7 +80,7 @@ const NotificationInfo = ({baseUrl}) => {
                 <div className='px-[10px] lg:px-[30px] py-[1rem]'>
                     <div className='flex items-center justify-between'>
                         <p className='font-[500]'>{notification?.title}</p>
-                        <p>{ new Date(notification?.createdAt).toLocaleString() }</p>
+                        <p>On { new Date(notification?.createdAt).toLocaleString() }</p>
                     </div>
                     <p className='mt-3'>{notification?.message}</p>
                 </div>
