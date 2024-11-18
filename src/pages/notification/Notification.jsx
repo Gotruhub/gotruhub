@@ -18,10 +18,11 @@ const Notification = ({baseUrl}) => {
     const filterArray = ['All', "Cash sales", "Wallet sales", "Purchases", "Deposits", "Withdrawals"]
     const [toggleNav, setToggleNav] = useState(false)
     const user = JSON.parse(localStorage.getItem('user'))
+    const [page, setPage] = useState(1);
 
-    async function getAllNotification(){
+    async function getAllNotification(pageNumber){
         console.log(`${user.data.details._id}`)
-        const res = await fetch(`${baseUrl}/notification/${user.data.details._id}`,{
+        const res = await fetch(`${baseUrl}/notification/${user.data.details._id}?page=${pageNumber}`,{
             headers:{
                 'Content-Type':'application/json',
                 Authorization:`Bearer ${user.data.access_token}`
@@ -45,9 +46,19 @@ const Notification = ({baseUrl}) => {
         }
     }
 
+    async function incrementPage() {
+        setPage((prevPage) => prevPage + 1);
+    }
+
+    async function decrementPage() {
+        if (page > 1) {
+            setPage((prevPage) => prevPage - 1);
+        }
+    }
+
     useEffect(() => {
-        getAllNotification()
-    }, [])
+        getAllNotification(page)
+    }, [page])
 
   return (
     <div>
@@ -114,11 +125,11 @@ const Notification = ({baseUrl}) => {
                         ))
                     }
                     <div className='flex items-center justify-between'>
-                        <button className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Prev</button>
+                        <button onClick={decrementPage} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Prev</button>
                         <div className='flex items-center gap-3'>
                             <p>Page {allNotification?.currentPage} of {allNotification?.totalPages}</p>
                         </div>
-                        <button className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Next</button>
+                        <button onClick={incrementPage} className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Next</button>
                     </div>
                 </div>
             </div>
