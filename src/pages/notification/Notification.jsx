@@ -116,7 +116,7 @@ const Notification = ({baseUrl}) => {
                                         <p className='text-[#4F4F4F] font-[600] cursor-pointer text-[12px]' onClick={() => markNotificationAsRead(notification._id)}>Mark as read</p>
                                     }
                                 </div>
-                                <p className='text-[#19201D] mt-4 cursor-pointer inline-block'>{notification?.message}</p>
+                                <p className='text-[#19201D] mt-4 cursor-pointer inline-block'>{notification?.message.split(' ').slice(0, 30).join(' ') + (notification?.message?.length > 50 ? '...' : '')}</p>
                                 <div className='flex items-center justify-between'>
                                     <p className='text-[#4F4F4F] text-[14px] mt-4'>{ new Date(notification?.createdAt).toLocaleDateString() }</p>
                                     <p className='text-[#4F4F4F] mt-4 text-[13px] cursor-pointer' onClick={() => navigate(`/notification/${notification._id}`)}>Read More</p>
