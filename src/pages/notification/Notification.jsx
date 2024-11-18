@@ -20,7 +20,8 @@ const Notification = ({baseUrl}) => {
     const user = JSON.parse(localStorage.getItem('user'))
 
     async function getAllNotification(){
-        const res = await fetch(`${baseUrl}/notification/${user.data._id}`,{
+        console.log(`${user.data.details._id}`)
+        const res = await fetch(`${baseUrl}/notification/${user.data.details._id}`,{
             headers:{
                 'Content-Type':'application/json',
                 Authorization:`Bearer ${user.data.access_token}`
