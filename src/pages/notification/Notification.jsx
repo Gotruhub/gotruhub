@@ -28,7 +28,21 @@ const Notification = ({baseUrl}) => {
             }
         })
         const data = await res.json()
-        console.log(data);
+        setAllNotification(data.data)
+        console.log(data.data);
+    }
+
+    async function markNotificationAsRead(notificationId) {
+        const res = await fetch(`${baseUrl}/notification/${user.data.details._id}/${notificationId}`,{
+            method: "PUT",
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${user.data.access_token}`
+            }
+        })
+        if(res.ok){
+            getAllNotification()
+        }
     }
 
     useEffect(() => {
@@ -75,16 +89,36 @@ const Notification = ({baseUrl}) => {
                     </div>
                 </div>
                 <div class="relative overflow-x-auto mx-5 mt-10">
-                    <div className='bg-[#F7F7F7] px-8 py-6 sm:w-[90%] w-full rounded-[16px]'>
-                        <div className='flex items-ceter justify-between'>
-                            <div className='flex items-center gap-3 text-[#9A2525]'>
-                                <IoIosNotificationsOutline className='font-[700] bg-[#9A25251A] text-[30px] p-1 rounded-full'/>
-                                <p className='font-[600]'>Unauthorized location</p>
+                    {
+                        allNotification?.notifications?.map(notification => (
+                            <div className={notification.read === true ? 'bg-[#F7F7F7] px-8 py-6 w-full rounded-[16px] my-5':  'bg-[#F7F7F7] px-8 py-6 w-full rounded-[16px] my-5 border border-[#1E2522]'}>
+                                <div className='flex items-ceter justify-between'>
+                                    <div className='flex items-center gap-3 text-[#1E2522]'>
+                                        <IoIosNotificationsOutline className='font-[700] bg-[#fff] text-[30px] p-1 rounded-full'/>
+                                        <div className='flex items-center gap-2'>
+                                            <p className='font-[600]'>{notification?.title}</p>
+                                            <p className='text-[11px] font-[500] bg-[#C3FAE2] p-1 rounded-full'>{notification?.type}</p>
+                                        </div>
+                                    </div>
+                                    {
+                                        notification.read === false &&
+                                        <p className='text-[#4F4F4F] font-[600] cursor-pointer text-[12px]' onClick={() => markNotificationAsRead(notification._id)}>Mark as read</p>
+                                    }
+                                </div>
+                                <p className='text-[#19201D] mt-4 cursor-pointer inline-block'>{notification?.message}</p>
+                                <div className='flex items-center justify-between'>
+                                    <p className='text-[#4F4F4F] text-[14px] mt-4'>{ new Date(notification?.createdAt).toLocaleDateString() }</p>
+                                    <p className='text-[#4F4F4F] mt-4 text-[13px] cursor-pointer' onClick={() => navigate(`/notification/${notification._id}`)}>Read More</p>
+                                </div>
                             </div>
-                            <p className='text-[#4F4F4F] font-[600] cursor-pointer'>Mark as read</p>
+                        ))
+                    }
+                    <div className='flex items-center justify-between'>
+                        <button className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Prev</button>
+                        <div className='flex items-center gap-3'>
+                            <p>Page {allNotification?.currentPage} of {allNotification?.totalPages}</p>
                         </div>
-                        <p className='text-[#19201D] mt-4 cursor-pointer inline-block'>Ngozi Oduduwa - member signed in for COS 101 at 8.29780,3.346063 by Benjamin Adamu - admin</p>
-                        <p className='text-[#4F4F4F] text-[14px] mt-4'>09 March, 2024 - 11:56AM</p>
+                        <button className='bg-[#19201D] py-2 px-4 rounded-[4px] text-white text-[14px]'>Next</button>
                     </div>
                 </div>
             </div>

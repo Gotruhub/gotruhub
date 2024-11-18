@@ -87,6 +87,7 @@ import Category from './pages/category/Category'
 import GradingSystem from './pages/grading-system/GradingSystem'
 import AssignPickup from './pages/assign-pickup/AssignPickup'
 import MemberProfile from './pages/member-profile/MemberProfile'
+import NotificationInfo from './pages/notification-info/NotificationInfo'
 
 function App() {
 
@@ -131,6 +132,7 @@ function App() {
             <Route path='/location' element={<Location baseUrl={baseUrl}/>} />
             <Route path='/settings' element={<Settings baseUrl={baseUrl}/>} />
             <Route path='/notification' element={<Notification baseUrl={baseUrl}/>} />
+            <Route path='/notification/:id' element={<NotificationInfo baseUrl={baseUrl}/>} />
             <Route path='/calendar' element={<Calendar baseUrl={baseUrl}/>} />
             <Route path='/result' element={<Result baseUrl={baseUrl}/>} />
             <Route path='/create-session' element={<CreateSession baseUrl={baseUrl}/>} />
