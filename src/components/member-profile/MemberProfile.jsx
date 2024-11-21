@@ -146,18 +146,18 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                     {/* <Doughnut data={data} /> */}
                     <PieChart width={220} height={220}>
                         <Pie
-                        data={graphDdata}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={90}
-                        outerRadius={110}
-                        fill="#8884d8"
-                        paddingAngle={5}
-                        dataKey="value"
-                        >
-                        {graphDdata?.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
+                          data={graphDdata}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={90}
+                          outerRadius={110}
+                          fill="#8884d8"
+                          paddingAngle={5}
+                          dataKey="value"
+                          >
+                          {graphDdata?.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
                         </Pie>
                         <Tooltip />
                     </PieChart>
