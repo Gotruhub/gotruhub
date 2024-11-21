@@ -3,6 +3,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import Alert from '../../components/alert/Alert'
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 const MemberProfile = ({baseUrl}) => {
 
@@ -12,14 +13,16 @@ const MemberProfile = ({baseUrl}) => {
     const [loading, setIsLoading] = useState(false)
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
+    const [memberInfo, setMemberInfo] = useState()
     const { id } = useParams()
 
     async function getMember() {
+        console.log(`${baseUrl}/users/get-user/${id}`);
+        
         setIsLoading(true)
         try {
             const response = await fetch(`${baseUrl}/users/get-user/${id}`,{
                 headers:{
-                    'Content-Type':'application/json',
                     Authorization:`Bearer ${user.data.access_token}`
                 }
             })
@@ -27,8 +30,8 @@ const MemberProfile = ({baseUrl}) => {
             console.log(response, data);
             
             if(data.success){
-                setMsg(data.message)
-                setAlertType('success')
+                setMemberInfo(data.data)
+                // setAlertType('success')
                 // localStorage.setItem('member', JSON.stringify(data.data))
             } else {
                 setMsg(data.message)
@@ -45,6 +48,13 @@ const MemberProfile = ({baseUrl}) => {
         getMember()
     },[])
 
+    const graphDdata = [
+        { name: 'Group A', value: 400, color: '#FFBB28' },
+        { name: 'Group B', value: 300, color: '#FF8042' },
+        { name: 'Group C', value: 300, color: '#00C49F' },
+        { name: 'Group D', value: 200, color: '#0088FE' },
+      ];
+
   return (
     <div className='h-[100vh]'>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
@@ -58,6 +68,45 @@ const MemberProfile = ({baseUrl}) => {
                     </div>
                     <div className='flex items-center gap-5'>
                         <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]">Print Summary</button>
+                    </div>
+                </div>
+                <div className='shadow-md rounded-[6px] flex gap-7 p-[20px] mb-10 w-full justify-between flex-col sm:flex-row'>
+                    <div className='flex items-start justify-between w-full'>
+                        <div>
+                            <img src={memberInfo?.user?.profileImage?.file ? memberInfo?.user?.profileImage?.file : './images/user.svg'} className='w-[200px] rounded-[6px]' alt="Member Image" />
+                            <p>{memberInfo?.user?.fullName}</p>
+                            <p>{memberInfo?.user?.role}</p>
+                            <p>{memberInfo?.user?.subUnit?.name}</p>
+                        </div>
+                        <div>
+                            <img src={memberInfo?.user?.passQrcode} className='w-[200px] rounded-[6px]' alt="Passcode Image" />
+                            <p>{memberInfo?.user?.fullName}</p>
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className='w-[100%] p-[20px]'>
+                            <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Assignment Strength</p>
+                            <div className='w-full'>
+                                {/* <Doughnut data={data} /> */}
+                                <PieChart width={220} height={220}>
+                                    <Pie
+                                        data={graphDdata}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={90}
+                                        outerRadius={110}
+                                        fill="#8884d8"
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                        >
+                                        {graphDdata?.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.color} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {/* <div className='flex items-center gap-5 w-[500px] mx-auto'>

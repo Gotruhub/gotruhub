@@ -15,10 +15,12 @@ const Notification = ({baseUrl}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [allNotification, setAllNotification] = useState([])
     const [msg, setMsg] = useState('')
-    const filterArray = ['All', "Cash sales", "Wallet sales", "Purchases", "Deposits", "Withdrawals"]
+    const filterArray = ['All', "announcement", "gotrutrade", "gotrupass", "gotrumonitor"]
     const [toggleNav, setToggleNav] = useState(false)
     const user = JSON.parse(localStorage.getItem('user'))
     const [page, setPage] = useState(1);
+    const [startDateFilter, setStartDateFilter] = useState()
+    const [endDateFilter, setEndDateFilter] = useState()
 
     async function getAllNotification(pageNumber){
         console.log(`${user.data.details._id}`)
@@ -67,33 +69,42 @@ const Notification = ({baseUrl}) => {
             <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
                 <div className="flex justify-between items-start mb-[1rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
-                    <div>
-                        <div className="flex items-center gap-2">
-                            <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/')} className='cursor-pointer' />
-                            <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Notification</p>
-                        </div>
+                    <div className="flex items-center gap-2">
+                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/')} className='cursor-pointer' />
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Notification</p>
                     </div>
                     <div className='relative flex items-center gap-[10px]'>
-                        {/* <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
+                        <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
                             <CiFilter className='mr-1'/>
                             <p className='px-5 border-l'>Filter</p>
                             <GoChevronDown />
-                        </div> */}
-                        <div className='absolute top-[40px] z-10'>
+                        </div>
+                        <div className='absolute top-[40px] z-10 right-[2px]'>
                             {
                                     filterDropDown &&
-                                    <div className='border mt-1 rounded-[6px] bg-[#fff] text-[#6F7975]'>
+                                    <div className='border mt-1 rounded-[6px] bg-[#fff] text-[#6F7975] p-3'>
+                                        <p>Feature</p>
                                     {
                                         filterArray?.map((item, index) => {
                                             return (
-                                                <div key={index}>
+                                                <div key={index} className='flex items-center gap-2 my-2'>
+                                                    <input type="checkbox" />
                                                     <p onClick={() => {
                                                         setFilterDropdown(false)
-                                                    }} className='cursor-pointer p-3 hover:bg-gray-200'>{item}</p>
+                                                    }} className='cursor-pointer hover:bg-gray-200 capitalize'>{item}</p>
                                                 </div>
                                             )
                                         })
                                     }
+                                    <div>
+                                        <label className='block text-left mt-2'>Start Date</label>
+                                        <input onChange={e => setStartDateFilter(e.target.value)} type="date" className='outline-none w-full rounded-[4px] capitalize bg-transparent border p-3'/>
+                                    </div>
+                                    <div>
+                                        <label className='block text-left mt-2'>End Date</label>
+                                        <input onChange={e => setEndDateFilter(e.target.value)} type="date" className='outline-none w-full rounded-[4px] capitalize bg-transparent border p-3'/>
+                                    </div>
+                                    <button className='text-white text-[14px] bg-[#2D3934] w-full rounded-[4px] px-[15px] py-[8px] text-center mx-auto mt-3'>Apply Filter</button>
                                 </div>
                             }
                         </div>
