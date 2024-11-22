@@ -14,6 +14,7 @@ const SingleUser = ({baseUrl}) => {
     const [toggleNav, setToggleNav] = useState(false)
     const [passSummary, setPassSummary] = useState()
     const [walletSummary, setWalletSummary] = useState()
+    const [chartData, setChartData] = useState()
 
     async function getUserInfo(){
         const res = await fetch(`${baseUrl}/users/get-user/${id}`,{
@@ -48,7 +49,30 @@ const SingleUser = ({baseUrl}) => {
         console.log(data)
     }
 
+    async function getMemberAttendanceSummary() {
+        const res = await fetch(`${baseUrl}/attendance-summary/669d0ed4b147f834be933c67/66ad4c9ead67f20eee6ee2a3`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+
+        // Predefined colors for the graph
+        const colors = ['#FFBB28', '#FF8042', '#00C49F', '#0088FE'];
+
+        setChartData(data.data.map((item, index) => ({
+            name: item.courseName.trim(), // Use courseName for name
+            value: item.attendedSessions, // (attendanceRate is the correct value to use, attendedSessions is for testing purposes)
+            color: colors[index % colors.length], // Assign colors in a loop
+        })));
+
+        // setChartData(data.data)
+        console.log(chartData);
+    }
+
     useEffect(() => {
+        getMemberAttendanceSummary()
         getUserPassSummary()
         getWalletSummary()
         getUserInfo()
@@ -69,7 +93,7 @@ const SingleUser = ({baseUrl}) => {
             </div>
             {
                 currentUser &&
-                <MemberProfile currentUser={currentUser} walletSummary={walletSummary} passSummary={passSummary} id={id}/>
+                <MemberProfile chartData={chartData} currentUser={currentUser} walletSummary={walletSummary} passSummary={passSummary} id={id}/>
             }
           </div>
         </div>

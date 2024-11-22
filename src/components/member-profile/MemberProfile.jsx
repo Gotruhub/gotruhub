@@ -1,15 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import GuardianCard from '../guardian-card/GuardianCard'
 import MemberCard from '../member-card/MemberCard'
 import WalletCard from '../wallet-card/WalletCard'
-
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
-
-import { Doughnut, Bar } from 'react-chartjs-2'
-
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
-
 import Slider from "react-slick";
 import { useNavigate } from 'react-router-dom';
 
@@ -22,52 +15,13 @@ const SummaryBar = ({ label, percentage, color }) => (
     </div>
 );
 
-const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
-
-  console.log(passSummary);
-
-    Chart.register(CategoryScale);
+const MemberProfile = ({chartData, currentUser, id, passSummary, walletSummary}) => {
 
     const settings = {
         speed: 500,
         slidesToShow: 2.03,
         slidesToScroll: 1,
       };
-
-      const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-          {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-            ],
-            borderWidth: 1,
-          },
-        ],
-      };
-
-      const graphDdata = [
-        { name: 'Group A', value: 400, color: '#FFBB28' },
-        { name: 'Group B', value: 300, color: '#FF8042' },
-        { name: 'Group C', value: 300, color: '#00C49F' },
-        { name: 'Group D', value: 200, color: '#0088FE' },
-      ];
-
 
       const signInData = passSummary?.signin?.map((item, index) => (
         <SummaryBar
@@ -101,7 +55,6 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
             return 'bg-gray-500';
         }
       }
-
 
 
     const navigate = useNavigate()
@@ -140,28 +93,44 @@ const MemberProfile = ({currentUser, id, passSummary, walletSummary}) => {
                     </Slider>
                 </div>
             </div>
-            <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>
-                <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Assignment Strength</p>
-                <div className='w-full'>
-                    {/* <Doughnut data={data} /> */}
-                    <PieChart width={220} height={220}>
-                        <Pie
-                          data={graphDdata}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={90}
-                          outerRadius={110}
-                          fill="#8884d8"
-                          paddingAngle={5}
-                          dataKey="value"
-                          >
-                          {graphDdata?.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                    </PieChart>
-                </div>
+            <div className='w-full'>
+              <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>
+                  <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Assignment Strength</p>
+                  <div className='w-full flex gap-10'>
+                      <PieChart width={220} height={220}>
+                          <Pie
+                              data={chartData}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={90}
+                              outerRadius={110}
+                              fill="#8884d8"
+                              paddingAngle={5}
+                              dataKey="value"
+                              >
+                              {chartData?.map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={entry.color} />
+                              ))}
+                          </Pie>
+                          <Tooltip />
+                      </PieChart>
+                      <div>
+                          {
+                              chartData?.map((item, index) => {
+                                  return (
+                                      <div key={index} className='flex items-center gap-2'>
+                                          <div>
+                                              <p className={`p-2 rounded-full bg-[${item.color}]`}></p>
+                                          </div>
+                                          <p>{item.name}</p>
+                                          <p className='ml-5 text-gray-500'>{item.value}%</p>
+                                      </div>
+                                  )
+                              })
+                          }
+                      </div>
+                  </div>
+              </div>
             </div>
 
             <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>

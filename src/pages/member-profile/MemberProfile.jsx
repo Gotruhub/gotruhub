@@ -14,6 +14,7 @@ const MemberProfile = ({baseUrl}) => {
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
     const [memberInfo, setMemberInfo] = useState()
+    const [chartData, setChartData] = useState()
     const { id } = useParams()
 
     async function getMember() {
@@ -44,16 +45,32 @@ const MemberProfile = ({baseUrl}) => {
         setIsLoading(false)
     }
 
+    async function getMemberAttendanceSummary() {
+        const res = await fetch(`${baseUrl}/attendance-summary/669d0ed4b147f834be933c67/66ad4c9ead67f20eee6ee2a3`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+
+        // Predefined colors for the graph
+        const colors = ['#FFBB28', '#FF8042', '#00C49F', '#0088FE'];
+
+        setChartData(data.data.map((item, index) => ({
+            name: item.courseName.trim(), // Use courseName for name
+            value: item.attendedSessions, // (attendanceRate is the correct value to use, attendedSessions is for testing purposes)
+            color: colors[index % colors.length], // Assign colors in a loop
+        })));
+
+        // setChartData(data.data)
+        console.log(chartData);
+    }
+
     useEffect(() => {
+        getMemberAttendanceSummary()
         getMember()
     },[])
-
-    const graphDdata = [
-        { name: 'Group A', value: 400, color: '#FFBB28' },
-        { name: 'Group B', value: 300, color: '#FF8042' },
-        { name: 'Group C', value: 300, color: '#00C49F' },
-        { name: 'Group D', value: 200, color: '#0088FE' },
-      ];
 
   return (
     <div className='h-[100vh]'>
@@ -73,7 +90,7 @@ const MemberProfile = ({baseUrl}) => {
                 <div className='shadow-md rounded-[6px] flex gap-7 p-[20px] mb-10 w-full justify-between flex-col sm:flex-row'>
                     <div className='flex items-start justify-between w-full'>
                         <div>
-                            <img src={memberInfo?.user?.profileImage?.file ? memberInfo?.user?.profileImage?.file : './images/user.svg'} className='w-[200px] rounded-[6px]' alt="Member Image" />
+                            <img src={memberInfo?.user?.profileImage?.file} className='w-[200px] rounded-[6px]' alt="Member Image" />
                             <p>{memberInfo?.user?.fullName}</p>
                             <p>{memberInfo?.user?.role}</p>
                             <p>{memberInfo?.user?.subUnit?.name}</p>
@@ -86,11 +103,10 @@ const MemberProfile = ({baseUrl}) => {
                     <div className='w-full'>
                         <div className='w-[100%] p-[20px]'>
                             <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Assignment Strength</p>
-                            <div className='w-full'>
-                                {/* <Doughnut data={data} /> */}
+                            <div className='w-full flex gap-10'>
                                 <PieChart width={220} height={220}>
                                     <Pie
-                                        data={graphDdata}
+                                        data={chartData}
                                         cx="50%"
                                         cy="50%"
                                         innerRadius={90}
@@ -99,12 +115,27 @@ const MemberProfile = ({baseUrl}) => {
                                         paddingAngle={5}
                                         dataKey="value"
                                         >
-                                        {graphDdata?.map((entry, index) => (
+                                        {chartData?.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={entry.color} />
                                         ))}
                                     </Pie>
                                     <Tooltip />
                                 </PieChart>
+                                <div>
+                                    {
+                                        chartData?.map((item, index) => {
+                                            return (
+                                                <div key={index} className='flex items-center gap-2'>
+                                                    <div>
+                                                        <p className={`p-2 rounded-full bg-[${item.color}]`}></p>
+                                                    </div>
+                                                    <p>{item.name}</p>
+                                                    <p className='ml-5 text-gray-500'>{item.value}%</p>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
