@@ -154,7 +154,7 @@ const Summary = ({baseUrl}) => {
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
                         <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
-                        <p className="text-[20px] lgtext-[28px] text-primary-color font-[600]">Attendance Summary..</p>
+                        <p className="text-[20px] lgtext-[28px] text-primary-color font-[600]">Attendance Display</p>
                     </div>
                     {/* <div className='relative flex items-center gap-[10px]'>
                         <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
@@ -257,7 +257,7 @@ const Summary = ({baseUrl}) => {
                             }
                         </div>
                         <div className="w-[100%]">
-                            <button onClick={getSummary} className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px] text-[14px] w-full'>Get Summary</button>
+                            <button onClick={getSummary} className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px] text-[14px] w-full'>Attendance Display</button>
                         </div>
                     </div>
                 </div>
