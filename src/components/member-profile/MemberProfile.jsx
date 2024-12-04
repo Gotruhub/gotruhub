@@ -5,6 +5,7 @@ import WalletCard from '../wallet-card/WalletCard'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import Slider from "react-slick";
 import { useNavigate } from 'react-router-dom';
+import { IoChevronDownOutline } from 'react-icons/io5';
 
 const SummaryBar = ({ label, percentage, color }) => (
     <div className="flex items-center mb-2 w-full">
@@ -15,7 +16,71 @@ const SummaryBar = ({ label, percentage, color }) => (
     </div>
 );
 
-const MemberProfile = ({chartData, currentUser, id, passSummary, walletSummary}) => {
+const MemberProfile = ({baseUrl, chartData, currentUser, id, passSummary, walletSummary}) => {
+
+    // Imported this component from Single User
+    const [dropDown, setDropDown] = useState()
+    const [session, setSession] = useState()
+    const [allSessions, setAllSessions] = useState([])
+    const [allTerms, setAllTerms] = useState([])
+    const [term, setTerm] = useState([])
+    const [allUnits, setAllUnits] = useState([])
+    const [unit, setUnit] = useState()
+    const [allSubUnits, setAllSubUnits] = useState()
+    const [subUnit, setSubUnit] = useState()
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    async function getAllSessions(){
+        const res = await fetch(`${baseUrl}/session`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        setAllSessions(data.data)
+        console.log(data.data);
+    }
+
+    async function getTerms(id){
+        const res = await fetch(`${baseUrl}/term/${id}`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        setAllTerms(data.data)
+        console.log(data.data);
+    }
+
+    async function getAllUnits(){
+        const res = await fetch(`${baseUrl}/units`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        setAllUnits(data.data.units);
+    }
+
+    async function getSubUnit(id){
+        const response = await fetch(`${baseUrl}/unit/${id}/subunits`, {
+            method: 'GET',
+            headers: {
+                Authorization:`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await response.json()
+        console.log(data.data);
+        setAllSubUnits(data.data.units)
+    }
+
+    useEffect(() => {
+        getAllUnits()
+        getAllSessions()
+    },[])
 
     const settings = {
         speed: 500,
@@ -96,7 +161,104 @@ const MemberProfile = ({chartData, currentUser, id, passSummary, walletSummary})
             <div className='w-full'>
               <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>
                   <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Assignment Strength</p>
-                  <div className='w-full flex gap-10'>
+                  <div className='mb-2 flex gap-2'>
+                    <div className='relative'>
+                        <p>Session</p>
+                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
+                            <input type="text" value={session?.name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'sessions' ? false : 'sessions')} />
+                        </div>
+                        {
+                            dropDown === "sessions" &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
+                                {
+                                    allSessions?.map(session => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                setDropDown(false)
+                                                setSession(session)
+                                                getTerms(session._id)
+                                            }}>{session?.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div className='relative'>
+                        <p>Term/Semester</p>
+                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
+                            <input type="text" value={term?.name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'terms' ? false : 'terms')} />
+                        </div>
+                        {
+                            dropDown === "terms" &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
+                                {
+                                    allTerms?.map(term => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                setDropDown(false)
+                                                setTerm(term)
+                                            }}>{term?.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div className='relative'>
+                        <p>Unit</p>
+                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
+                            <input type="text" value={unit?.name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'units' ? false : 'units')} />
+                        </div>
+                        {
+                            dropDown === "units" &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
+                                {
+                                    allUnits?.map(unit => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                setDropDown(false)
+                                                setUnit(unit)
+                                                getSubUnit(unit._id)
+                                            }}>{unit?.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div className='relative'>
+                        <p>Sub-Unit</p>
+                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
+                            <input type="text" value={subUnit?.name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'sub-unit' ? false : 'sub-unit')} />
+                        </div>
+                        {
+                            dropDown === "sub-unit" &&
+                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
+                                {
+                                    allSubUnits?.map(subunit => {
+                                        return (
+                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                setDropDown(false)
+                                                setSession(session)
+                                                setSubUnit(subunit)
+                                            }}>{subunit?.name}</p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                  </div>
+                  {
+                    subUnit &&
+                    <button className='bg-[#1E2522] w-full py-[6px] rounded-[6px] text-white block mb-10 mt-3'>Get Assignment Strength</button>
+                  }
+                  <div className='w-full flex gap-10 mt-7'>
                       <PieChart width={220} height={220}>
                           <Pie
                               data={chartData}

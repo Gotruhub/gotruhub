@@ -109,7 +109,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
               <div className='mt-3 ml-4'>
                 <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/summary')}>
                   <RxDashboard />
-                  <p className={ location.pathname.includes("/summary") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Summary</p>
+                  <p className={ location.pathname.includes("/summary") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Attendance Display</p>
                 </div>
                 <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/units')} >
                   <img src="./images/orders.svg"/>

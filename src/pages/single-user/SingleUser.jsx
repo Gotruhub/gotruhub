@@ -93,7 +93,7 @@ const SingleUser = ({baseUrl}) => {
             </div>
             {
                 currentUser &&
-                <MemberProfile chartData={chartData} currentUser={currentUser} walletSummary={walletSummary} passSummary={passSummary} id={id}/>
+                <MemberProfile baseUrl={baseUrl} chartData={chartData} currentUser={currentUser} walletSummary={walletSummary} passSummary={passSummary} id={id}/>
             }
           </div>
         </div>

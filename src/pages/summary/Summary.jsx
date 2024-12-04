@@ -257,7 +257,7 @@ const Summary = ({baseUrl}) => {
                             }
                         </div>
                         <div className="w-[100%]">
-                            <button onClick={getSummary} className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px] text-[14px] w-full'>Attendance Display</button>
+                            <button onClick={getSummary} className='bg-[#19201D] text-white px-[20px] py-2 rounded-[6px] text-[14px] w-full'>View Display</button>
                         </div>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ const AttendanceSummary = ({baseUrl}) => {
             return;
         }
         if(res.ok){
-            setAllAttendanceSummary(data.data);
+            setAllAttendanceSummary(data.data.attendances);
             // setAlertType('success');
             return;
         }
