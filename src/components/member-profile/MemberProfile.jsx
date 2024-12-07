@@ -16,7 +16,7 @@ const SummaryBar = ({ label, percentage, color }) => (
     </div>
 );
 
-const MemberProfile = ({baseUrl, chartData, currentUser, id, passSummary, walletSummary}) => {
+const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) => {
 
     // Imported this component from Single User
     const [dropDown, setDropDown] = useState()
@@ -28,7 +28,30 @@ const MemberProfile = ({baseUrl, chartData, currentUser, id, passSummary, wallet
     const [unit, setUnit] = useState()
     const [allSubUnits, setAllSubUnits] = useState()
     const [subUnit, setSubUnit] = useState()
+    const [chartData, setChartData] = useState()
     const user = JSON.parse(localStorage.getItem('user'))
+
+    async function getMemberAttendanceSummary() {
+        const res = await fetch(`${baseUrl}/attendance-summary/669d0ed4b147f834be933c67/66ad4c9ead67f20eee6ee2a3`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+
+        // Predefined colors for the graph
+        const colors = ['#FFBB28', '#FF8042', '#00C49F', '#0088FE'];
+
+        setChartData(data.data.map((item, index) => ({
+            name: item.courseName.trim(), // Use courseName for name
+            value: item.attendedSessions, // (attendanceRate is the correct value to use, attendedSessions is for testing purposes)
+            color: colors[index % colors.length], // Assign colors in a loop
+        })));
+
+        // setChartData(data.data)
+        console.log(chartData);
+    }
 
     async function getAllSessions(){
         const res = await fetch(`${baseUrl}/session`,{
@@ -80,6 +103,7 @@ const MemberProfile = ({baseUrl, chartData, currentUser, id, passSummary, wallet
     useEffect(() => {
         getAllUnits()
         getAllSessions()
+        getMemberAttendanceSummary()
     },[])
 
     const settings = {

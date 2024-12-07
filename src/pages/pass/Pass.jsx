@@ -235,7 +235,7 @@ const Pass = ({baseUrl}) => {
                                         <td className='px-6'>{formattedTime}</td>
                                         <td className='px-6'>{new Date(item?.createdAt).toLocaleDateString()}</td>
                                         <td className='px-6'>
-                                            <p className={item?.actionType === "sign_out" ? 'text-[#255e9a] py-1 px-2 rounded-[3px] bg-[#25589a66] inline':'text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'}>{item?.actionType}</p>
+                                            <p className={item?.isValid === false ? 'text-[#ffffff] py-1 px-2 rounded-[3px] bg-red-600 inline':'text-[#418B47] py-1 px-2 rounded-[3px] bg-[#5FB56766] inline'}>{item?.actionType}</p>
                                         </td>
                                     </tr>
                                 )
