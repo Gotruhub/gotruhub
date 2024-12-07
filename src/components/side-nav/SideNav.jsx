@@ -191,7 +191,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             >
               {
                 user?.data?.details?.logo?.file ?
-                <img src={user?.data?.details?.logo?.file} alt="" className="w-[50px] h-[50px] rounded-full mr-[10px]" />
+                <img src={user?.data?.details?.logo?.file} alt="" className="w-[50px] h-[50px] object-cover rounded-full mr-[10px]" />
                 :
                 <img src="/images/avatar.svg" className="w-[50px] h-[50px]" style={{ marginRight: 12, }} />
               }
