@@ -187,10 +187,10 @@ const SendToken = ({baseUrl}) => {
                                           </td>
                                           <td>
                                             <input 
-                                              type="text" 
+                                              type="number" 
                                               className='w-[50px] outline-none border p-1 rounded text-center' 
                                               value={quantity} 
-                                              onChange={e => handleQuantityChange(sub._id, Number(e.target.value))}
+                                              onChange={e => handleQuantityChange(sub._id, e.target.value)}
                                               disabled={!selectedGuardian}
                                             />
                                           </td>

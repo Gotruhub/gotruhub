@@ -85,9 +85,12 @@ const SingleUser = ({baseUrl}) => {
           <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
           <div className="">
             <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
-                <div className="flex items-center gap-2">
+                <div className="flex items-start gap-2">
                     <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/manage-users')} className='cursor-pointer' />
-                    <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">{currentUser && currentUser.user.fullName}</p>
+                    <div>
+                        <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">{currentUser && currentUser.user.fullName}</p>
+                        <p className='text-[14px]'>{currentUser && currentUser.user.regNum}</p>
+                    </div>
                 </div>
                 <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate(`/student-id/${id}`)}>Student Id</button>
             </div>

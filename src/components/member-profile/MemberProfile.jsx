@@ -23,22 +23,25 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
     const [session, setSession] = useState()
     const [allSessions, setAllSessions] = useState([])
     const [allTerms, setAllTerms] = useState([])
-    const [term, setTerm] = useState([])
-    const [allUnits, setAllUnits] = useState([])
-    const [unit, setUnit] = useState()
-    const [allSubUnits, setAllSubUnits] = useState()
-    const [subUnit, setSubUnit] = useState()
-    const [chartData, setChartData] = useState()
+    const [term, setTerm] = useState()
+    const [chartData, setChartData] = useState([])
+    const [loading, setLoading] = useState(false)
     const user = JSON.parse(localStorage.getItem('user'))
 
     async function getMemberAttendanceSummary() {
-        const res = await fetch(`${baseUrl}/attendance-summary/669d0ed4b147f834be933c67/66ad4c9ead67f20eee6ee2a3`,{
+        console.log(`${baseUrl}/attendance-summary/${user.data.details._id}/${term._id}`);
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/attendance-summary/${user.data.details._id}/${term._id}`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
             }
         })
         const data = await res.json()
+        if(res) setLoading(false)
+
+        console.log(res, data);
+        
 
         // Predefined colors for the graph
         const colors = ['#FFBB28', '#FF8042', '#00C49F', '#0088FE'];
@@ -49,8 +52,7 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
             color: colors[index % colors.length], // Assign colors in a loop
         })));
 
-        // setChartData(data.data)
-        console.log(chartData);
+        setChartData(data.data)
     }
 
     async function getAllSessions(){
@@ -62,7 +64,6 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
         })
         const data = await res.json()
         setAllSessions(data.data)
-        console.log(data.data);
     }
 
     async function getTerms(id){
@@ -74,34 +75,9 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
         })
         const data = await res.json()
         setAllTerms(data.data)
-        console.log(data.data);
-    }
-
-    async function getAllUnits(){
-        const res = await fetch(`${baseUrl}/units`,{
-            method:"GET",
-            headers:{
-                'Authorization':`Bearer ${user.data.access_token}`
-            }
-        })
-        const data = await res.json()
-        setAllUnits(data.data.units);
-    }
-
-    async function getSubUnit(id){
-        const response = await fetch(`${baseUrl}/unit/${id}/subunits`, {
-            method: 'GET',
-            headers: {
-                Authorization:`Bearer ${user.data.access_token}`
-            }
-        })
-        const data = await response.json()
-        console.log(data.data);
-        setAllSubUnits(data.data.units)
     }
 
     useEffect(() => {
-        getAllUnits()
         getAllSessions()
         getMemberAttendanceSummary()
     },[])
@@ -231,56 +207,18 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
                             </div>
                         }
                     </div>
-                    <div className='relative'>
-                        <p>Unit</p>
-                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
-                            <input type="text" value={unit?.name} className='outline-none w-full rounded-[4px] capitalize'/>
-                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'units' ? false : 'units')} />
-                        </div>
-                        {
-                            dropDown === "units" &&
-                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
-                                {
-                                    allUnits?.map(unit => {
-                                        return (
-                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
-                                                setDropDown(false)
-                                                setUnit(unit)
-                                                getSubUnit(unit._id)
-                                            }}>{unit?.name}</p>
-                                        )
-                                    })
-                                }
-                            </div>
-                        }
-                    </div>
-                    <div className='relative'>
-                        <p>Sub-Unit</p>
-                        <div className='flex items-center justify-between border rounded-[6px] py-2 px-2 w-full'>
-                            <input type="text" value={subUnit?.name} className='outline-none w-full rounded-[4px] capitalize'/>
-                            <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'sub-unit' ? false : 'sub-unit')} />
-                        </div>
-                        {
-                            dropDown === "sub-unit" &&
-                            <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
-                                {
-                                    allSubUnits?.map(subunit => {
-                                        return (
-                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
-                                                setDropDown(false)
-                                                setSession(session)
-                                                setSubUnit(subunit)
-                                            }}>{subunit?.name}</p>
-                                        )
-                                    })
-                                }
-                            </div>
-                        }
-                    </div>
+                    
                   </div>
                   {
-                    subUnit &&
-                    <button className='bg-[#1E2522] w-full py-[6px] rounded-[6px] text-white block mb-10 mt-3'>Get Assignment Strength</button>
+                    term &&
+                    <button onClick={getMemberAttendanceSummary} className={ loading ? 'bg-[#565a58] cursor-not-allowed w-full py-[6px] rounded-[6px] text-white block mb-10 mt-3' : 'bg-[#1E2522] w-full py-[6px] rounded-[6px] text-white block mb-10 mt-3'}>{loading ? "Loading...": "Get Assignment Strength"}</button>
+                  }
+                  {
+                    loading ? "" : <>
+                        {
+                            chartData.length <= 0 && <p className='text-center'>No data found</p>
+                        }
+                    </>
                   }
                   <div className='w-full flex gap-10 mt-7'>
                       <PieChart width={220} height={220}>
