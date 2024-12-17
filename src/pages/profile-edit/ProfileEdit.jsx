@@ -158,7 +158,7 @@ const ProfileEdit = ({baseUrl}) => {
                 'Content-Type':'application/json',
                 Authorization:`Bearer ${user.data.access_token}`
             },
-            body:JSON.stringify({fullName, subUnit:selectedSubUnit.id, role:'student', regNum, guardians, profileImage:profileImage?._id, piviotUnit:selectedUnit._id})
+            body:JSON.stringify({fullName, subUnit:selectedSubUnit.id, role:'student', guardians, profileImage:profileImage?._id, piviotUnit:selectedUnit._id})
         })
         const data = await res.json()
         if(res) setLoading(false)
