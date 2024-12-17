@@ -89,7 +89,7 @@ const SingleUser = ({baseUrl}) => {
                     <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/manage-users')} className='cursor-pointer' />
                     <div>
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">{currentUser && currentUser.user.fullName}</p>
-                        <p className='text-[14px]'>Reg Number:{currentUser && currentUser.user.regNum}</p>
+                        <p className='text-[14px]'>Reg Number : {currentUser && currentUser.user.regNum}</p>
                     </div>
                 </div>
                 <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate(`/student-id/${id}`)}>Student Id</button>
