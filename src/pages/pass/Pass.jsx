@@ -205,11 +205,12 @@ const Pass = ({baseUrl}) => {
                 </div>
                 <div class="relative overflow-x-auto mx-5 mt-10 py-8">
                     <table class="w-full text-sm text-left rtl:text-left">
-                        <thead class="text-[14px] border-b">
+                        <thead class="text-[13px] border-b">
                             <tr>
                                 <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Member</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Scanned By</th>
+                                <th scope="col" class="px-6 py-3 font-[700]">Custodian</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Role</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Location</th>
                                 <th scope="col" class="px-6 py-3 font-[700]">Time</th>
@@ -230,6 +231,7 @@ const Pass = ({baseUrl}) => {
                                             <p>{item?.user?.fullName}</p>
                                         </td>
                                         <td className='px-6'>{item?.scannedBy?.fullName}</td>
+                                        <td className='px-6'>{item?.approvalBy?.fullName}</td>
                                         <td className='px-6'>{item?.scannedBy?.role}</td>
                                         <td className='text-[#25751E] underline px-6'>{item?.coordinate?.lat}, {item?.coordinate?.long}</td>
                                         <td className='px-6'>{formattedTime}</td>

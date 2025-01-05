@@ -328,7 +328,7 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
                 <div className="mt-8 flex justify-between text-[13px]">
                     <div className="flex items-center">
                         <div className="w-6 h-6 rounded-[5px] bg-[#2E8B57] mr-2"></div>
-                        <span>Admin</span>
+                        <span>Self</span>
                     </div>
                     <div className="flex items-center">
                         <div className="w-6 h-6 rounded-[5px] bg-[#FF6F61] mr-2"></div>
