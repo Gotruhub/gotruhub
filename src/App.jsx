@@ -88,6 +88,7 @@ import GradingSystem from './pages/grading-system/GradingSystem'
 import AssignPickup from './pages/assign-pickup/AssignPickup'
 import MemberProfile from './pages/member-profile/MemberProfile'
 import NotificationInfo from './pages/notification-info/NotificationInfo'
+import CreateUserImageCrop from './pages/create-user-image-crop/CreateUserImageCrop'
 
 function App() {
 
@@ -180,6 +181,7 @@ function App() {
             <Route path ="/categories" element={<Category baseUrl={baseUrl}/>} />
             <Route path ="/assign-pickup" element={<AssignPickup baseUrl={baseUrl}/>} />
             <Route path ="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
+            <Route path ="/create-user-image-crop" element={<CreateUserImageCrop baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>

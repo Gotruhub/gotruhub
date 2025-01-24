@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TopNav from '../../components/top-nav/TopNav'
 import SideNav from '../../components/side-nav/SideNav'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -9,6 +9,8 @@ import BtnLoader from '../../components/btn-loader/BtnLoader';
 import { TbCurrencyNaira } from 'react-icons/tb';
 import Alert from '../../components/alert/Alert';
 import { MdOutlineFileUpload } from 'react-icons/md';
+import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 
 const NewProduct = ({baseUrl}) => {
 
@@ -33,6 +35,16 @@ const NewProduct = ({baseUrl}) => {
     const [customColor, setCustomColor] = useState('');
 
     const [fileUploadLoader, setfileUploadLoader] = useState(false)
+
+    const [productPreviewModal, setProductPreviewModal] = useState(false)
+    const [productImagePreview, setProductImagePreview] = useState('')
+
+    const [imgSrc, setImgSrc] = useState('')
+    const [previewUrl, setPreviewUrl] = useState(null);
+    const [crop, setCrop] = useState()
+
+    const [completedCrop, setCompletedCrop] = useState(null);
+    const imgRef = useRef(null);
 
     const navigate = useNavigate()
 
@@ -90,6 +102,85 @@ const NewProduct = ({baseUrl}) => {
         setSelectedColors(selectedColors.filter(c => c !== color));
     };
 
+    function handleImagePreviewAndCroping(file){
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const imgUrl = reader.result?.toString() || ""
+            setImgSrc(imgUrl)
+            console.log(imgUrl);
+        })
+        reader.readAsDataURL(file)
+    }
+
+    const onImageLoad = (e) => {
+        const { width, height } = e.currentTarget
+        const cropingWidthPercent = (150 / width) * 100
+        const crop = makeAspectCrop(
+            {
+                unit: '%', // Can be 'px' or '%'
+                x: 25,
+                y: 25,
+                width: cropingWidthPercent,
+                height: 50
+            }, 
+            1,
+            width,
+            height
+        )
+        const centeredCrop = centerCrop(crop, width, height)
+        setCrop(centeredCrop)
+    }
+
+    const getCroppedImage = () => {
+        if (!completedCrop || !imgRef.current) return;
+    
+        const image = imgRef.current;
+        const canvas = document.createElement('canvas');
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+    
+        canvas.width = completedCrop.width;
+        canvas.height = completedCrop.height;
+        const ctx = canvas.getContext('2d');
+    
+        ctx.drawImage(
+            image,
+            completedCrop.x * scaleX,
+            completedCrop.y * scaleY,
+            completedCrop.width * scaleX,
+            completedCrop.height * scaleY,
+            0,
+            0,
+            completedCrop.width,
+            completedCrop.height
+        );
+    
+        return canvas.toDataURL('image/jpeg');
+    };
+    
+    const handlePreview = () => {
+        const croppedImage = getCroppedImage();
+        if (croppedImage) {
+            setPreviewUrl(croppedImage);
+        }
+    };
+
+    function base64ToFile(base64String, fileName) {
+        // Split the base64 string to get the content type and base64 data
+        const [metadata, base64Data] = base64String.split(",");
+        const contentType = metadata.match(/:(.*?);/)[1];
+        
+        // Decode the base64 string to binary data
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
+        const byteArray = new Uint8Array(byteNumbers);
+        
+        // Create a File object
+        // return new File([byteArray], fileName, { type: contentType });
+        const newFile = new File([byteArray], fileName, { type: contentType });
+
+        handleFileUpload(newFile);
+    }
 
     async function handleFileUpload(file){
 
@@ -117,6 +208,7 @@ const NewProduct = ({baseUrl}) => {
         if(res.ok) {
           setMsg("File uploaded successfully");
           setAlertType('success')
+          setProductPreviewModal(false)
           setProductCoverImage(data.data)
         }
         if(!res.ok){
@@ -384,24 +476,39 @@ const NewProduct = ({baseUrl}) => {
                             {productCoverImage ? (
                                 <div className='py-[10px] flex items-center flex-col gap-3 relative overflow-hidden w-[200px] h-[300px]'>
                                     <div className='relative w-[150px] cursor-pointer'>
-                                        <button className='bg-gray-800 text-white p-2 rounded text-[12px] cursor-pointer'>Change Image..</button>
-                                        <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'/>
+                                        <button onClick={() => {
+                                            setProductPreviewModal(true)
+                                            setPreviewUrl(null)
+                                            setImgSrc(null)
+                                            }} className='bg-gray-800 text-white p-2 rounded text-[12px] cursor-pointer'>Change Image..</button>
+                                        {/* <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'/> */}
                                     </div>
-                                    {/* <button className='bg-gray-800 text-white p-2 rounded text-[12px]'>Change Image</button> */}
                                     <img src={productCoverImage?.file} className='w-full h-full object-contain'/>
                                 </div>
                                 ) : (
-                                <>
-                                    <input
-                                        className='cursor-pointer opacity-0 w-full h-full absolute left-0'
-                                        type="file"
-                                        onChange={(e) => handleFileUpload(e.target.files[0])} 
-                                    />
-                                    <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
-                                        <MdOutlineFileUpload />
-                                    </div>
-                                    <p className='text-[#6F7975] text-[12px]'>Product Image</p>
-                                </>
+                                    <>
+                                        {
+                                            productImagePreview ?
+                                            <img src={productImagePreview} alt="" className='rounded-[4px] w-[100px] h-[100px]'/>
+                                            :
+                                            <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
+                                                <p>Upload product image</p>
+                                                <button onClick={() => setProductPreviewModal(true)} className='text-white bg-primary-color rounded-[4px] mt-[.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
+                                                {/*  */}
+                                            </div>
+                                        }
+                                    </>
+                                // <>
+                                //     <input
+                                //         className='cursor-pointer opacity-0 w-full h-full absolute left-0'
+                                //         type="file"
+                                //         onChange={(e) => handleFileUpload(e.target.files[0])} 
+                                //     />
+                                //     <div className='bg-[#EDFFF7] text-[#40916C] p-4 rounded-full'>
+                                //         <MdOutlineFileUpload />
+                                //     </div>
+                                //     <p className='text-[#6F7975] text-[12px]'>Product Image</p>
+                                // </>
                             )}
                         </div>
                         <div className='mb-10'>
@@ -425,6 +532,65 @@ const NewProduct = ({baseUrl}) => {
                         <img src='./images/loader.gif' style={{ height:'40px', width:'40px', margin:'12px auto 30px' }} />
                         <p className='text-gray-500 text-[15px] mb-2 text-center'>File Upload in progress, please do not refresh the page</p>
                     </div>
+                </div>
+            </div>
+        }
+        {
+            productPreviewModal &&
+            <div style={{position:'fixed', width:'100%', left:'0', top:'0', zIndex:'99', display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:"rgba(18, 18, 18, 0.8)" }}>
+                <div className="bg-white md:w-[50%] w-[90%] text-center flex items-center justify-center flex-col py-10 relative" style={{ borderRadius:'10px' }}>
+                    <p className='absolute right-[-10px] bg-gray-300 top-[-18px] cursor-pointer text-[22px] z-[999999] p-[5px] border rounded-full' onClick={() => setProductPreviewModal(false)}>
+                        <IoCloseOutline />
+                    </p>
+                    {
+                        imgSrc ?
+                        <div>
+                            {
+                                previewUrl ?
+                                <div>
+                                    <img src={previewUrl} alt="" className='h-[300px] object-contain mx-auto' />
+                                    <div className='flex flex-col sm:flex-row items-center gap-5 w-full mt-5 justify-center'>
+                                        <button onClick={() => setPreviewUrl(null)} className='text-primary-color border border-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Cancel</button>
+                                        <button onClick={() => base64ToFile(previewUrl, "Image")} className='text-white bg-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Upload Image</button>
+                                    </div>
+                                </div>
+                                :
+                                <>
+                                    <ReactCrop
+                                        crop={crop}
+                                        aspect={1}
+                                        minWidth={150}
+                                        onChange={
+                                            (pixelCrop, percentCrop) => setCrop(percentCrop)
+                                        }
+                                        onComplete={(c) => setCompletedCrop(c)}
+                                        // circularCrop
+                                        keepSelection
+                                    >
+                                        <img ref={imgRef} src={imgSrc} onLoad={onImageLoad} className='h-[300px] object-contain mx-auto' alt="" />
+                                    </ReactCrop>
+                                    <div className='flex flex-col sm:flex-row items-center gap-5 w-full mt-5 justify-center'>
+                                        <button onClick={() => setImgSrc(null)} className='text-primary-color border border-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Delete Image</button>
+                                        <button onClick={handlePreview} className='text-white bg-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Preview Image</button>
+                                    </div>
+                                </>
+                            }
+                        </div>
+                        :
+                        <>
+                            <img src="./images/file-upload.svg" alt="" />
+                            <p className='text-text-color font-[600] mt-5'>Click to upload <span className='font-[400] text-[#475367] hidden'>or drag and drop</span> </p>
+                            <p className='text-[#98A2B3]'>PNG, JPG (max. 5mb)</p>
+                            <div className='flex items-center gap-[15px] w-full mt-5'>
+                                <div className='w-[35%] ml-auto h-[2px] bg-[#F0F2F5]'></div>
+                                <p>OR</p>
+                                <div className='w-[35%] mr-auto h-[2px] bg-[#F0F2F5]'></div>
+                            </div>
+                            {/* <input onChange={(e) => handleFileUpload(e.target.files[0])} type="file" className='cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/> */}
+                            <input onChange={(e) => handleImagePreviewAndCroping(e.target.files[0])} type="file" className='z-[1] cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                            <button className='text-white bg-primary-color rounded-[4px] mt-[2.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
+                        </>
+                    }
                 </div>
             </div>
         }

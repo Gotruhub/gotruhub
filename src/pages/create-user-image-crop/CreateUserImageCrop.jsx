@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import TopNav from '../../components/top-nav/TopNav'
 import SideNav from '../../components/side-nav/SideNav'
-import { IoChevronDownOutline, IoCloseOutline } from 'react-icons/io5'
+import { IoChevronDownOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import AlertModal from '../../components/alert-modals/AlertModal'
 import BtnLoader from '../../components/btn-loader/BtnLoader'
 import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
-const CreateUser = ({baseUrl}) => {
+const CreateUserImageCrop = ({baseUrl}) => {
 
     // {
     //     "fullName": "John Doe",
@@ -28,9 +28,6 @@ const CreateUser = ({baseUrl}) => {
     const [alertTitle, setAlertTitle] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [toggleNav, setToggleNav] = useState(false)
-
-    const [isSignatureToUpload, setIsSignatureToUpload] = useState(false)
-    const [isRelationImageToUpload, setIsRelationImageToUpload] = useState(false)
 
     const adminAccessArray = [
         {
@@ -267,32 +264,8 @@ const CreateUser = ({baseUrl}) => {
         }
     };
 
-    function base64ToFile(base64String, fileName) {
-        // Split the base64 string to get the content type and base64 data
-        const [metadata, base64Data] = base64String.split(",");
-        const contentType = metadata.match(/:(.*?);/)[1];
-      
-        // Decode the base64 string to binary data
-        const byteCharacters = atob(base64Data);
-        const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
-        const byteArray = new Uint8Array(byteNumbers);
-      
-        // Create a File object
-        // return new File([byteArray], fileName, { type: contentType });
-        const newFile = new File([byteArray], fileName, { type: contentType });
-
-        if (isSignatureToUpload === true) {
-            handleSignatureUpload(newFile);
-        } else if (isRelationImageToUpload === true) {
-            handleRelationImageUpload(newFile);
-        } else if (userType === 'student' || userType === 'staff' || userType === 'guardian') {
-            handleFileUpload(newFile);
-        }
-    }
-
     async function handleFileUpload(file){
-        console.log("Upload Profile Image ..... ");
-        
+
         const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
         if(file.size > maxSizeInBytes){
             setMsg("File size should not exceed 5MB");
@@ -310,13 +283,9 @@ const CreateUser = ({baseUrl}) => {
         const data = await res.json()
         if(res) setfileUploadLoader(false)
         if(res.ok) {
-            console.log("Profile Picture", data.data._id);
           setMsg("File uploaded successfully");
           setAlertType('success')
           setAlertTitle('Success')
-          setImagePreviewModal(false)
-          setPreviewUrl(false)
-          setImgSrc(false)
           if(userType === 'guardian'){
                 setGuardians(data.data._id)
             }else{
@@ -331,9 +300,8 @@ const CreateUser = ({baseUrl}) => {
         }
     }
 
-    async function handleSignatureUpload(file){
-        console.log("Uploading signature ..... ");
-        
+    async function handleRelationImageUpload(file){
+
         const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
         if(file.size > maxSizeInBytes){
             setMsg("File size should not exceed 5MB");
@@ -341,7 +309,7 @@ const CreateUser = ({baseUrl}) => {
             setAlertTitle('Failed')
             return
         }
-        
+
         console.log(file);
         setfileUploadLoader(true)
         console.log(`${baseUrl}/upload-media`);
@@ -354,17 +322,45 @@ const CreateUser = ({baseUrl}) => {
         const data = await res.json()
         if(res) setfileUploadLoader(false)
         if(res.ok) {
-            console.log("Signature", data.data._id);
-            
           setMsg("File uploaded successfully");
           setAlertType('success')
           setAlertTitle('Success')
-          setImagePreviewModal(false)
-          setPreviewUrl(false)
-          setImgSrc(false)
-          setSignatureImagePreview(data.data.file)
-          setSignature(data.data._id)
-          setIsSignatureToUpload(false)
+          setRelationImagePreview(data.data.file)
+          setRelationImage(data.data._id)
+        }
+        if(!res.ok){
+          setMsg("File upload wasn't successfull");
+          setAlertType('error')
+          setAlertTitle('Failed')
+        }
+    }
+
+    async function handleGuardianImageUpload(file){
+
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+        if(file.size > maxSizeInBytes){
+            setMsg("File size should not exceed 5MB");
+            setAlertType('error')
+            setAlertTitle('Failed')
+            return
+        }
+
+        console.log(file);
+        setfileUploadLoader(true)
+        console.log(`${baseUrl}/upload-media`);
+        const formData = new FormData()
+        formData.append('file', file)
+        const res = await fetch(`${baseUrl}/upload-media`,{
+          method:"POST",
+          body: formData
+        })
+        const data = await res.json()
+        if(res) setfileUploadLoader(false)
+        if(res.ok) {
+          setMsg("File uploaded successfully");
+          setAlertType('success')
+          setAlertTitle('Success')
+          setGuardians(data.data._id)
         }
         if(!res.ok){
           setMsg("File upload wasn't successfull");
@@ -374,8 +370,7 @@ const CreateUser = ({baseUrl}) => {
     }
 
     async function handleRelationImageUpload(file){
-        console.log("Uploading relation image ..... ");
-        
+
         const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
         if(file.size > maxSizeInBytes){
             setMsg("File size should not exceed 5MB");
@@ -396,16 +391,11 @@ const CreateUser = ({baseUrl}) => {
         const data = await res.json()
         if(res) setfileUploadLoader(false)
         if(res.ok) {
-            console.log("Relation", data.data._id);
           setMsg("File uploaded successfully");
           setAlertType('success')
           setAlertTitle('Success')
-          setImagePreviewModal(false)
-          setPreviewUrl(false)
-          setImgSrc(false)
           setRelationImagePreview(data.data.file)
           setRelationImage(data.data._id)
-          setIsRelationImageToUpload(false)
         }
         if(!res.ok){
           setMsg("File upload wasn't successfull");
@@ -414,74 +404,40 @@ const CreateUser = ({baseUrl}) => {
         }
     }
 
-    // async function handleRelationImageUpload(file){
+    async function handleSignatureUpload(file){
 
-    //     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
-    //     if(file.size > maxSizeInBytes){
-    //         setMsg("File size should not exceed 5MB");
-    //         setAlertType('error')
-    //         setAlertTitle('Failed')
-    //         return
-    //     }
-
-    //     console.log(file);
-    //     setfileUploadLoader(true)
-    //     console.log(`${baseUrl}/upload-media`);
-    //     const formData = new FormData()
-    //     formData.append('file', file)
-    //     const res = await fetch(`${baseUrl}/upload-media`,{
-    //       method:"POST",
-    //       body: formData
-    //     })
-    //     const data = await res.json()
-    //     if(res) setfileUploadLoader(false)
-    //     if(res.ok) {
-    //       setMsg("File uploaded successfully");
-    //       setAlertType('success')
-    //       setAlertTitle('Success')
-    //       setRelationImagePreview(data.data.file)
-    //       setRelationImage(data.data._id)
-    //     }
-    //     if(!res.ok){
-    //       setMsg("File upload wasn't successfull");
-    //       setAlertType('error')
-    //       setAlertTitle('Failed')
-    //     }
-    // }
-
-    // async function handleGuardianImageUpload(file){
-
-    //     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
-    //     if(file.size > maxSizeInBytes){
-    //         setMsg("File size should not exceed 5MB");
-    //         setAlertType('error')
-    //         setAlertTitle('Failed')
-    //         return
-    //     }
-
-    //     console.log(file);
-    //     setfileUploadLoader(true)
-    //     console.log(`${baseUrl}/upload-media`);
-    //     const formData = new FormData()
-    //     formData.append('file', file)
-    //     const res = await fetch(`${baseUrl}/upload-media`,{
-    //       method:"POST",
-    //       body: formData
-    //     })
-    //     const data = await res.json()
-    //     if(res) setfileUploadLoader(false)
-    //     if(res.ok) {
-    //       setMsg("File uploaded successfully");
-    //       setAlertType('success')
-    //       setAlertTitle('Success')
-    //       setGuardians(data.data._id)
-    //     }
-    //     if(!res.ok){
-    //       setMsg("File upload wasn't successfull");
-    //       setAlertType('error')
-    //       setAlertTitle('Failed')
-    //     }
-    // }
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+        if(file.size > maxSizeInBytes){
+            setMsg("File size should not exceed 5MB");
+            setAlertType('error')
+            setAlertTitle('Failed')
+            return
+        }
+        
+        console.log(file);
+        setfileUploadLoader(true)
+        console.log(`${baseUrl}/upload-media`);
+        const formData = new FormData()
+        formData.append('file', file)
+        const res = await fetch(`${baseUrl}/upload-media`,{
+          method:"POST",
+          body: formData
+        })
+        const data = await res.json()
+        if(res) setfileUploadLoader(false)
+        if(res.ok) {
+          setMsg("File uploaded successfully");
+          setAlertType('success')
+          setAlertTitle('Success')
+          setSignatureImagePreview(data.data.file)
+          setSignature(data.data._id)
+        }
+        if(!res.ok){
+          setMsg("File upload wasn't successfull");
+          setAlertType('error')
+          setAlertTitle('Failed')
+        }
+    }
 
     async function handleStaffCreate(){
         console.log(appPermissions);
@@ -605,19 +561,19 @@ const CreateUser = ({baseUrl}) => {
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [children, setChildren] = useState([])
 
-    // const handleStudentSelect = (student) => {
-    //   if (!selectedStudents.includes(student)) {
-    //     setSelectedStudents([...selectedStudents, student]);
-    //     setChildren([...children, student._id])
-    //   }
-    //   console.log(student._id);
-    // };
+    const handleStudentSelect = (student) => {
+      if (!selectedStudents.includes(student)) {
+        setSelectedStudents([...selectedStudents, student]);
+        setChildren([...children, student._id])
+      }
+      console.log(student._id);
+    };
   
-    // const handleStudentDeselect = (student) => {
-    //     console.log(student);
-    //   setSelectedStudents(selectedStudents.filter((id) => id!== student));
-    //   setChildren(children.filter((id) => id!== student._id))
-    // };
+    const handleStudentDeselect = (student) => {
+        console.log(student);
+      setSelectedStudents(selectedStudents.filter((id) => id!== student));
+      setChildren(children.filter((id) => id!== student._id))
+    };
 
   return (
     <div>
@@ -962,27 +918,7 @@ const CreateUser = ({baseUrl}) => {
                     {
                         userType === "guardian" &&
                         <>
-                        
-                            <div className='mt-7'>
-                                <label className='block text-text-color text-left mb-2'>
-                                    Image of guardian’s Signature <span className='text-red-500'>*</span>
-                                </label>
-                                {
-                                    signatureImagePreview ?
-                                    <img src={signatureImagePreview} alt="" className='rounded-[4px] w-[100px] h-[100px]'/>
-                                    :
-                                    <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
-                                        <p>Upload Signature image</p>
-                                        <button onClick={() => {
-                                            setIsSignatureToUpload(true)
-                                            setImagePreviewModal(true)}
-                                        } className='text-white bg-primary-color rounded-[4px] mt-[.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
-                                        {/*  */}
-                                    </div>
-                                }
-                            </div>
-                            
-                            {/* {
+                            {
                                 signatureImagePreview ?
                                 <img src={signatureImagePreview} alt="" className='rounded-[4px] w-[100px] h-[100px]'/>
                                 :
@@ -1003,29 +939,9 @@ const CreateUser = ({baseUrl}) => {
                                         <button className='text-white bg-primary-color rounded-[4px] mt-[2.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
                                     </div>
                                 </div>
-                            } */}
-
-                            <div className="mt-7">
-                                <label className='block text-text-color text-left mb-2'>
-                                    Image of relation. <span className='text-red-500'>*</span>
-                                </label>
-                                {
-
-                                    relationImagePreview ?
-                                    <img src={relationImagePreview} alt="" className='rounded-[4px] w-[100px] h-[100px]'/>
-                                    :
-                                    <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
-                                        <p>Upload Relation Image</p>
-                                        <button onClick={() => {
-                                            setIsRelationImageToUpload(true)
-                                            setImagePreviewModal(true)}
-                                        } className='text-white bg-primary-color rounded-[4px] mt-[.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
-                                        {/*  */}
-                                    </div>
-                                }
-                            </div>
+                            }
                             
-                            {/* {
+                            {
                                 relationImagePreview ?
                                 <img src={relationImagePreview} alt="" className='rounded-[4px] w-[100px] h-[100px]'/>
                                 :
@@ -1046,11 +962,11 @@ const CreateUser = ({baseUrl}) => {
                                         <button className='text-white bg-primary-color rounded-[4px] mt-[2.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
                                     </div>
                                 </div>
-                            } */}
+                            }
                         </>
                     }
 
-                    {/* { asignGuardian &&
+                    { asignGuardian &&
                         <>
                         <div className="mt-7">
                             <label className='block text-text-color text-left mb-2'>
@@ -1104,7 +1020,7 @@ const CreateUser = ({baseUrl}) => {
                             </div>
                         </div>
                     </>
-                    } */}
+                    }
 
                     {
                         isLoading ?
@@ -1121,7 +1037,7 @@ const CreateUser = ({baseUrl}) => {
         
         {
             fileUploadLoader &&
-            <div style={{position:'fixed', width:'100%', left:'0', top:'0', zIndex:'9999', display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:"rgba(18, 18, 18, 0.8)" }}>
+            <div style={{position:'fixed', width:'100%', left:'0', top:'0', zIndex:'99', display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:"rgba(18, 18, 18, 0.8)" }}>
                 <div className="bg-white" style={{ borderRadius:'10px' }}>
                     {/* <i className=' ri-close-fill block text-[1.2rem] text-end mt-[1rem] mr-[1rem] cursor-pointer'></i> */}
                     <div className="flex items-center justify-between mt-[1rem] px-[2rem] mb-[2rem] flex-col" style={{ padding:'2rem', textAlign:'center' }} >
@@ -1131,14 +1047,10 @@ const CreateUser = ({baseUrl}) => {
                 </div>
             </div>
         }
-
         {
             imagePreviewModal &&
             <div style={{position:'fixed', width:'100%', left:'0', top:'0', zIndex:'99', display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:"rgba(18, 18, 18, 0.8)" }}>
                 <div className="bg-white md:w-[50%] w-[90%] text-center flex items-center justify-center flex-col py-10 relative" style={{ borderRadius:'10px' }}>
-                    <p className='absolute right-[-10px] bg-gray-300 top-[-18px] cursor-pointer text-[22px] z-[999999] p-[5px] border rounded-full' onClick={() => setImagePreviewModal(false)}>
-                        <IoCloseOutline />
-                    </p>
                     {
                         imgSrc ?
                         <div>
@@ -1148,7 +1060,7 @@ const CreateUser = ({baseUrl}) => {
                                     <img src={previewUrl} alt="" className='h-[300px] object-contain mx-auto' />
                                     <div className='flex flex-col sm:flex-row items-center gap-5 w-full mt-5 justify-center'>
                                         <button onClick={() => setPreviewUrl(null)} className='text-primary-color border border-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Cancel</button>
-                                        <button onClick={() => base64ToFile(previewUrl, "Image")} className='text-white bg-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Upload Image</button>
+                                        <button className='text-white bg-primary-color rounded-[4px] px-[28px] py-[10px] text-center mx-auto'>Upload Image</button>
                                     </div>
                                 </div>
                                 :
@@ -1161,7 +1073,7 @@ const CreateUser = ({baseUrl}) => {
                                             (pixelCrop, percentCrop) => setCrop(percentCrop)
                                         }
                                         onComplete={(c) => setCompletedCrop(c)}
-                                        // circularCrop
+                                        circularCrop
                                         keepSelection
                                     >
                                         <img ref={imgRef} src={imgSrc} onLoad={onImageLoad} className='h-[300px] object-contain mx-auto' alt="" />
@@ -1191,7 +1103,6 @@ const CreateUser = ({baseUrl}) => {
                 </div>
             </div>
         }
-
         {   msg &&
             <AlertModal msg={msg} alertType={alertType} setMsg={setMsg} alertTitle={alertTitle}/>
         }
@@ -1214,4 +1125,4 @@ const CreateUser = ({baseUrl}) => {
   )
 }
 
-export default CreateUser
+export default CreateUserImageCrop
