@@ -33,7 +33,7 @@ const TimeTable = ({ baseUrl }) => {
             }
         });
         const data = await res.json();
-        console.log(data.data);
+        console.log("Time Table Data ===== ", data.data);
         if (!res.ok) {
             setMsg(data.message);
             setAlertType('error');
@@ -136,12 +136,12 @@ const TimeTable = ({ baseUrl }) => {
                                             {groupedData[day]?.map((course) => (
                                                 <div key={course._id} className='flex flex-col items-start gap-1 relative border-r pr-5'>
                                                     <div className='flex items-center gap-3 font-[600] mb-2 text-[13px]'>
-                                                        <p>{formatTime(course.startTime)}</p>
+                                                        <p>{formatTime(course?.startTime)}</p>
                                                         <p>-</p>
-                                                        <p>{formatTime(course.endTime)}</p>
+                                                        <p>{formatTime(course?.endTime)}</p>
                                                     </div>
                                                     <li className="mt-1 flex items-center gap-5">
-                                                        <p>{course.code.toUpperCase()}</p>
+                                                        <p>{course?.code?.toUpperCase()}</p>
                                                         <RxDotsVertical className='cursor-pointer' onClick={() => setEditSchedule(course)} />
                                                     </li>
                                                     {
