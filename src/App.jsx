@@ -89,6 +89,7 @@ import AssignPickup from './pages/assign-pickup/AssignPickup'
 import MemberProfile from './pages/member-profile/MemberProfile'
 import NotificationInfo from './pages/notification-info/NotificationInfo'
 import CreateUserImageCrop from './pages/create-user-image-crop/CreateUserImageCrop'
+import TermsOfUse from './pages/terms-of-use/TermsOfUse'
 
 function App() {
 
@@ -104,6 +105,7 @@ function App() {
             <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
             <Route path='/register' element={<Register />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/terms-of-use' element={<TermsOfUse />} />
             <Route path='/register-organization' element={<RegisterOrgs baseUrl={baseUrl}/>}  />
             <Route path='/register-personal-biz' element={<RegisterPersonalBiz baseUrl={baseUrl}/>}/>
             <Route path='/regiser-government-biz' element={<RegisterGovernmentBiz baseUrl={baseUrl}/>} />

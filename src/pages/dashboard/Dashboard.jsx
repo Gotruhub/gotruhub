@@ -60,6 +60,11 @@ const Dashboard = ({ baseUrl }) => {
         'Authorization': `Bearer ${user.data.access_token}`
       }
     });
+    if(res.status === 401){
+      localStorage.clear()
+      navigate('/login')
+      return;
+    }
     const data = await res.json();
     setPassHistory(data.data);
     console.log("Pass history", data);

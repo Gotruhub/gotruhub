@@ -31,7 +31,7 @@ const Home = () => {
             <img src="/land-1.svg" className='mx-auto mt-[5rem] mb-[10rem] md:max-w-[75%] max-w-[95%]' alt="" />
             <div className='text-center'>
                 <h1 className='text-primary-color font-[500] text-[18px] sm:text-[32px] md:text-[48px] lg:w-[70%] xl:[w-50%] md:px-[1rem] mx-auto'>
-                    We’re all about helping you manage your organization
+                    We're all about helping you manage your organization
                 </h1>
                 <p className='leading-[1.6] w-full sm:w-[580px] mx-auto mt-8'>
                     Our product is aimed at simplifying organization's management processes and helping to keep track of team activities.

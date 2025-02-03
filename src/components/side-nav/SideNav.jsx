@@ -197,9 +197,9 @@ const SideNav = ({toggleNav, setToggleNav}) => {
               }
               <div>
                 <p className="text-[14px] font-[600] text-white" style={{ whiteSpace: "nowrap" }}>
-                  {user && user.data.details.nameOfEstablishment}
+                  {user && user.data?.details?.nameOfEstablishment}
                 </p>
-                <p className="text-[#6F7975] text-[12px]">{user && user.data.details.email}</p>
+                <p className="text-[#6F7975] text-[12px]">{user && user.data?.details?.email}</p>
               </div>
             </Link>
         </div>

@@ -7,11 +7,11 @@ const Footer = () => {
       <img src="./images/logo-white.svg" alt="" className='w-[150px] mx-auto'/>
       <ul className='flex items-center justify-center gap-[20px] mt-[4rem]'>
         <li>
-          <Link to='#'>Terms of service</Link>
+          <Link to='/terms-of-use'>Terms of service</Link>
         </li>
         <li className='h-[30px] w-[1px] bg-gray-500'></li>
         <li>
-          <Link to='#'>Privacy Policy</Link>
+          <Link to='/privacy-policy'>Privacy Policy</Link>
         </li>
       </ul>
     </div>
