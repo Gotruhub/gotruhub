@@ -293,7 +293,7 @@ const AddSchedule = ({baseUrl}) => {
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                     setDropDown(false)
                                                     setCourse(assignment)
-                                                }}>{assignment?.course.name}</p>
+                                                }}>{assignment?.course?.name}</p>
                                             )
                                         })
                                     }
