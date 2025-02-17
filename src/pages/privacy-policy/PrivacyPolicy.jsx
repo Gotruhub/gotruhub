@@ -110,7 +110,7 @@ const PrivacyPolicy = () => {
                         </div>
                         <div>
                             <p className="text-gray-700">We may collect data necessary to process your payment if you choose to make purchases, such as your payment instrument number, and the security code associated with your payment instrument. All payment data is handled and stored by Paystack . You may find their privacy notice link(s) here:</p>
-                            <a className='text-blue-500' href="https://paystack.com/privacy/merchant#:~:text=Paystack%20does%20not%20sell%2C%20trade,Service%20providers">Paystack privacy policy</a>
+                            <a target='_blank' className='text-blue-500' href="https://paystack.com/privacy/merchant#:~:text=Paystack%20does%20not%20sell%2C%20trade,Service%20providers">Paystack privacy policy</a>
                         </div>
 
                         <div className="mt-6">

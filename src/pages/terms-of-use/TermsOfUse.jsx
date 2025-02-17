@@ -13,7 +13,7 @@ const TermsOfUse = () => {
                 <p className='font-[600] text-[20px]'>AGREEMENT TO TERMS</p>
                 <div className='space-y-4 mt-1'>
                   <p>
-                    These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and AC & AC resources (“we,” “us” or “our”), concerning your access to and use of the acandacresources.com website, gotruhub.com domain as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY. 
+                    These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and AC & AC resources (“we,” “us” or “our”), concerning your access to and use of the <a target='_blank' className='text-blue-500 font-[500]' href="https://acandacresources.com/">acandacresources.com</a> acandacresources.com website, <a target='_blank' className='text-blue-500 font-[500]' href="https://gotruhub-iota.vercel.app">gotruhub.com</a>domain as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY. 
                   </p>
                   <p>
                     Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms and Conditions at any time and for any reason. We will inform you about any changes by updating the “Last updated” date of these Terms and Conditions and you waive any right to receive specific notice of each of such change. It is your responsibility to periodically review these Terms and Conditions to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms and Conditions by your continued use of the Site after the date such revised Terms are posted. 
@@ -188,7 +188,6 @@ const TermsOfUse = () => {
                   </p>
                 </div>
               </div>
-
           </div>
         </div>
         <Footer />
