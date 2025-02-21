@@ -54,7 +54,9 @@ const NewProductInfo = ({baseUrl}) => {
         })
         const data = await res.json()
         console.log(data.data);
-        setAllCategories(data.data.categoryExist)
+        setAllCategories(
+            data.data.categoryExist.sort((a, b) => a.name.localeCompare(b.name))
+        );
     }
 
     async function getProductInfo(){

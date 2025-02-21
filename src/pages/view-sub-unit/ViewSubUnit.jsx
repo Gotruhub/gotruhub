@@ -176,7 +176,7 @@ const ViewSubUnit = ({baseUrl}) => {
                 <div className="lg:m-[30px] m-[10px] p-4">
                     <p className='text-[20px] mb-4 font-[500]'>Staff</p>
                     <div className="p-4 rounded-lg shadow-md flex items-center justify-between">
-                        <div className='flex items-center gap-[1rem]'>
+                        <div className='flex items-center gap-[1rem] flex-col md:flex-row'>
                             <div className='h-[70px] w-[70px] rounded-full'>
                                 <img className='rounded-full w-full h-full object-cover' src={staff?.profileImage?.file} alt="" />
                             </div>

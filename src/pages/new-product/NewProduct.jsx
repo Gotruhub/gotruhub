@@ -57,7 +57,9 @@ const NewProduct = ({baseUrl}) => {
         })
         const data = await res.json()
         console.log(data.data);
-        setAllCategories(data.data.categoryExist)
+        setAllCategories(
+            data.data.categoryExist.sort((a, b) => a.name.localeCompare(b.name))
+        );
     }
 
     useEffect(() => {
@@ -493,7 +495,7 @@ const NewProduct = ({baseUrl}) => {
                                             :
                                             <div className='relative flex items-center justify-center flex-col rounded-[16px] h-[300px] w-full' style={{ border:'1.5px dashed #D0D5DD' }}>
                                                 <p>Upload product image</p>
-                                                <button onClick={() => setProductPreviewModal(true)} className='text-white bg-primary-color rounded-[4px] mt-[.5rem] px-[28px] py-[10px] text-center mx-auto'>Browse Files</button>
+                                                <button onClick={() => setProductPreviewModal(true)} className='text-white bg-primary-color rounded-[4px] mt-[.5rem] px-[28px] py-[10px] text-center mx-auto'>Capture / Browse Files</button>
                                                 {/*  */}
                                             </div>
                                         }

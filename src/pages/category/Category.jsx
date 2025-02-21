@@ -43,7 +43,9 @@ const Category = ({baseUrl}) => {
             return;
         }
         if(res.ok){
-            setAllCategories(data.data.categoryExist);
+            setAllCategories(
+                data.data.categoryExist.sort((a, b) => a.name.localeCompare(b.name))
+            );
             setAlertType('success');
             return;
         }
