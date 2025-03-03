@@ -32,7 +32,7 @@ const Summary = ({baseUrl}) => {
     const [toggleNav, setToggleNav] = useState(false)
 
     async function getAllSchedule(subUbitId){
-        const res = await fetch(`${baseUrl}/schedule/${subUbitId._id}`,{
+        const res = await fetch(`${baseUrl}/sub-unit/course/paid/${subUbitId._id}`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
@@ -101,9 +101,9 @@ const Summary = ({baseUrl}) => {
 
     async function getSummary(){
         setLoading(true)
-        console.log(`${baseUrl}/my-orgnz-summary/subunit-summary/course/${subunit._id}/${user.data.details._id}/attendance-summary`);
+        console.log(`${baseUrl}/my-orgnz-summary/subunit-summary/course/${schedule.course._id}/${user.data.details._id}/attendance-summary`);
         
-        const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/course/${subunit._id}/${user.data.details._id}/attendance-summary`,{
+        const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/course/${schedule._id}/${user.data.details._id}/attendance-summary`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`
@@ -125,7 +125,7 @@ const Summary = ({baseUrl}) => {
         }
     }
 
-    console.log(allAttendanceSummary?.days?.length);
+    // console.log(allAttendanceSummary?.days?.length);
     
 
     const formatedTime = (time) => {
@@ -241,7 +241,7 @@ const Summary = ({baseUrl}) => {
                         <div className='relative w-[100%]'>
                             <label className='block text-left mb-2'>Select Schedule</label>
                             <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 '>
-                                <input type="text" value={schedule?.code} className='outline-none w-full rounded-[4px] capitalize bg-transparent'/>
+                                <input type="text" value={schedule?.course.name} className='outline-none w-full rounded-[4px] capitalize bg-transparent'/>
                                 <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "schedules" ? false : "schedules")} />
                             </div>
                             {
@@ -257,7 +257,7 @@ const Summary = ({baseUrl}) => {
                                                 <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                     setSchedule(schedule)
                                                     setDropDown(false)
-                                                }}>{schedule.code}</p>
+                                                }}>{schedule.course.name}</p>
                                             )
                                         })
                                     }
@@ -406,7 +406,7 @@ const Summary = ({baseUrl}) => {
                                         <tr className={item?.flag !== false ? `text-[#19201D] bg-yellow-500` : `text-[#19201D]`} key={index}>
                                             <td className='px-6  py-3'>{index + 1}</td>
                                             <td className='px-6 py-3'>{item?.attendanceType}</td>
-                                            <td className='px-6 py-3'>{item?.user}</td>
+                                            <td className='px-6 py-3'>{item?.user?.fullName}</td>
                                             {/* <td className='px-6 py-3'>{item?.user?.role}</td> */}
                                             <td className='px-6 py-3 capitalize'>{item?.remark}</td>
                                             <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
