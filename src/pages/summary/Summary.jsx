@@ -341,25 +341,25 @@ const Summary = ({baseUrl}) => {
                         <p className='text-center p-5 text-[14px]'>No Attendance Summary for the selected unit, subunit and schedule</p>
                     } */}
                     <div className='w-[500px] space-y-2 mb-12'>
-                        <div className='flex items-center justify-between'>
-                            <p className='font-[500]'>Assignment</p>
+                        <div className='flex items-center gap-5'>
+                            <p className='font-[500]'>Assignment:</p>
                             <p>{allAttendanceSummary?.courseCode}</p>
                         </div>
-                        <div className='flex items-center justify-between'>
-                            <p className='font-[500]'>Total Assignees</p>
+                        <div className='flex items-center gap-5'>
+                            <p className='font-[500]'>Total Assignees:</p>
                             {/* coordinators */}
                             <p>{allAttendanceSummary?.coordinators?.length}</p>
                         </div>
-                        <div className='flex items-center justify-between'>
-                            <p className='font-[500]'>Days</p>
+                        <div className='flex items-center gap-5'>
+                            <p className='font-[500]'>Days:</p>
                             <div className='flex items-center gap-2'>
                                 {allAttendanceSummary?.days?.map(day => (
                                     <p className='capitalize'>{day}</p>
                                 ))}
                             </div>
                         </div>
-                        <div className='flex items-center justify-between'>
-                            <p className='font-[500]'>Avg. Duration</p>
+                        <div className='flex items-center gap-5'>
+                            <p className='font-[500]'>Avg. Duration:</p>
                             <p>{ allAttendanceSummary?.durations && allAttendanceSummary?.durations?.reduce((total, num) => total + num, 0) / allAttendanceSummary?.durations?.length}</p>
                         </div>
                     </div>

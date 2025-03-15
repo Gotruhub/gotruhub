@@ -55,11 +55,11 @@ const AttendanceSummary = ({baseUrl}) => {
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Attendance Summary.</p>
                     </div>
                     <div className='relative flex items-center gap-[10px]'>
-                        <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
+                        {/* <div className='flex items-center bg-white p-2 rounded-[4px] cursor-pointer' onClick={() => setFilterDropdown(!filterDropDown)}>
                             <CiFilter className='mr-1'/>
                             <p className='px-5 border-l'>Filter</p>
                             <GoChevronDown />
-                        </div>
+                        </div> */}
                         <div className='absolute top-[40px] z-10'>
                             {
                                     filterDropDown &&
