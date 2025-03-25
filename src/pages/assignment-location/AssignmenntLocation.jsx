@@ -88,7 +88,8 @@ const AssignmenntLocation = ({baseUrl}) => {
                                     <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
                                     <th scope="col" class="px-6 py-3 font-[700]">Name</th>
                                     <th scope="col" class="px-6 py-3 font-[700]">Start Coord.</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">End Coord.</th>
+                                    {/* <th scope="col" class="px-6 py-3 font-[700]">End Coord.</th> */}
+                                    <th scope="col" class="px-6 py-3 font-[700]">Location Range</th>
                                     <th scope="col" class="px-6 py-3 font-[700]">Action</th>
                                 </tr>
                             </thead>
@@ -100,12 +101,15 @@ const AssignmenntLocation = ({baseUrl}) => {
                                                 <td class="px-6 py-4">{index +1}</td>
                                                 <td class="px-6 py-4">{location.name}</td>
                                                 <td class="px-6 py-4">
-                                                    <span>{location.location.lat}</span>,
-                                                    <span className='ml-2'>{location.location.long}</span>
+                                                    <span>{location?.location?.lat}</span>,
+                                                    <span className='ml-2'>{location?.location?.long}</span>
                                                 </td>
+                                                {/* <td class="px-6 py-4">
+                                                    <span>{location?.endlocation?.lat}</span>,
+                                                    <span className='ml-2'>{location?.endlocation?.long}</span>
+                                                </td> */}
                                                 <td class="px-6 py-4">
-                                                    <span>{location.endlocation.lat}</span>,
-                                                    <span className='ml-2'>{location.endlocation.long}</span>
+                                                    <span className='ml-2'>{location?.location_range}</span>
                                                 </td>
                                                 <td className='px-6 py-4 flex items-center gap-3'>
                                                     <FaRegEdit className="text-gray-500 font-[600] text-[20px] cursor-pointer" onClick={() => {
