@@ -251,13 +251,13 @@ const RegisterOrgs = ({baseUrl}) => {
                     </div>
                 </div>
                 <div className='w-full'>
-                    <label className='block text-left mb-2'>Organization Motto...</label>
+                    <label className='block text-left mb-2'>Organization Motto</label>
                     <input onChange={e => setMotto(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                 </div>
 
-                <div className='mb-5'>
+                <div className='my-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#19201D]'>Start Coordinates</p>
+                            <p className='text-[#828282] text-[12px]'>Start Coordinates</p>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
@@ -276,7 +276,7 @@ const RegisterOrgs = ({baseUrl}) => {
                     </div>
                 <div className='mb-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#19201D]'>Location Range (in meters)</p>
+                            <p className='text-[#828282] text-[12px]'>Location Range (in meters)</p>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
