@@ -32,6 +32,38 @@ const RegisterOrgs = ({baseUrl}) => {
     const [dropDown, setDropDown] = useState(false)
     const [customBizType, setCustomBizType] = useState('');
     const [motto, setMotto] = useState('')
+    const [location_range, setLocationRange] = useState('')
+
+    const [locations, setLocations] = useState({
+      location: {
+        lat: '',
+        long: ''
+      },
+      endLocation: {
+        lat: '',
+        long: ''
+      }
+  });
+
+    const handleStartLatChange = (e) => {
+      setLocations({
+        ...locations,
+        location: {
+          ...locations.location,
+          lat: e.target.value
+        }
+      });
+    };
+
+    const handleStartLongChange = (e) => {
+      setLocations({
+        ...locations,
+        location: {
+          ...locations.location,
+          long: e.target.value
+        }
+      });
+    };
 
     const handleFileChange = (file, kind) => {
 
@@ -90,7 +122,9 @@ const RegisterOrgs = ({baseUrl}) => {
         businessAddress,
         cacImage:cacImageId,
         logo:opLicenceImageId,
-        motto
+        motto,
+        location:locations.location,
+        location_range: Number(location_range)
       };
 
       const handleSignUp = async () => {
@@ -217,9 +251,48 @@ const RegisterOrgs = ({baseUrl}) => {
                     </div>
                 </div>
                 <div className='w-full'>
-                    <label className='block text-left mb-2'>Organization Motto</label>
+                    <label className='block text-left mb-2'>Organization Motto...</label>
                     <input onChange={e => setMotto(e.target.value)} type="text" className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
                 </div>
+
+                <div className='mb-5'>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D]'>Start Coordinates</p>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full outline-none'
+                            placeholder='Latitude'
+                            onChange={handleStartLatChange}
+                        />
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full outline-none'
+                            placeholder='Longitude'
+                            onChange={handleStartLongChange}
+                        />
+                        </div>
+                    </div>
+                <div className='mb-5'>
+                        <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D]'>Location Range (in meters)</p>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full outline-none'
+                            placeholder='10'
+                            onChange={e => setLocationRange(e.target.value)}
+                        />
+                        {/* <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Longitude'
+                            onChange={handleEndLongChange}
+                        /> */}
+                        </div>
+                    </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                     <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>
                     {cacImage ? (
