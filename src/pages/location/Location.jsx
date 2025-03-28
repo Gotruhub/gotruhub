@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import SideNav from '../../components/side-nav/SideNav'
 import TopNav from '../../components/top-nav/TopNav'
-import { CiEdit } from "react-icons/ci";
-import { MdOutlineDeleteForever } from "react-icons/md";
 import { IoCloseOutline } from 'react-icons/io5';
 import BtnLoader from '../../components/btn-loader/BtnLoader';
 import { useNavigate } from 'react-router-dom';
 import Alert from '../../components/alert/Alert';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 
 const Location = ({baseUrl}) => {
 
@@ -92,6 +89,8 @@ const Location = ({baseUrl}) => {
       },[])
 
       async function updateLocation(){
+        console.log(locations);
+        
         if(!locations.startLocation.lat || !locations.startLocation.long || !locations.endLocation.lat || !locations.endLocation.long){
             setMsg("All fields are required!");
             setAlertType('error')

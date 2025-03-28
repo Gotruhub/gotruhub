@@ -123,7 +123,7 @@ const RegisterOrgs = ({baseUrl}) => {
         cacImage:cacImageId,
         logo:opLicenceImageId,
         motto,
-        location:locations.location,
+        startLocation:locations.location,
         location_range: Number(location_range)
       };
 

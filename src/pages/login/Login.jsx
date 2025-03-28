@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Alert from '../../components/alert/Alert'
 import BtnLoader from '../../components/btn-loader/BtnLoader'
 import Navbar from '../../components/navbar/Navbar'
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
 
 const Login = ({baseUrl}) => {
 
@@ -89,10 +90,17 @@ const Login = ({baseUrl}) => {
             <label className='block text-left mb-2'>Email Address</label>
             <input placeholder='hello@company.com' type="text" onChange={e => setEmail(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
           </div>
-          <div className='mt-7'>
+          <div className='mt-7 relative'>
             <label className='block text-left mb-2'>Password</label>
             <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
-              <input placeholder='Your Password' type="password" onChange={e => setPassword(e.target.value)} className='outline-none w-full rounded-[4px]'/>
+              <input placeholder='Your Password' type={encrypted ? "password" : "text"} onChange={e => setPassword(e.target.value)} className='outline-none w-full rounded-[4px]'/>
+              {
+                encrypted ? 
+                <BsEye className='absolute right-5 top-[50%] translate-y-[25%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} />
+                :
+                <BsEyeSlash className='absolute right-5 top-[50%] translate-y-[25%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} />
+              }
+              {/* < src={encrypted ? "./images/eye-off.svg" : "./images/eye-on.svg"} alt="" className='absolute right-5 top-[50%] translate-y-[-50%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} /> */}
             </div>
           </div>
           <p className='text-left mt-5'>Forgot Your Password? <span className='text-secondary-color cursor-pointer' onClick={() => navigate('/reset-password')}>Reset</span> </p>
