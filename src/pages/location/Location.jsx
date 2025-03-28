@@ -17,6 +17,7 @@ const Location = ({baseUrl}) => {
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState()
     const [toggleNav, setToggleNav] = useState(false)
+    const [location_range, setLocationRange] = useState()
     const [locations, setLocations] = useState({
         startLocation: {
           lat: "",
@@ -79,6 +80,13 @@ const Location = ({baseUrl}) => {
         })
         const data = await res.json()
         console.log(res, data);
+        setLocations({
+            startLocation: {
+              lat: data.data.startLocation.lat,
+              long: data.data.startLocation.long,
+            }
+          });
+          setLocationRange(data.data.location_range)
         if(res.ok){
             setIsLoading(false)
         }
@@ -89,22 +97,32 @@ const Location = ({baseUrl}) => {
       },[])
 
       async function updateLocation(){
-        console.log(locations);
+        // Prepare the payload in the exact format you requested
+        const payload = {
+            startLocation: {
+                lat: locations.startLocation.lat,
+                long: locations.startLocation.long
+            },
+            location_range: location_range
+        };
+
+
+        console.log(payload);
         
-        if(!locations.startLocation.lat || !locations.startLocation.long || !locations.endLocation.lat || !locations.endLocation.long){
+        
+        if(!payload.startLocation.lat || !payload.startLocation.long || !payload.location_range){
             setMsg("All fields are required!");
             setAlertType('error')
             return;
         }else{
             setIsLoading(true)
-            // const body = lo
             const res = await fetch(`${baseUrl}/profile/update-profile`,{
                 method:"PUT",
                 headers:{
                     'Content-Type': 'application/json',
                     Authorization:`Bearer ${user.data.access_token}`
                 },
-                body: JSON.stringify(locations)
+                body: JSON.stringify(payload)
             })
             const data = await res.json()
             console.log(res, data);
@@ -170,6 +188,18 @@ const Location = ({baseUrl}) => {
                                     <p className='text-[#865C1D] text-[12px]'>We use a range to ensure location accuracy</p>
                                 </div>
                                 <div className='mb-5'>
+                                    <p className='text-[#19201D]'>Location Range (in meters)</p>
+                                    <div className='flex items-center flex-col md:flex-row gap-3'>
+                                        <input
+                                            type="text"
+                                            className='border py-3 px-3 rounded mt-1 w-full'
+                                            placeholder='123'
+                                            value={location_range}
+                                            onChange={(e) => setLocationRange(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                {/* <div className='mb-5'>
                                     <p className='text-[#19201D]'>Stop Coordinates</p>
                                     <div className='flex items-center flex-col md:flex-row gap-3'>
                                         <input
@@ -187,7 +217,7 @@ const Location = ({baseUrl}) => {
                                             onChange={handleEndLongChange}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 {
                                     loading ? 
                                     <BtnLoader bgColor="#191f1c"/>
