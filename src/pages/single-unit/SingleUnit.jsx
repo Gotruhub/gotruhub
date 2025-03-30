@@ -12,6 +12,134 @@ import { BsEye, BsThreeDotsVertical } from "react-icons/bs";
 import { BiCloset, BiTrash } from 'react-icons/bi'
 import { MdOutlineClose } from 'react-icons/md'
 
+// Ring Chart Component
+const AttendanceRing = ({ title, total, earlyPercentage, latePercentage, absentPercentage }) => {
+  // Calculate the stroke-dasharray and stroke-dashoffset for each segment
+  const calculateSegments = () => {
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Convert percentages to arc lengths
+    const earlyLength = (earlyPercentage / 100) * circumference;
+    const lateLength = (latePercentage / 100) * circumference;
+    const absentLength = (absentPercentage / 100) * circumference;
+    
+    return {
+      circumference,
+      earlySegment: {
+        length: earlyLength,
+        offset: 0
+      },
+      lateSegment: {
+        length: lateLength,
+        offset: earlyLength
+      },
+      absentSegment: {
+        length: absentLength,
+        offset: earlyLength + lateLength
+      }
+    };
+  };
+
+  const segments = calculateSegments();
+
+  return (
+    <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
+      <div className="flex flex-col items-center">
+        <div className="text-lg font-bold">{title}</div>
+        
+        {/* Ring Chart */}
+        <div className="relative w-32 h-32 my-2">
+          <svg viewBox="0 0 200 200" className="w-full h-full">
+            {/* Early - Green Segment */}
+            {earlyPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#4ade80"
+                strokeWidth="20"
+                strokeDasharray={`${segments.earlySegment.length} ${segments.circumference - segments.earlySegment.length}`}
+                strokeDashoffset="0"
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Late - Yellow/Gold Segment */}
+            {latePercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#eab308"
+                strokeWidth="20"
+                strokeDasharray={`${segments.lateSegment.length} ${segments.circumference - segments.lateSegment.length}`}
+                strokeDashoffset={`-${segments.lateSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Absent - Red Segment */}
+            {absentPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#ef4444"
+                strokeWidth="20"
+                strokeDasharray={`${segments.absentSegment.length} ${segments.circumference - segments.absentSegment.length}`}
+                strokeDashoffset={`-${segments.absentSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Center Text */}
+            <text
+              x="100"
+              y="80"
+              textAnchor="middle"
+              fontSize="16"
+              fill="white"
+            >
+              Days
+            </text>
+            <text
+              x="100"
+              y="120"
+              textAnchor="middle"
+              fontSize="40"
+              fontWeight="bold"
+              fill="white"
+            >
+              {total}
+            </text>
+          </svg>
+        </div>
+
+        <div className="w-full flex justify-between text-sm">
+          <div className="flex flex-col items-center">
+            <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Early</div>
+            <div>{earlyPercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Late</div>
+            <div>{latePercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Absent</div>
+            <div>{absentPercentage?.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SingleUnit = ({baseUrl}) => {
 
@@ -33,10 +161,22 @@ const SingleUnit = ({baseUrl}) => {
     const [editSubUnit, setEditSubUnit] = useState(false)
     const [deleteSubUnit, setDeleteSubUnit] = useState(false)
 
-    const [attendanceSummary, setAttendanceSummary] = useState()
+    const [attendanceSummary, setAttendanceSummary] = useState({
+        totalStudents: 0,
+        earlyPercentage: 0,
+        latePercentage: 0,
+        absentPercentage: 0
+    })
     const [unitSummary, setUnitSummary] = useState()
     const [toggleNav, setToggleNav] = useState(false)
     
+    // Assignees data (sample - replace with actual data from your API)
+    const [assigneesSummary, setAssigneesSummary] = useState({
+        total: 32,
+        earlyPercentage: 70,
+        latePercentage: 20,
+        absentPercentage: 10
+    })
 
     async function getUnitInfo(){
         const res = await fetch(`${baseUrl}/unit/${id}/subunits`,{
@@ -75,7 +215,6 @@ const SingleUnit = ({baseUrl}) => {
             return;
         }
         if(res.ok){
-            // setUnitName(data?.data?.units[0]?.unit?.name)
             setUnitSummary(data.data)
             setAlertType('success');
             return;
@@ -244,22 +383,10 @@ const SingleUnit = ({baseUrl}) => {
                         <button className="border border-[#2D3934] text-[#19201D] font-[600] px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate(`/unit-assignment-create/${id}`)} >Add assignment</button>
                         <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate(`/add-sub-unit/${id}`)} >Add sub-unit</button>
                     </div>
-                    {/* <div className='flex items-center gap-5'>
-                        <FaRegEdit className="text-gray-500 font-[600] text-[20px] cursor-pointer" onClick={() => setEditUnit(true)}/>
-                        <GoTrash className="text-red-500 font-[600] text-[20px] cursor-pointer" onClick={() => setDeleteUnit(true)}/>
-                    </div> */}
                 </div>
 
                 <div className="lg:m-[30px] m-[10px] p-4 rounded-lg shadow-md flex flex-col sm:flex-row gap-[3rem]">
                     <div className="p-4 rounded-lg flex-1 mr-4 w-full sm:w-1/2">
-                        {/* <div className="mb-2 flex items-center justify-between">
-                            <div>Created</div>
-                            <div className="font-bold">January 29, 2024</div>
-                        </div>
-                        <div className="mb-2 flex items-center justify-between">
-                            <div>Last updated</div>
-                            <div className="font-bold">January 29, 2024</div>
-                        </div> */}
                         <div className="mb-2 flex items-center justify-between">
                             <div>Sub-units</div>
                             <div className="font-bold">{unitSummary?.totalSubUnits}</div>
@@ -268,152 +395,91 @@ const SingleUnit = ({baseUrl}) => {
                             <div>Assignments</div>
                             <div className="font-bold">{unitSummary?.totalAssignments}</div>
                         </div>
-                        {/* <div className="mb-2 flex items-center justify-between">
-                            <div>Assignees</div>
-                            <div className="font-bold">2</div>
-                        </div> */}
                         <div className="mb-2 flex items-center justify-between">
                             <div>Members</div>
                             <div className="font-bold">{unitSummary?.totalStudents}</div>
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row w-full sm:w-1/2">
-                        <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
-                            <div className="flex flex-col items-center">
-                                <div className="text-lg font-bold">Members</div>
-                                <div className="text-3xl font-bold my-2">{attendanceSummary?.totalStudents}</div>
-                                <div className="w-full flex justify-between text-sm">
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Early</div>
-                                    <div>{attendanceSummary?.earlyPercentage?.toFixed(0,4)}%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Late</div>
-                                    <div>{attendanceSummary?.latePercentage?.toFixed(0,4)}%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Absent</div>
-                                    <div>{attendanceSummary?.absentPercentage?.toFixed(0,4)}%</div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/* <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
-                            <div className="flex flex-col items-center">
-                                <div className="text-lg font-bold">Assignees</div>
-                                <div className="text-3xl font-bold my-2">32</div>
-                                <div className="w-full flex justify-between text-sm">
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Early</div>
-                                    <div>70%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Late</div>
-                                    <div>20%</div>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
-                                    <div>Absent</div>
-                                    <div>10%</div>
-                                </div>
-                                </div>
-                            </div>
-                        </div> */}
+                        {/* Members Ring Chart */}
+                        <AttendanceRing 
+                            title="Members" 
+                            total={attendanceSummary?.totalStudents || 0} 
+                            earlyPercentage={attendanceSummary?.earlyPercentage || 0} 
+                            latePercentage={attendanceSummary?.latePercentage || 0} 
+                            absentPercentage={attendanceSummary?.absentPercentage || 0} 
+                        />
+                        
+                        {/* Uncomment for Assignees Ring Chart */}
+                        {/*
+                        <AttendanceRing 
+                            title="Assignees" 
+                            total={assigneesSummary.total} 
+                            earlyPercentage={assigneesSummary.earlyPercentage} 
+                            latePercentage={assigneesSummary.latePercentage} 
+                            absentPercentage={assigneesSummary.absentPercentage} 
+                        />
+                        */}
                     </div>
-                    </div>
+                </div>
 
-                    <div class="relative overflow-x-auto mx-5 mt-10">
-                        <div className='flex items-center justify-between mb-2'>
-                            <div className='flex items-center gap-2 text-[18px]'>
-                                <LuListTodo />
-                                <p className='text-[#1D1D1D] font-[600]'>List of Sub-units</p>
-                            </div>
-                            <p className='text-[#828282] font-[600]'>Total - {allSubUnits?.length}</p>
+                <div className="relative overflow-x-auto mx-5 mt-10">
+                    <div className='flex items-center justify-between mb-2'>
+                        <div className='flex items-center gap-2 text-[18px]'>
+                            <LuListTodo />
+                            <p className='text-[#1D1D1D] font-[600]'>List of Sub-units</p>
                         </div>
-                        <table class="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
-                            <thead class="text-[14px] border-b">
-                                <tr>
-                                    <th scope="col" class="py-3 th1 font-[700]">S/N</th>
-                                    <th scope="col" class="py-3 font-[700]">Sub-unit</th>
-                                    <th scope="col" class="py-3 font-[700]">Assignments</th>
-                                    {/* <th scope="col" class="py-3 font-[700]">Assignee</th> */}
-                                    <th scope="col" class="py-3 font-[700]">Members</th>
-                                    <th scope="col" class="py-3 font-[700]">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    allSubUnits && allSubUnits?.map((item, index) => {
-                                        return (
-                                            <tr className='relative'>
-                                                <td className='py-3'>{index + 1}</td>
-                                                <td>{item?.name}</td>
-                                                <td>{item?.totalAssignments}</td>
-                                                {/* <td></td> */}
-                                                <td>{item?.totalStudents}</td>
-                                                <td> <BsThreeDotsVertical  className="cursor-pointer" onClick={() => 
-                                                    {
-                                                        setSubUnitId(item.id)
-                                                        console.log(item.id);
-                                                    }}/> </td>
+                        <p className='text-[#828282] font-[600]'>Total - {allSubUnits?.length}</p>
+                    </div>
+                    <table className="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
+                        <thead className="text-[14px] border-b">
+                            <tr>
+                                <th scope="col" className="py-3 th1 font-[700]">S/N</th>
+                                <th scope="col" className="py-3 font-[700]">Sub-unit</th>
+                                <th scope="col" className="py-3 font-[700]">Assignments</th>
+                                <th scope="col" className="py-3 font-[700]">Members</th>
+                                <th scope="col" className="py-3 font-[700]">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                allSubUnits && allSubUnits?.map((item, index) => {
+                                    return (
+                                        <tr className='relative' key={item.id}>
+                                            <td className='py-3'>{index + 1}</td>
+                                            <td>{item?.name}</td>
+                                            <td>{item?.totalAssignments}</td>
+                                            <td>{item?.totalStudents}</td>
+                                            <td> <BsThreeDotsVertical className="cursor-pointer" onClick={() => 
+                                                {
+                                                    setSubUnitId(item.id)
+                                                    console.log(item.id);
+                                                }}/> </td>
 
-                                                {subUnitId === item.id &&
-                                                    <div className='z-[1] absolute right-[110px] w-[200px] top-0 py-3 bg-white border rounded-[10px]'>
-                                                        <div className='my-2 mr-4 flex justify-end'>
-                                                            <MdOutlineClose className='text-lg cursor-pointer mt-[-5px]' onClick={() => setSubUnitId('')} />
+                                            {subUnitId === item.id &&
+                                                <div className='z-[1] absolute right-[110px] w-[200px] top-0 py-3 bg-white border rounded-[10px]'>
+                                                    <div className='my-2 mr-4 flex justify-end'>
+                                                        <MdOutlineClose className='text-lg cursor-pointer mt-[-5px]' onClick={() => setSubUnitId('')} />
+                                                    </div>
+                                                    <div className='flex flex-col'>
+                                                        <div onClick={() => navigate(`/view-sub-unit/${item.id}`)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
+                                                            <BsEye />
+                                                            <p>View sub-unit</p>
                                                         </div>
-                                                        <div className='flex flex-col'>
-                                                            <div onClick={() => navigate(`/view-sub-unit/${item.id}`)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                                <BsEye />
-                                                                <p>View sub-unit</p>
-                                                            </div>
-                                                            {/* <div className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]' onClick={() => navigate(`/edit-schedule/${item.id}/${id}`)}>
-                                                                <LuListTodo />
-                                                                <p>Edit time-table</p>
-                                                            </div> */}
-                                                            <div onClick={() => setDeleteSubUnit(item.id)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                                <BiTrash />
-                                                                <p>Delete sub-unit</p>
-                                                            </div>
+                                                        <div onClick={() => setDeleteSubUnit(item.id)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
+                                                            <BiTrash />
+                                                            <p>Delete sub-unit</p>
                                                         </div>
                                                     </div>
-                                                }
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                {/* <div className='px-[30px]'>
-                    <p className='text-[#19201D] text-[18px] font-[600] mb-3'>All Sub-units</p>
-                    {
-                        allSubUnits.length < 1 &&
-                        <div className="flex items-center gap-5 justify-center text-center px-[3rem]">
-                            <p>Create new sessions before updating members' units to ensure session data is accurately collated using units and their members.</p>
-                        </div>
-                    }
-                    {
-                        allSubUnits && allSubUnits.map((subUnit) => (
-                            <div className='flex items-center justify-between p-3 shadow rounded-[8px] my-4 bg-white'>
-                                <p>{subUnit.name}</p>
-                                <div className='flex items-center gap-2'>
-                                    <FaRegEdit className="text-gray-500 font-[600] text-[20px] cursor-pointer" onClick={() => {
-                                        setEditSubUnit(subUnit._id)
-                                        setSubUnitName(subUnit.name)
-                                    }} />
-                                    <GoTrash className="text-red-500 font-[600] text-[20px] cursor-pointer" onClick={() => setDeleteSubUnit(subUnit._id)} />
-                                </div>
-                            </div>
-                        )).reverse()
-                    }
-                </div> */}
+                                                </div>
+                                            }
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
