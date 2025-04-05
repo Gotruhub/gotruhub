@@ -3,6 +3,7 @@ import TopNav from '../../components/top-nav/TopNav'
 import SideNav from '../../components/side-nav/SideNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import BtnLoader from '../../components/btn-loader/BtnLoader'
+import Alert from '../../components/alert/Alert'
 
 const EditGuardian = ({baseUrl}) => {
 
@@ -47,7 +48,7 @@ const EditGuardian = ({baseUrl}) => {
 
     console.log(file);
     setfileUploadLoader(true)
-    console.log(`${baseUrl}/upload-media`);
+    // console.log(`${baseUrl}/upload-media`);
     const formData = new FormData()
     formData.append('file', file)
     const res = await fetch(`${baseUrl}/upload-media`,{
@@ -86,7 +87,7 @@ const EditGuardian = ({baseUrl}) => {
       },
       body:JSON.stringify({
         fullName,
-        email,
+        // email,
         profileImage:profileImage._id
       })
     })
@@ -98,7 +99,7 @@ const EditGuardian = ({baseUrl}) => {
       setMsg("Guardian's data updated successfully");
       setAlertType('success')
       setAlertTitle('Success')
-      navigate('/manage-users')
+      // navigate('/manage-users')
     }
     if(!res.ok){
       setMsg("Failed to update guardian's data");
@@ -203,6 +204,9 @@ const EditGuardian = ({baseUrl}) => {
                   </div>
               </div>
           </div>
+      }
+      {
+          msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
       }
   </div>
   )
