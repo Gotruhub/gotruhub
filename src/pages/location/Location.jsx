@@ -168,7 +168,7 @@ const Location = ({baseUrl}) => {
                             <p className='mb-6 font-[700] text-[20px] text-[#1D1D1D]'>Input Location Co-Ordinates</p>
                            
                                 <div className='mb-5'>
-                                    <p className='text-[#19201D]'>Start Coordinates</p>
+                                    <p className='text-[#19201D]'>Coordinate</p>
                                     <div className='flex items-center flex-col md:flex-row gap-3'>
                                         <input
                                             type="text"
@@ -193,7 +193,7 @@ const Location = ({baseUrl}) => {
                                         <input
                                             type="text"
                                             className='border py-3 px-3 rounded mt-1 w-full'
-                                            placeholder='123'
+                                            placeholder='***'
                                             value={location_range}
                                             onChange={(e) => setLocationRange(e.target.value)}
                                         />

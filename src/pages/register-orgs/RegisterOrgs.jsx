@@ -257,7 +257,7 @@ const RegisterOrgs = ({baseUrl}) => {
 
                 <div className='my-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#828282] text-[12px]'>Start Coordinates</p>
+                            <p className='text-[#828282] text-[12px]'>Coordinate</p>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
@@ -282,7 +282,7 @@ const RegisterOrgs = ({baseUrl}) => {
                         <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full outline-none'
-                            placeholder='10'
+                            placeholder='***'
                             onChange={e => setLocationRange(e.target.value)}
                         />
                         {/* <input
