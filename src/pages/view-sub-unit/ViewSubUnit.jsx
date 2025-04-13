@@ -198,8 +198,8 @@ const ViewSubUnit = ({baseUrl}) => {
                         <thead class="text-[14px] border-b">
                             <tr>
                                 <th scope="col" class="py-3 th1 font-[700]">S/N</th>
-                                <th scope="col" class="py-3 font-[700]">Assignment Code</th>
                                 <th scope="col" class="py-3 font-[700]">Assignment Name</th>
+                                <th scope="col" class="py-3 font-[700]">Assignment Code</th>
                                 <th scope="col" class="py-3 font-[700]">Date Added</th>
                             </tr>
                         </thead>
