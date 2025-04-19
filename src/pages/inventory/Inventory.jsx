@@ -81,7 +81,7 @@ const Inventory = ({baseUrl}) => {
                                         <td class="px-6 py-4">{index +1}</td>
                                         <td class="px-6 py-4 flex items-center gap-1 capitalize">{product?.category?.name}</td>
                                         <td class="px-6 py-4">{product?.productName}</td>
-                                        <td class="px-6 py-4 capitalize flex items-center gap-1"><TbCurrencyNaira className="text-[20px]"/>{product?.price}</td>
+                                        <td class="px-6 py-4 capitalize flex items-center gap-1"><TbCurrencyNaira className="text-[20px]"/>{product?.price.toLocaleString()}</td>
                                         <td class="px-6 py-4">{product?.minimumQuantity}</td>
                                         <td class="px-6 py-4">
                                             <p className={product?.inStock === false ? `bg-red-400 text-center py-1 capitalize rounded-[4px] text-white` : `bg-green-500 text-center py-1 text-white capitalize rounded-[4px]`}>{product?.inStock === true ? "Available" : "Out of stock"}</p>
