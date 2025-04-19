@@ -36,7 +36,8 @@ const Inventory = ({baseUrl}) => {
         })
         const data = await res.json()
         console.log(data.data);
-        setAllProducts(data.data.products)
+        // data.data.categoryExist.sort((a, b) => a.name.localeCompare(b.name))
+        setAllProducts(data.data.products.sort((a, b) => a.productName.localeCompare(b.productName)))
     }
 
 
