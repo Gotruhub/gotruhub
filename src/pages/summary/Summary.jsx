@@ -403,15 +403,14 @@ const Summary = ({baseUrl}) => {
                                     };
 
                                     return (
-                                        <tr className={item?.flag.toString() !== false ? `text-[#19201D] bg-yellow-500` : `text-[#19201D]`} key={index}>
+                                        <tr className={item?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                             <td className='px-6  py-3'>{index + 1}</td>
                                             <td className='px-6 py-3'>{item?.attendanceType}</td>
                                             <td className='px-6 py-3'>{item?.user?.fullName}</td>
-                                            {/* <td className='px-6 py-3'>{item?.user?.role}</td> */}
                                             <td className='px-6 py-3 capitalize'>{item?.remark}</td>
                                             <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                             <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                            <td className='px-6 py-3'>{item?.location.lat}, {item?.location.long}</td>
+                                            <td className={item?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.location.lat}, {item?.location.long}</td>
                                             <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
                                         </tr>
                                     )
@@ -457,15 +456,14 @@ const Summary = ({baseUrl}) => {
                                     };
 
                                     return (
-                                        <tr className={item?.flag !== false.toString() ? `text-[#19201D] bg-yellow-500` : `text-[#19201D]`} key={index}>
+                                        <tr className={item?.flag !== false.toString() ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                             <td className='px-6  py-3'>{index + 1}</td>
                                             <td className='px-6 py-3'>{item?.attendanceType}</td>
                                             <td className='px-6 py-3'>{item?.user?.fullName}</td>
-                                            {/* <td className='px-6 py-3'>{item?.user?.role}</td> */}
                                             <td className='px-6 py-3 capitalize'>{item?.remark}</td>
                                             <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
                                             <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                            <td className='px-6 py-3'>{item?.location.lat}, {item?.location.long}</td>
+                                            <td className={item?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.location.lat}, {item?.location.long}</td>
                                             <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
                                         </tr>
                                     )

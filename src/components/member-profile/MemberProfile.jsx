@@ -150,11 +150,11 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
                 <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Wallet</p>
                 <div className='w-full'>
                     <Slider {...settings}>
-                        <WalletCard title="Wallet Balance" amount={walletSummary?.balance} />
-                        <WalletCard title="Total Credits" amount={walletSummary?.totalCredits} />
-                        <WalletCard title="Total Withdrawals" amount={walletSummary?.totalWithdrawals} />
-                        <WalletCard title="Total Debits" amount={walletSummary?.totalDebits} />
-                        <WalletCard title="Total Transactions" amount={walletSummary?.totalTransactions} />
+                        <WalletCard title="Wallet Balance" amount={walletSummary?.balance?.toLocaleString()} />
+                        <WalletCard title="Total Credits" amount={walletSummary?.totalCredits?.toLocaleString()} />
+                        <WalletCard title="Total Withdrawals" amount={walletSummary?.totalWithdrawals?.toLocaleString()} />
+                        <WalletCard title="Total Debits" amount={walletSummary?.totalDebits?.toLocaleString()} />
+                        <WalletCard title="Total Transactions" amount={walletSummary?.totalTransactions?.toLocaleString()} />
                     </Slider>
                 </div>
             </div>
