@@ -267,13 +267,13 @@ const Dashboard = ({ baseUrl }) => {
                             <p className="flex items-center gap-3">{formattedDate} <p className="p-[3px] bg-[#828282] rounded-full"></p> {formattedTime}</p>
                           </div>
                           {
-                            item?.status === "pending" && <p className="flex items-center gap-[2px] text-[#D8A04C]"><TbCurrencyNaira className="text-[20px]"/>{item.amount}</p>
+                            item?.status === "pending" && <p className="flex items-center gap-[2px] text-[#D8A04C]"><TbCurrencyNaira className="text-[20px]"/>{item.amount.toLocaleString()}</p>
                           }
                           {
-                            item?.status === "rejected" && <p className="flex items-center gap-[2px] text-[#9A2525]"><TbCurrencyNaira className="text-[20px]"/>{item.amount}</p>
+                            item?.status === "rejected" && <p className="flex items-center gap-[2px] text-[#9A2525]"><TbCurrencyNaira className="text-[20px]"/>{item.amount.toLocaleString()}</p>
                           }
                           {
-                            item?.status === "completed" && <p className="flex items-center gap-[2px] text-[#418B47]"><TbCurrencyNaira className="text-[20px]"/>{item.amount}</p>
+                            item?.status === "completed" && <p className="flex items-center gap-[2px] text-[#418B47]"><TbCurrencyNaira className="text-[20px]"/>{item.amount.toLocaleString()}</p>
                           }
                         </div>
                       )

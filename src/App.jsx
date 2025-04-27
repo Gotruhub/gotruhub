@@ -90,6 +90,7 @@ import MemberProfile from './pages/member-profile/MemberProfile'
 import NotificationInfo from './pages/notification-info/NotificationInfo'
 import CreateUserImageCrop from './pages/create-user-image-crop/CreateUserImageCrop'
 import TermsOfUse from './pages/terms-of-use/TermsOfUse'
+import Referral from './pages/referral/Referral'
 
 function App() {
 
@@ -161,6 +162,7 @@ function App() {
             <Route path='/view-sub-unit/:id' element={<ViewSubUnit baseUrl={baseUrl}/>} />
             <Route path='/inventory' element={<Inventory baseUrl={baseUrl}/>} />
             <Route path='/new-product' element={<NewProduct baseUrl={baseUrl}/>} />
+            <Route path='/referral' element={<Referral baseUrl={baseUrl}/>} />
             <Route path='/product-info/:id' element={<NewProductInfo baseUrl={baseUrl}/>} />
             <Route path='/time-table/:id' element={<TimeTable baseUrl={baseUrl}/>} />
             <Route path='/create-schedule/:id' element={<AddSchedule baseUrl={baseUrl}/>}/>

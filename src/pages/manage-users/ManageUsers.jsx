@@ -183,7 +183,7 @@ const ManageUsers = ({baseUrl}) => {
                                     </td>
                                 </tr>
                             )
-                        }).reverse()
+                        })
                       }
                   </tbody>
               </table>

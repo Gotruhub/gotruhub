@@ -10,6 +10,7 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { IoIosLogOut } from 'react-icons/io';
 import { RiAiGenerate } from "react-icons/ri";
 import { BiLocationPlus } from 'react-icons/bi';
+import { FaUsersRays } from 'react-icons/fa6';
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
@@ -159,6 +160,12 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             <div className="flex items-center">
                 <img src="./images/notification.svg" className="mr-[15.67px]" alt="" />
                 <p className="">Notification</p>
+            </div>
+          </Link>
+          <Link to='/referral' className={ location.pathname === '/settings' || location.pathname === "/update-orgs" || location.pathname === "/orgz-profile" ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
+            <div className="flex items-center">
+              <FaUsersRays className="mr-[15.67px]"/>
+              <p className="">Referral</p>
             </div>
           </Link>
           <Link to='/settings' className={ location.pathname === '/settings' || location.pathname === "/update-orgs" || location.pathname === "/orgz-profile" ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
