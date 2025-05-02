@@ -419,7 +419,7 @@ const AddSchedule = ({baseUrl}) => {
                     </div>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#19201D]'>Start Coordinates</p>
+                            <p className='text-[#19201D]'>Coordinate</p>
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
@@ -438,7 +438,7 @@ const AddSchedule = ({baseUrl}) => {
                         />
                         </div>
                     </div>
-                    <div className='mb-5'>
+                    {/* <div className='mb-5'>
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Stop Coordinates</p>
                         </div>
@@ -458,7 +458,7 @@ const AddSchedule = ({baseUrl}) => {
                             // onChange={handleEndLongChange}
                         />
                         </div>
-                    </div>
+                    </div> */}
                     {
                         loading ? 
                         <BtnLoader bgColor="#191f1c"/>
