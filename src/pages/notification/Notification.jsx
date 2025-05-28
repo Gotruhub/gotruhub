@@ -110,11 +110,11 @@ const Notification = ({baseUrl}) => {
                         </div>
                     </div>
                 </div>
-                <div class="relative overflow-x-auto mx-5 mt-10">
+                <div class="relative overflow-x-auto md:mx-5 mx-2 mt-10">
                     {
                         allNotification?.notifications?.map(notification => (
-                            <div className={notification.read === true ? 'bg-[#F7F7F7] px-8 py-6 w-full rounded-[16px] my-5':  'bg-[#F7F7F7] px-8 py-6 w-full rounded-[16px] my-5 border border-[#1E2522]'}>
-                                <div className='flex items-ceter justify-between'>
+                            <div className={notification.read === true ? 'bg-[#F7F7F7] md:px-8 py-6 w-full rounded-[16px] my-5 px-3':  'bg-[#F7F7F7] md:px-8 px-3 py-6 w-full rounded-[16px] my-5 border border-[#1E2522]'}>
+                                <div className='flex items-ceter justify-between flex-col sm:flex-row'>
                                     <div className='flex items-center gap-3 text-[#1E2522]'>
                                         <IoIosNotificationsOutline className='font-[700] bg-[#fff] text-[30px] p-1 rounded-full'/>
                                         <div className='flex items-center gap-2'>
@@ -124,10 +124,10 @@ const Notification = ({baseUrl}) => {
                                     </div>
                                     {
                                         notification.read === false &&
-                                        <p className='text-[#4F4F4F] font-[600] cursor-pointer text-[12px]' onClick={() => markNotificationAsRead(notification._id)}>Mark as read</p>
+                                        <p className='text-[#4F4F4F] font-[600] cursor-pointer text-[12px] mt-2 sm:mt-0' onClick={() => markNotificationAsRead(notification._id)}>Mark as read</p>
                                     }
                                 </div>
-                                <p className='text-[#19201D] mt-4 cursor-pointer inline-block'>{notification?.message.split(' ').slice(0, 30).join(' ') + (notification?.message?.length > 50 ? '...' : '')}</p>
+                                <p className='text-[#19201D] mt-4 cursor-pointer text-[14px] md:text-[16px] inline-block'>{notification?.message.split(' ').slice(0, 30).join(' ') + (notification?.message?.length > 50 ? '...' : '')}</p>
                                 <div className='flex items-center justify-between'>
                                     <p className='text-[#4F4F4F] text-[14px] mt-4'>{ new Date(notification?.createdAt).toLocaleDateString() }</p>
                                     <p className='text-[#4F4F4F] mt-4 text-[13px] cursor-pointer' onClick={() => navigate(`/notification/${notification._id}`)}>Read More</p>

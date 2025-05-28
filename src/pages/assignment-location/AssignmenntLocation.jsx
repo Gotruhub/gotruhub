@@ -67,11 +67,11 @@ const AssignmenntLocation = ({baseUrl}) => {
             <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
 
             <div>
-                <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
+                <div className="flex justify-between flex-col sm:flex-row gap-3 items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div>
                         <div className="flex items-center gap-2">
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/inventory`)} className='cursor-pointer' />
-                            <p className="text-[28px] text-primary-color font-[600]">Assignment Location</p>
+                            <p className="md:text-[28px] text-primary-color font-[600]">Assignment Location</p>
                         </div>
                         {/* <p className='text-[#4F4F4F]'>Manage stock available in your inventory</p> */}
                     </div>

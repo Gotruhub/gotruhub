@@ -70,38 +70,38 @@ const AddAssignmentLocation = ({baseUrl}) => {
     });
 
     async function createLocation(){
-        console.log({name, locations});
-        console.log("Location Range", {name, location:locations.location, location_range: Number(location_range) });
-        
-        
-        setLoading(true)
-        try {
-            const response = await fetch(`${baseUrl}/locations`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization':`Bearer ${user.data.access_token}`
-              },
-              body: JSON.stringify({name, location:locations.location, location_range: Number(location_range) }),
-              // body: JSON.stringify({name, location:locations.location, endlocation:locations.endLocation }),
-            });
-            const data = await response.json()
-            console.log(response, data);
-            
-            if (response.ok) {
-                  setMsg("Assignment location added successfully!");
-                  setAlertType('success');
-                  return;
-            } else {
-                  setMsg(data.message);
-                  setAlertType('error');
-                  return;
-            }
-          } catch (error) {
-            console.error('Error adding assignment location:', error);
-          }finally{
-            setLoading(false)
+      console.log({name, locations});
+      console.log("Location Range", {name, location:locations.location, location_range: Number(location_range) });
+      
+      
+      setLoading(true)
+      try {
+          const response = await fetch(`${baseUrl}/locations`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization':`Bearer ${user.data.access_token}`
+            },
+            body: JSON.stringify({name, location:locations.location, location_range: Number(location_range) }),
+            // body: JSON.stringify({name, location:locations.location, endlocation:locations.endLocation }),
+          });
+          const data = await response.json()
+          console.log(response, data);
+          
+          if (response.ok) {
+                setMsg("Assignment location added successfully!");
+                setAlertType('success');
+                return;
+          } else {
+                setMsg(data.message);
+                setAlertType('error');
+                return;
           }
+      } catch (error) {
+          console.error('Error adding assignment location:', error);
+      }finally{
+          setLoading(false)
+      }
     }
 
   return (
@@ -114,7 +114,7 @@ const AddAssignmentLocation = ({baseUrl}) => {
                     <div>
                         <div className="flex items-center gap-2">
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/assignment-location`)} className='cursor-pointer' />
-                            <p className="text-[28px] text-primary-color font-[600]">Assignment Location</p>
+                            <p className="md:text-[28px] text-primary-color font-[600]">Assignment Location</p>
                         </div>
                         {/* <p className='text-[#4F4F4F]'>Manage stock available in your inventory</p> */}
                     </div>
@@ -136,7 +136,8 @@ const AddAssignmentLocation = ({baseUrl}) => {
                     <p className='block text-left mb-3 mt-6 text-gray-700'>Assignment location</p>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#19201D]'>Start Coordinates</p>
+                            <p className='text-[#19201D]'>Preferred Scan Location</p>
+                            {/* <p className='text-[#19201D]'>Start Coordinates</p> */}
                         </div>
                         <div className='flex items-center gap-3'>
                         <input

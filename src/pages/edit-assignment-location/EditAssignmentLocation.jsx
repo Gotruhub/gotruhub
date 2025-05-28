@@ -12,6 +12,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState('')
     const [name, setName] = useState()
+    const [location_range, setLocationRange] = useState('')
 
 
     const navigate = useNavigate()
@@ -76,7 +77,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
     });
 
     async function updateLocation(){
-        console.log({name, locations});
+        console.log({name, location:locations.location, location_range: Number(location_range) });
         
         setLoading(true)
         try {
@@ -86,7 +87,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${user.data.access_token}`
               },
-              body: JSON.stringify({name, location:locations.location, endlocation:locations.endLocation }),
+              body: JSON.stringify({name, location:locations.location, location_range: Number(location_range) }),
             });
             const data = await response.json()
             console.log(response, data);
@@ -139,7 +140,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
                     <div>
                         <div className="flex items-center gap-2">
                             <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/assignment-location`)} className='cursor-pointer' />
-                            <p className="text-[28px] text-primary-color font-[600]">Edit Assignment Location</p>
+                            <p className="md:text-[28px] text-primary-color font-[600]">Edit Assignment Location</p>
                         </div>
                         {/* <p className='text-[#4F4F4F]'>Manage stock available in your inventory</p> */}
                     </div>
@@ -162,7 +163,8 @@ const EditAssignmentLocation = ({baseUrl}) => {
                     <p className='block text-left mb-3 mt-6 text-gray-700'>Assignment location</p>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
-                            <p className='text-[#19201D]'>Start Coordinates</p>
+                            <p className='text-[#19201D]'>Preferred Scan Location</p>
+                            {/* <p className='text-[#19201D]'>Start Coordinates</p> */}
                         </div>
                         <div className='flex items-center gap-3'>
                         <input
@@ -183,6 +185,25 @@ const EditAssignmentLocation = ({baseUrl}) => {
                     </div>
                     <div className='mb-5'>
                         <div className='flex items-center justify-between'>
+                            <p className='text-[#19201D]'>Location Range (in meters)</p>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                        <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='10'
+                            onChange={e => setLocationRange(e.target.value)}
+                        />
+                        {/* <input
+                            type="text"
+                            className='border py-3 px-3 rounded mt-1 w-full'
+                            placeholder='Longitude'
+                            onChange={handleEndLongChange}
+                        /> */}
+                        </div>
+                    </div>
+                    {/* <div className='mb-5'>
+                        <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Stop Coordinates</p>
                         </div>
                         <div className='flex items-center gap-3'>
@@ -201,7 +222,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
                             value={locations.endLocation.long}
                         />
                         </div>
-                    </div>
+                    </div> */}
                     {
                         loading ? 
                         <BtnLoader bgColor="#191f1c"/>

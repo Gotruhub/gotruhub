@@ -46,9 +46,9 @@ const Navbar = () => {
             <li>
                 <Link to='/register' className='border md:border-white border-black px-7 py-[10px] rounded-[6px]'>Sign Up</Link>
             </li>
-            <li>
+            {/* <li>
                 <button>Delete Account</button>
-            </li>
+            </li> */}
         </ul>
     </nav>
   )
