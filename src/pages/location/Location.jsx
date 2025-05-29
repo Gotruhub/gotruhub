@@ -103,14 +103,14 @@ const Location = ({baseUrl}) => {
                 lat: locations.startLocation.lat,
                 long: locations.startLocation.long
             },
-            location_range: location_range
+            location_range: 35
         };
 
 
         console.log(payload);
         
         
-        if(!payload.startLocation.lat || !payload.startLocation.long || !payload.location_range){
+        if(!payload.startLocation.lat || !payload.startLocation.long){
             setMsg("All fields are required!");
             setAlertType('error')
             return;
@@ -187,7 +187,7 @@ const Location = ({baseUrl}) => {
                                     </div>
                                     <p className='text-[#865C1D] text-[12px]'>We use a range to ensure location accuracy</p>
                                 </div>
-                                <div className='mb-5'>
+                                {/* <div className='mb-5'>
                                     <p className='text-[#19201D]'>Location Range (in meters)</p>
                                     <div className='flex items-center flex-col md:flex-row gap-3'>
                                         <input
@@ -198,7 +198,7 @@ const Location = ({baseUrl}) => {
                                             onChange={(e) => setLocationRange(e.target.value)}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 {/* <div className='mb-5'>
                                     <p className='text-[#19201D]'>Stop Coordinates</p>
                                     <div className='flex items-center flex-col md:flex-row gap-3'>

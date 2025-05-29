@@ -77,7 +77,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
     });
 
     async function updateLocation(){
-        console.log({name, location:locations.location, location_range: Number(location_range) });
+        console.log({name, location:locations.location});
         
         setLoading(true)
         try {
@@ -87,7 +87,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${user.data.access_token}`
               },
-              body: JSON.stringify({name, location:locations.location, location_range: Number(location_range) }),
+              body: JSON.stringify({name, location:locations.location, location_range: 35 }),
             });
             const data = await response.json()
             console.log(response, data);
@@ -183,7 +183,7 @@ const EditAssignmentLocation = ({baseUrl}) => {
                         />
                         </div>
                     </div>
-                    <div className='mb-5'>
+                    {/* <div className='mb-5'>
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Location Range (in meters)</p>
                         </div>
@@ -194,14 +194,8 @@ const EditAssignmentLocation = ({baseUrl}) => {
                             placeholder='10'
                             onChange={e => setLocationRange(e.target.value)}
                         />
-                        {/* <input
-                            type="text"
-                            className='border py-3 px-3 rounded mt-1 w-full'
-                            placeholder='Longitude'
-                            onChange={handleEndLongChange}
-                        /> */}
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className='mb-5'>
                         <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Stop Coordinates</p>

@@ -124,7 +124,8 @@ const RegisterOrgs = ({baseUrl}) => {
         logo:opLicenceImageId,
         motto,
         startLocation:locations.location,
-        location_range: Number(location_range)
+        // location_range: Number(location_range)
+        location_range: 35
       };
 
       const handleSignUp = async () => {
@@ -275,23 +276,23 @@ const RegisterOrgs = ({baseUrl}) => {
                         </div>
                     </div>
                 <div className='mb-5'>
-                        <div className='flex items-center justify-between'>
+                        {/* <div className='flex items-center justify-between'>
                             <p className='text-[#828282] text-[12px]'>Location Range (in meters)</p>
-                        </div>
-                        <div className='flex items-center gap-3'>
-                        <input
+                        </div> */}
+                        {/* <div className='flex items-center gap-3'> */}
+                        {/* <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full outline-none'
                             placeholder='***'
                             onChange={e => setLocationRange(e.target.value)}
-                        />
+                        /> */}
                         {/* <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
                             onChange={handleEndLongChange}
                         /> */}
-                        </div>
+                        {/* </div> */}
                     </div>
                 <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                     <div className='relative flex items-center gap-3 p-4 rounded-[4px] w-full cursor-pointer' style={{ border:'1px dashed gray' }}>

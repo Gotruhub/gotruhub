@@ -71,7 +71,7 @@ const AddAssignmentLocation = ({baseUrl}) => {
 
     async function createLocation(){
       console.log({name, locations});
-      console.log("Location Range", {name, location:locations.location, location_range: Number(location_range) });
+      console.log("Location Range", {name, location:locations.location});
       
       
       setLoading(true)
@@ -82,7 +82,7 @@ const AddAssignmentLocation = ({baseUrl}) => {
               'Content-Type': 'application/json',
               'Authorization':`Bearer ${user.data.access_token}`
             },
-            body: JSON.stringify({name, location:locations.location, location_range: Number(location_range) }),
+            body: JSON.stringify({name, location:locations.location, location_range: 35 }),
             // body: JSON.stringify({name, location:locations.location, endlocation:locations.endLocation }),
           });
           const data = await response.json()
@@ -155,23 +155,23 @@ const AddAssignmentLocation = ({baseUrl}) => {
                         </div>
                     </div>
                     <div className='mb-5'>
-                        <div className='flex items-center justify-between'>
+                        {/* <div className='flex items-center justify-between'>
                             <p className='text-[#19201D]'>Location Range (in meters)</p>
-                        </div>
-                        <div className='flex items-center gap-3'>
-                        <input
+                        </div> */}
+                        {/* <div className='flex items-center gap-3'> */}
+                        {/* <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='10'
                             onChange={e => setLocationRange(e.target.value)}
-                        />
+                        /> */}
                         {/* <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
                             onChange={handleEndLongChange}
                         /> */}
-                        </div>
+                        {/* </div> */}
                     </div>
                     {/* <div className='mb-5'>
                         <div className='flex items-center justify-between'>
