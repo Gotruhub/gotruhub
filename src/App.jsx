@@ -94,7 +94,8 @@ import Referral from './pages/referral/Referral'
 
 function App() {
 
-  const baseUrl = 'https://test.yamltech.com'
+  // const baseUrl = 'https://test.yamltech.com'
+  const baseUrl = 'https://go-tru-hub-api.onrender.com'
   const user = localStorage.getItem('user')
 
     return (
@@ -172,20 +173,20 @@ function App() {
             <Route path='/update-orgs' element={<UpdateOrgs baseUrl={baseUrl}/>} />
             <Route path='/guardian-profile/:id' element={<GuardianProfile baseUrl={baseUrl}/>} />
             <Route path='/edit-guardian/:id' element={<EditGuardian baseUrl={baseUrl}/>} />
-            <Route path ="/edit-unit/:id" element={<EditUnit baseUrl={baseUrl}/>} />
-            <Route path ="/recover-id" element={<LostId baseUrl={baseUrl}/>} />
-            <Route path ="/student-id/:id" element={<StudentId baseUrl={baseUrl}/>} />
-            <Route path ="/generate-id" element={<GenerateId baseUrl={baseUrl}/>} />
-            <Route path ="/update-authorized-images/:id" element={<UpdateAuthorizedSignatures baseUrl={baseUrl}/>} />
-            <Route path ="/update-semester/:id" element={<EditSemester baseUrl={baseUrl}/>} />
-            <Route path ="/payment-successfull" element={<PaymentSuccessfull baseUrl={baseUrl}/>} />
-            <Route path ="/assignment-location" element={<AssignmenntLocation baseUrl={baseUrl}/>} />
-            <Route path ="/add-assignment-location" element={<AddAssignmentLocation baseUrl={baseUrl}/>} />
-            <Route path ="/edit-assignment-location/:id" element={<EditAssignmentLocation baseUrl={baseUrl}/>} />
-            <Route path ="/categories" element={<Category baseUrl={baseUrl}/>} />
-            <Route path ="/assign-pickup" element={<AssignPickup baseUrl={baseUrl}/>} />
-            <Route path ="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
-            <Route path ="/create-user-image-crop" element={<CreateUserImageCrop baseUrl={baseUrl}/>} />
+            <Route path="/edit-unit/:id" element={<EditUnit baseUrl={baseUrl}/>} />
+            <Route path="/recover-id" element={<LostId baseUrl={baseUrl}/>} />
+            <Route path="/student-id/:id" element={<StudentId baseUrl={baseUrl}/>} />
+            <Route path="/generate-id" element={<GenerateId baseUrl={baseUrl}/>} />
+            <Route path="/update-authorized-images/:id" element={<UpdateAuthorizedSignatures baseUrl={baseUrl}/>} />
+            <Route path="/update-semester/:id" element={<EditSemester baseUrl={baseUrl}/>} />
+            <Route path="/payment-successfull" element={<PaymentSuccessfull baseUrl={baseUrl}/>} />
+            <Route path="/assignment-location" element={<AssignmenntLocation baseUrl={baseUrl}/>} />
+            <Route path="/add-assignment-location" element={<AddAssignmentLocation baseUrl={baseUrl}/>} />
+            <Route path="/edit-assignment-location/:id" element={<EditAssignmentLocation baseUrl={baseUrl}/>} />
+            <Route path="/categories" element={<Category baseUrl={baseUrl}/>} />
+            <Route path="/assign-pickup" element={<AssignPickup baseUrl={baseUrl}/>} />
+            <Route path="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
+            <Route path="/create-user-image-crop" element={<CreateUserImageCrop baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
