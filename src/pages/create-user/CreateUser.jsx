@@ -640,11 +640,11 @@ const CreateUser = ({baseUrl}) => {
                     <div className='mt-7 flex items-center gap-5 w-full flex-col sm:flex-row'>
                         <div className='relative w-full'>
                             <label className='block text-text-color text-left mb-2'>Create staff below or use drop down for others <span className='text-red-500'>*</span></label>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                <input type="text" value={userType} placeholder='Select user type' className='outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                            <div onClick={() => setUserTypeDropDown(!userTypeDropDown)} className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                <input readOnly type="text" value={userType} placeholder='Select user type' className='cursor-pointer outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
                                 {
                                     orgzHistory?.totalStaffs > 0  ?
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setUserTypeDropDown(!userTypeDropDown)}/>
+                                    <IoChevronDownOutline color="black" />
                                     :
                                     ""
                                 }
@@ -821,10 +821,10 @@ const CreateUser = ({baseUrl}) => {
                         <div className='mt-7 flex items-center gap-5 w-full flex-col sm:flex-row'>
                             <div className='relative w-full'>
                                 <label className='block text-text-color text-left mb-2'>Unit <span className='text-red-500'>*</span></label>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                    <input type="text" value={piviotUnit} placeholder='Select Unit e.g Pri 1, JSS1, Year 2' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent text-[14px] sm:w-[200px]'/>
+                                <div onClick={() => setUnitDropDown(!unitDropDown)} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                    <input type="text" value={piviotUnit} placeholder='Select Unit e.g Pri 1, JSS1, Year 2' className='cursor-pointer absolute opacity-0 outline-none rounded-[4px] bg-transparent text-[14px] sm:w-[200px]'/>
                                     <p className='md:text-[14px] text-[12px]'>{piviotUnitText ? piviotUnitText : <span className='text-gray-500'>Select Unit e.g Pri 1, JSS1, Year 2</span>}</p>
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setUnitDropDown(!unitDropDown)}/>
+                                    <IoChevronDownOutline color="black" />
                                 </div>
                                 {unitDropDown &&
                                     <div className='py-5 bg-white absolute overflow-y-scroll h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -845,10 +845,10 @@ const CreateUser = ({baseUrl}) => {
                             </div>
                             <div className='relative w-full'>
                                 <label className='block text-text-color text-left mb-2'>Sub-unit <span className='text-red-500'>*</span></label>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px] relative'>
-                                    <input type="text" value={subUnit} placeholder='Select sub unit e.g Primary 2A, JSS 3C, SS 1B' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent w-[200px]'/>
+                                <div onClick={() => setSubUnitDropDown(!subUnitDropDown)} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px] relative'>
+                                    <input readOnly type="text" value={subUnit} placeholder='Select sub unit e.g Primary 2A, JSS 3C, SS 1B' className='cursor-pointer absolute opacity-0 outline-none rounded-[4px] bg-transparent w-[200px]'/>
                                     <p className='md:text-[14px] text-[12px]'>{subUnitText ? subUnitText : <span className='text-gray-500'>Select sub unit e.g Pri 2A, JSS 3C, SS 1B</span> }</p>
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setSubUnitDropDown(!subUnitDropDown)}/>
+                                    <IoChevronDownOutline color="black" />
                                 </div>
                                 {subUnitDropDown &&
                                     <div className='py-5 bg-white absolute overflow-y-scroll h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -906,10 +906,10 @@ const CreateUser = ({baseUrl}) => {
                         userType === 'student' &&
                             <div className='relative w-full mt-7'>
                                 <label className='block text-text-color text-left mb-2'>Select Guardian <span className='text-red-500'>*</span></label>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                    <input type="text" value={guardian?.fullName} placeholder='Select user type' className='absolut outline-none rounded-[4px] bg-transparent text-[14px]'/>
+                                <div onClick={() => setGuardianDropDown(!guardianDropDown)} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                    <input readOnly type="text" value={guardian?.fullName} placeholder='Select user type' className='cursor-pointer absolut outline-none rounded-[4px] bg-transparent text-[14px]'/>
                                     {/* <p className='text-[14px]'>{piviotUnitText}</p> */}
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setGuardianDropDown(!guardianDropDown)}/>
+                                    <IoChevronDownOutline color="black" />
                                 </div>
                                 {guardianDropDown &&
                                     <>

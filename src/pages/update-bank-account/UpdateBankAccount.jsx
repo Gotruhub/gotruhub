@@ -150,9 +150,9 @@ const UpdateBankAccount = ({baseUrl}) => {
                     <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[3rem]'>
                         <div className='w-full relative'>
                             <label className='block text-left mb-2'>Settlement Bank</label>
-                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                                <input type="text" value={selectedBank} onChange={e => setEmail(e.target.value)} className='outline-none w-full rounded-[4px]'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setBankDropDown(!bankDropDown)} />
+                            <div onClick={() => setBankDropDown(!bankDropDown)} className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
+                                <input readOnly type="text" value={selectedBank} onChange={e => setEmail(e.target.value)} className='outline-none w-full rounded-[4px] cursor-pointer'/>
+                                <IoChevronDownOutline />
                             </div>
                             <p className='mt-1 opacity-0'>Account Name: {accountName} </p>
                             {

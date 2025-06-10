@@ -300,9 +300,9 @@ const NewProduct = ({baseUrl}) => {
                             <div>
                                 <div className='relative w-full mb-7'>
                                     <p className='text-[#19201D] mb-1'>Category</p>
-                                    <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                        <input type="text" placeholder='Select category' value={selectedCategory?.name} className='outline-none rounded-[4px] bg-transparent w-full'/>
-                                        <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'category' ? false : "category")}/>
+                                    <div onClick={() => setDropDown(dropDown === 'category' ? false : "category")} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                        <input readOnly type="text" placeholder='Select category' value={selectedCategory?.name} className='cursor-pointer outline-none rounded-[4px] bg-transparent w-full'/>
+                                        <IoChevronDownOutline color="black" />
                                     </div>
                                     {
                                         dropDown === 'category' &&
@@ -362,7 +362,7 @@ const NewProduct = ({baseUrl}) => {
                             <p className='text-[#19201D] text-[18px] mb-2 font-[700]'>More product info</p>
                             <div className='relative w-full mb-7'>
                                 <p className='text-[#19201D] mb-1'>Color</p>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                <div onClick={() => setDropDown(dropDown === 'color' ? false : 'color' )} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedColors.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
                                             {selectedColors?.map((c) => (
@@ -379,7 +379,7 @@ const NewProduct = ({baseUrl}) => {
                                     ) : (
                                         <p>No color selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'color' ? false : 'color' )}/>
+                                    <IoChevronDownOutline color="black" cursor='pointer' />
                                 </div>
                                 {dropDown === 'color' && (
                                     <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>
@@ -409,7 +409,7 @@ const NewProduct = ({baseUrl}) => {
 
                             <div className='relative w-full mb-7'>
                                 <p className='text-[#19201D] mb-1'>Size</p>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                <div onClick={() => setDropDown(dropDown === 'size' ? false : 'size' )} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedSizes.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
                                             {selectedSizes?.map((s) => (
@@ -419,7 +419,7 @@ const NewProduct = ({baseUrl}) => {
                                         ) : (
                                         <p>No size selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'size' ? false : 'size' )}/>
+                                    <IoChevronDownOutline color="black" />
                                 </div>
                                 {
                                     dropDown === 'size' &&
@@ -443,7 +443,7 @@ const NewProduct = ({baseUrl}) => {
 
                             <div className='relative w-full mb-7'>
                                 <p className='text-[#19201D] mb-1'>Flavor</p>
-                                <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                <div onClick={() => setDropDown(dropDown === 'flavor' ? false : 'flavor' )} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
                                     {selectedFlavors.length > 0 ? (
                                         <ul className='flex items-center text-[12px] gap-2'>
                                             {selectedFlavors?.map((f) => (
@@ -453,7 +453,7 @@ const NewProduct = ({baseUrl}) => {
                                         ) : (
                                         <p>No flavor selected.</p>
                                     )}
-                                    <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setDropDown(dropDown === 'flavor' ? false : 'flavor' )}/>
+                                    <IoChevronDownOutline color="black" />
                                 </div>
                                 {
                                     dropDown === 'flavor' &&

@@ -100,10 +100,10 @@ const CreateAssignment = ({baseUrl}) => {
                   </div>
                   <div className='relative w-full mb-5'>
                       <p className='text-[#19201D]'>Select Unit</p>
-                      <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                          <input type="text" value={unit} placeholder='Select user type' className='w-[60%] absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
+                      <div onClick={() => setUnitDropDown(!unitDropDown)} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                          <input type="text" value={unit} placeholder='Select user type' className='cursor-pointer w-[60%] absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
                           <p className='text-[14px]'>{unitText}</p>
-                          <IoChevronDownOutline className='text-black' cursor='pointer' onClick={() => setUnitDropDown(!unitDropDown)}/>
+                          <IoChevronDownOutline className='text-black' />
                       </div>
                       {unitDropDown &&
                           <div className='py-5 bg-white absolute overflow-y-scroll border h-[350px] px-3 rounded-[12px] mt-2 z-[10] w-full'>

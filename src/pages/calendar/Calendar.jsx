@@ -178,7 +178,7 @@ const Calendar = ({baseUrl}) => {
                     </div>
                     <div className='mt-5'>
                         <p className='text-[#19201D]'>Session</p>
-                        <input type="text" onChange={e => setName(e.target.value)} value={name} className='border py-3 px-3 rounded mt-1 w-full outline-none' placeholder='Enter unit name' />
+                        <input type="text" onChange={e => setName(e.target.value)} value={name} className='border py-3 px-3 rounded mt-1 w-full outline-none' />
                     </div>
                     {
                         loading ? 

@@ -161,7 +161,7 @@ const SubSummary = ({baseUrl}) => {
                                         <td class="px-6 py-4">{index + 1}</td>
                                         <td class="px-6 py-4 capitalize">{item?.subscriptionType?.name}</td>
                                         <td class="px-6 py-4 capitalize">{item?.planValidity}</td>
-                                        <td class="px-6 py-4">{item?.subscriptionType?.amount?.$numberDecimal.toLocaleString('en-US', {
+                                        <td class="px-6 py-4">{item?.subscriptionType?.amount?.$numberDecimal?.toLocaleString('en-US', {
                                             style: 'currency',
                                             currency: 'NGN'
                                         })}</td>

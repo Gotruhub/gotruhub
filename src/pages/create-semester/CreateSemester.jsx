@@ -134,9 +134,9 @@ const CreateSemester = ({baseUrl}) => {
                         </div>
                         <div className='relative'>
                             <p>Session Type</p>
-                            <div className='flex items-center justify-between border border-[#25751E] rounded-[6px] py-3 px-5 bg-[#25751E26]'>
+                            <div onClick={() => setSessionTypeDropDown(!sessionTypeDropDown)} className='cursor-pointer flex items-center justify-between border border-[#25751E] rounded-[6px] py-3 px-5 bg-[#25751E26]'>
                                 <p>{selectedSessionType}</p>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setSessionTypeDropDown(!sessionTypeDropDown)} />
+                                <IoChevronDownOutline />
                             </div>
                             {
                                 sessionTypeDropDown &&

@@ -122,10 +122,10 @@ const AddSubUnitFromUnit = ({baseUrl}) => {
 
                         <div className='relative w-full mb-5'>
                             <p className='text-[#19201D]'>Sub-unit coordinator</p>
-                            <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                                <input type="text" value={staff} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent'/>
+                            <div onClick={() => setStaffDropDown(!staffDropDown)} className='cursor-pointer flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
+                                <input readOnly type="text" value={staff} placeholder='Select user type' className='absolute opacity-0 outline-none rounded-[4px] bg-transparent cursor-pointer'/>
                                 <p className='text-[14px]'>{staffText}</p>
-                                <IoChevronDownOutline color="black" cursor='pointer' onClick={() => setStaffDropDown(!staffDropDown)}/>
+                                <IoChevronDownOutline color="black" />
                             </div>
                             {staffDropDown &&
                                 <div className='py-5 bg-white absolute overflow-y-scroll border h-[220px] px-3 rounded-[12px] mt-2 z-[10] w-full'>

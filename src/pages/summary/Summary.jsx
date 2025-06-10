@@ -194,9 +194,9 @@ const Summary = ({baseUrl}) => {
                     <div className='grid md:grid-cols-2 lg:grid-cols-4 items-end gap-5 w-full my-[1rem]'>
                         <div className='relative w-[100%]'>
                             <label className='block text-left mb-2'>Select Unit</label>
-                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                                <input type="text" value={unit?.name} className='outline-none w-full rounded-[4px] capitalize bg-transparent'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "unit" ? false : "unit")} />
+                            <div onClick={() => setDropDown(dropDown === "unit" ? false : "unit")} className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
+                                <input readOnly type="text" value={unit?.name} className='cursor-pointer outline-none w-full rounded-[4px] capitalize bg-transparent'/>
+                                <IoChevronDownOutline />
                             </div>
                             {
                                 dropDown === 'unit' &&
@@ -217,9 +217,9 @@ const Summary = ({baseUrl}) => {
                         </div>
                         <div className='relative w-[100%]'>
                             <label className='block text-left mb-2'>Select Sub-Unit</label>
-                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
-                                <input type="text" value={subunit?.name} className='outline-none rounded-[4px] w-full capitalize bg-transparent'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "sub-unit" ? false : "sub-unit")} />
+                            <div onClick={() => setDropDown(dropDown === "sub-unit" ? false : "sub-unit")} className='flex items-center justify-between border rounded-[6px] py-3 px-5'>
+                                <input readOnly type="text" value={subunit?.name} className='cursor-pointer outline-none rounded-[4px] w-full capitalize bg-transparent'/>
+                                <IoChevronDownOutline />
                             </div>
                             {
                                 dropDown === 'sub-unit' &&
@@ -240,9 +240,9 @@ const Summary = ({baseUrl}) => {
                         </div>
                         <div className='relative w-[100%]'>
                             <label className='block text-left mb-2'>Select Schedule</label>
-                            <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 '>
-                                <input type="text" value={schedule?.course.name} className='outline-none w-full rounded-[4px] capitalize bg-transparent'/>
-                                <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "schedules" ? false : "schedules")} />
+                            <div onClick={() => setDropDown(dropDown === "schedules" ? false : "schedules")} className='flex items-center justify-between border rounded-[6px] py-3 px-5 '>
+                                <input readOnly type="text" value={schedule?.course.name} className='cursor-pointer outline-none w-full rounded-[4px] capitalize bg-transparent'/>
+                                <IoChevronDownOutline />
                             </div>
                             {
                                 dropDown === 'schedules' &&
