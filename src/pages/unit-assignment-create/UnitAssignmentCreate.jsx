@@ -27,6 +27,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
     const [allSemesters, setAllSemesters] = useState([])
     const [selectedSession, setSelectedSession] = useState({})
     const [selectedSemester, setSelectedSemester] = useState({})
+    const [basePrice, setBasePrice] = useState()
     const [toggleNav, setToggleNav] = useState(false)
 
     async function getUnitInfo(){
@@ -47,6 +48,21 @@ const UnitAssignmentCreate = ({baseUrl}) => {
             setUnitInfo(data.data.unit);
             getAllSubUnits(data.data.unit._id)
             setAlertType('success');
+            return;
+        }
+    }
+
+    async function getBasePrice(){
+        const res = await fetch(`${baseUrl}/sub-unit/monitor-price`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data.data);
+        if(res.ok){
+            setBasePrice(data.data.basePrice)
             return;
         }
     }
@@ -120,6 +136,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
     useEffect(() => {
         getUnitInfo()
         getAllSession()
+        getBasePrice()
         // if(unitInfo){
         //     getAllAssignments()
         // }
@@ -364,7 +381,7 @@ const UnitAssignmentCreate = ({baseUrl}) => {
                         </div>
                         <div className='text-[#865C1D] text-[14px] flex items-center gap-1 mt-[-20px] mb-4'>
                             <IoMdInformationCircleOutline />
-                            <p>Each assignment costs NGN 100</p>
+                            <p>Each assignment costs NGN {basePrice}</p>
                         </div>
 
                         {/* {

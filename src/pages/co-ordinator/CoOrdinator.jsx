@@ -15,6 +15,7 @@ const CoOrdinator = ({baseUrl}) => {
     const [allStaffs, setAllStaffs] = useState([])
     const [selectedStaff, setSelectedStaff] = useState()
     const [loading, setLoading] = useState(false)
+    const [basePrice, setBasePrice] = useState()
     const { id } = useParams()
 
     async function getBankAccountDetails(){
@@ -27,9 +28,25 @@ const CoOrdinator = ({baseUrl}) => {
         console.log(data)
     }
 
+    async function getBasePrice(){
+        const res = await fetch(`${baseUrl}/sub-unit/monitor-price`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data.data);
+        if(res.ok){
+            setBasePrice(data.data.basePrice)
+            return;
+        }
+    }
+
     useEffect(() => {
         getBankAccountDetails()
         getAllStaffs()
+        getBasePrice()
     },[])
 
     async function getAllStaffs(){
@@ -93,7 +110,7 @@ const CoOrdinator = ({baseUrl}) => {
                     </div>
                     <div className='text-[#865C1D] text-[14px] flex items-center gap-1 mt-[-30px] mb-4'>
                             <IoMdInformationCircleOutline />
-                            <p>Each assignment costs NGN 100</p>
+                            <p>Each assignment costs NGN {basePrice}</p>
                         </div>
 
                         {

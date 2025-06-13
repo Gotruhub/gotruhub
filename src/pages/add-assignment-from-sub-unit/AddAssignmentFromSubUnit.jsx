@@ -29,6 +29,22 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
     const [selectedSession, setSelectedSession] = useState({})
     const [selectedSemester, setSelectedSemester] = useState({})
     const [toggleNav, setToggleNav] = useState(false)
+    const [basePrice, setBasePrice] = useState()
+
+    async function getBasePrice(){
+        const res = await fetch(`${baseUrl}/sub-unit/monitor-price`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data.data);
+        if(res.ok){
+            setBasePrice(data.data.basePrice)
+            return;
+        }
+    }
 
     async function getSubUnitInfo(){
         const res = await fetch(`${baseUrl}/subunits/${id}`,{
@@ -120,6 +136,7 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
         getSubUnitInfo()
         getAllAssignments()
         getAllSession()
+        getBasePrice()
     },[])
 
     async function getAllSemesters(session){
@@ -337,7 +354,7 @@ const AddAssignmentFromSubUnit = ({baseUrl}) => {
                         </div>
                         <div className='text-[#865C1D] text-[14px] flex items-center gap-1 mt-[-20px] mb-4'>
                             <IoMdInformationCircleOutline />
-                            <p>Each assignment costs NGN 100</p>
+                            <p>Each assignment costs NGN {basePrice}</p>
                         </div>
 
                         {
