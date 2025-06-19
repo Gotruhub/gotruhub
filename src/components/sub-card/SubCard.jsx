@@ -30,7 +30,7 @@ const SubCard = ({ plan, setConfirmSubModal }) => {
         <p className='text-[12px] mb-1 text-[#1C2320] font-[500]'>
           {featureNames}/<span className='text-[#828282] font-[400]'>{plan.duration}</span>
         </p>
-        <p className='font-[500] text-[14px]'>₦{plan.amount.$numberDecimal}</p>
+        <p className='font-[500] text-[14px]'>₦{plan.amount}</p>
         {/* <p className='text-[12px] mb-1 text-[#1C2320] font-[500]'>Features: {featureNames}</p> */}
         <button className='bg-[#1C2320] text-white mt-3 text-center w-full py-[6px] font-[500] rounded-[4px]' onClick={() => {
           setConfirmSubModal(true)

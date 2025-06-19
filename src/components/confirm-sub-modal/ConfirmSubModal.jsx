@@ -14,7 +14,7 @@ const ConfirmSubModal = ({setConfirmSubModal, baseUrl, setAlertType, setMsg}) =>
             setMsg("Please fill in the field")
             setAlertType("error")
         }else{
-            const subTotalPrice = plan.amount.$numberDecimal * quantity;
+            const subTotalPrice = plan.amount * quantity;
             const item = {
                 subscriptionType: plan._id,
                 quantity,
@@ -66,7 +66,7 @@ const ConfirmSubModal = ({setConfirmSubModal, baseUrl, setAlertType, setMsg}) =>
                         </div>
                     </div>
                     <p className='text-[14px] mb-1 text-[#1C2320] font-[500]'>{plan?.feature?.map(f => f.name).join(', ')}/<span className='text-gray-400 font-[400] text-[12px]'>{plan.duration}</span> </p>
-                    <p className='font-[500]'>₦{plan.amount.$numberDecimal}</p>
+                    <p className='font-[500]'>₦{plan.amount}</p>
                 </div>
             </div>
             <div className='bg-[#fff] w-full py-[30px] md:px-[2rem]'>
