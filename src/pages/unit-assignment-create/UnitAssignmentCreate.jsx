@@ -111,6 +111,8 @@ const UnitAssignmentCreate = ({baseUrl}) => {
 
 
     async function getAllAssignments(){
+        console.log("Called.............");
+        
         setLoading(true);
         const res = await fetch(`${baseUrl}/course?unit=${unitInfo?._id}`,{
             method:"GET",
@@ -137,9 +139,9 @@ const UnitAssignmentCreate = ({baseUrl}) => {
         getUnitInfo()
         getAllSession()
         getBasePrice()
-        // if(unitInfo){
-        //     getAllAssignments()
-        // }
+        if(unitInfo){
+            getAllAssignments()
+        }
     },[])
 
     async function getAllSemesters(session){

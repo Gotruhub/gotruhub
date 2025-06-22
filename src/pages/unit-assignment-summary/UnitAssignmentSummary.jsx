@@ -16,6 +16,22 @@ const UnitAssignmentSummary = ({baseUrl}) => {
     const [deleteAssignment, setDeleteAssignment] = useState()
     const [toggleNav, setToggleNav] = useState(false)
     const navigate = useNavigate()
+    const [basePrice, setBasePrice] = useState()
+
+    async function getBasePrice(){
+        const res = await fetch(`${baseUrl}/sub-unit/monitor-price`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data.data);
+        if(res.ok){
+            setBasePrice(data.data.basePrice)
+            return;
+        }
+    }
 
     async function getAllAssignmentsSummary(){
         const res = await fetch(`${baseUrl}/sub-unit/course/cart`, {
@@ -33,6 +49,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
 
     useEffect(() => {
         getAllAssignmentsSummary()
+        getBasePrice()
     },[])
 
     async function deleteAssignmentFn(id){
@@ -120,7 +137,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                                                 <td className='py-3'>{index + 1}</td>
                                                 <td>{item?.course?.name}</td>
                                                 {/* <td></td> */}
-                                                <td>₦{item?.amount}</td>
+                                                <td>₦{(item?.amount).toLocaleString()}</td>
                                                 <td> <button onClick={() => setDeleteAssignment(item._id)} className='bg-[#9A2525] px-[16px] py-[7px] rounded-[8px] text-white'>Remove</button> </td>
                                             </tr>
                                         )
@@ -133,7 +150,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                         <p className='text-[18px] font-[500] mb-5'>Summary</p>
                         <div className='flex items-center justify-between'>
                             <p>Price per assignment</p>
-                            <p className='text-[14px]'>₦{summary[0]?.amount}</p>
+                            <p className='text-[14px]'>₦{(basePrice).toLocaleString()}</p>
                         </div>
                         <div className='flex items-center justify-between my-4'>
                             <p>Total assignment(s)</p>
@@ -141,7 +158,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                         </div>
                         <div className='flex items-center justify-between'>
                             <p>Amount payable</p>
-                            <p className='text-[18px]'>₦{summary?.length * 100}</p>
+                            <p className='text-[18px]'>₦{(summary?.length * basePrice).toLocaleString()}</p>
                         </div>
                         {
                             loading ? 
