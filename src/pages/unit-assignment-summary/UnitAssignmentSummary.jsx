@@ -150,7 +150,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                         <p className='text-[18px] font-[500] mb-5'>Summary</p>
                         <div className='flex items-center justify-between'>
                             <p>Price per assignment</p>
-                            <p className='text-[14px]'>₦{(basePrice).toLocaleString()}</p>
+                            <p className='text-[14px]'>₦{(basePrice)?.toLocaleString()}</p>
                         </div>
                         <div className='flex items-center justify-between my-4'>
                             <p>Total assignment(s)</p>
@@ -158,7 +158,7 @@ const UnitAssignmentSummary = ({baseUrl}) => {
                         </div>
                         <div className='flex items-center justify-between'>
                             <p>Amount payable</p>
-                            <p className='text-[18px]'>₦{(summary?.length * basePrice).toLocaleString()}</p>
+                            <p className='text-[18px]'>₦{(summary?.length * basePrice)?.toLocaleString()}</p>
                         </div>
                         {
                             loading ? 
