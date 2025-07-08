@@ -46,13 +46,17 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
         // Predefined colors for the graph
         const colors = ['#FFBB28', '#FF8042', '#00C49F', '#0088FE'];
 
-        setChartData(data.data.map((item, index) => ({
-            name: item.courseName.trim(), // Use courseName for name
-            value: item.attendedSessions, // (attendanceRate is the correct value to use, attendedSessions is for testing purposes)
-            color: colors[index % colors.length], // Assign colors in a loop
-        })));
+        // Format the data for the chart - use attendanceRate instead of attendedSessions
+        const formattedChartData = data.data.map((item, index) => ({
+            name: item.courseName.trim(),
+            value: item.attendanceRate, // Use attendanceRate for proper percentage values
+            color: colors[index % colors.length],
+        }));
 
-        setChartData(data.data)
+        // Set the formatted data only once
+        setChartData(formattedChartData);
+        
+        console.log("Formatted chart data:", formattedChartData);
     }
 
     async function getAllSessions(){
@@ -244,7 +248,7 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
                                   return (
                                       <div key={index} className='flex items-center gap-2'>
                                           <div>
-                                              <p className={`p-2 rounded-full bg-[${item.color}]`}></p>
+                                              <p style={{ backgroundColor:`${item.color}` }} className={`p-2 rounded-full`}></p>
                                           </div>
                                           <p>{item.name}</p>
                                           <p className='ml-5 text-gray-500'>{item.value}%</p>
