@@ -98,7 +98,7 @@ const Summary = ({baseUrl}) => {
             return;
         }
     }
-
+    
     async function getSummary(){
         setLoading(true)
         console.log(`${baseUrl}/my-orgnz-summary/subunit-summary/course/${schedule.course._id}/${user.data.details._id}/attendance-summary`);

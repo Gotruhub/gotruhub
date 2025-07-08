@@ -29,9 +29,9 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
     const user = JSON.parse(localStorage.getItem('user'))
 
     async function getMemberAttendanceSummary() {
-        console.log(`${baseUrl}/attendance-summary/${user.data.details._id}/${term._id}`);
+        console.log(`${baseUrl}/attendance-summary/${id}/${term._id}`);
         setLoading(true)
-        const res = await fetch(`${baseUrl}/attendance-summary/${user.data.details._id}/${term._id}`,{
+        const res = await fetch(`${baseUrl}/attendance-summary/${id}/${term._id}`,{
             method:"GET",
             headers:{
                 'Authorization':`Bearer ${user.data.access_token}`

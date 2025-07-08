@@ -161,12 +161,13 @@ const SingleUnit = ({baseUrl}) => {
     const [editSubUnit, setEditSubUnit] = useState(false)
     const [deleteSubUnit, setDeleteSubUnit] = useState(false)
 
-    const [attendanceSummary, setAttendanceSummary] = useState({
-        totalStudents: 0,
-        earlyPercentage: 0,
-        latePercentage: 0,
-        absentPercentage: 0
-    })
+    // const [attendanceSummary, setAttendanceSummary] = useState({
+    //     totalStudents: 0,
+    //     earlyPercentage: 0,
+    //     latePercentage: 0,
+    //     absentPercentage: 0
+    // })
+    const [attendanceSummary, setAttendanceSummary] = useState()
     const [unitSummary, setUnitSummary] = useState()
     const [toggleNav, setToggleNav] = useState(false)
     
@@ -402,15 +403,24 @@ const SingleUnit = ({baseUrl}) => {
                     </div>
                     <div className="flex flex-col sm:flex-row w-full sm:w-1/2">
                         {/* Members Ring Chart */}
-                        <AttendanceRing 
-                            title="Members" 
-                            total={attendanceSummary?.totalStudents || 0} 
-                            earlyPercentage={attendanceSummary?.earlyPercentage || 0} 
-                            latePercentage={attendanceSummary?.latePercentage || 0} 
-                            absentPercentage={attendanceSummary?.absentPercentage || 0} 
+                        <AttendanceRing
+                            title="Members"
+                            total={attendanceSummary?.totalStudents || 0}
+                            earlyPercentage={attendanceSummary?.members?.early || 0}
+                            latePercentage={attendanceSummary?.members?.late || 0}
+                            absentPercentage={attendanceSummary?.members?.absent || 0}
                         />
                         
                         {/* Uncomment for Assignees Ring Chart */}
+                        
+                        <AttendanceRing 
+                            title="Assignees" 
+                            total={assigneesSummary.total} 
+                            earlyPercentage={assigneesSummary.earlyPercentage} 
+                            latePercentage={assigneesSummary.latePercentage} 
+                            absentPercentage={assigneesSummary.absentPercentage} 
+                        />
+                       
                         {/*
                         <AttendanceRing 
                             title="Assignees" 
