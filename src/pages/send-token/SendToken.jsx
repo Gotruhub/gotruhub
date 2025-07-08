@@ -21,7 +21,8 @@ const SendToken = ({baseUrl}) => {
     const [toggleNav, setToggleNav] = useState(false)
 
     async function getAllGuardians(){
-      const res = await fetch(`${baseUrl}/users/get-users/guardian?role=guardian`,{
+      const res = await fetch(`${baseUrl}/users/get-users/guardian`,{
+      // const res = await fetch(`${baseUrl}/users/get-users/guardian?role=guardian`,{
           headers:{
               'Content-Type':'application/json',
               Authorization:`Bearer ${user.data.access_token}`

@@ -167,6 +167,7 @@ const SingleUnit = ({baseUrl}) => {
     //     latePercentage: 0,
     //     absentPercentage: 0
     // })
+    
     const [attendanceSummary, setAttendanceSummary] = useState()
     const [unitSummary, setUnitSummary] = useState()
     const [toggleNav, setToggleNav] = useState(false)
