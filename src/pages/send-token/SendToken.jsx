@@ -164,6 +164,7 @@ const SendToken = ({baseUrl}) => {
                                 <th scope="col" className="px-6 py-3 font-[700]">Profile Pic</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Name</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Email</th>
+                                <th scope="col" className="px-6 py-3 font-[700]">Role</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">No. of Mem.</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">Select Member</th>
                                 <th scope="col" className="px-6 py-3 font-[700]">No. of tokens</th>
@@ -182,6 +183,7 @@ const SendToken = ({baseUrl}) => {
                                           </td>
                                           <td className="px-6 py-4">{sub.fullName}</td>
                                           <td className="px-6 py-4">{sub.defaultEmail}</td>
+                                          <td className="px-6 py-4">{sub.role}</td>
                                           <td className="px-6 py-4">{sub?.children.length}</td>
                                           <td>
                                             <input type="checkbox" checked={!!selectedGuardian} className='cursor-pointer' onChange={() => handleCheckboxChange(sub._id)} />

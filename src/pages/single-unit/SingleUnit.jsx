@@ -174,7 +174,7 @@ const SingleUnit = ({baseUrl}) => {
     
     // Assignees data (sample - replace with actual data from your API)
     const [assigneesSummary, setAssigneesSummary] = useState({
-        total: 32,
+        // total: 32,
         earlyPercentage: 70,
         latePercentage: 20,
         absentPercentage: 10
@@ -259,7 +259,9 @@ const SingleUnit = ({baseUrl}) => {
             return;
         }
         if(res.ok){
-            setAttendanceSummary(data.data);
+            console.log(data.data);
+            
+            setAttendanceSummary(data.data.attendanceSummary);
             setAlertType('success');
             return;
         }
@@ -402,24 +404,23 @@ const SingleUnit = ({baseUrl}) => {
                             <div className="font-bold">{unitSummary?.totalStudents}</div>
                         </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row w-full sm:w-1/2">
+                    <div className="flex flex-col sm:flex-row w-full sm:w-1/2 gap-5 sm:gap-0">
                         {/* Members Ring Chart */}
+
                         <AttendanceRing
                             title="Members"
-                            total={attendanceSummary?.totalStudents || 0}
+                            total={attendanceSummary?.totalDays || 0}
                             earlyPercentage={attendanceSummary?.members?.early || 0}
                             latePercentage={attendanceSummary?.members?.late || 0}
                             absentPercentage={attendanceSummary?.members?.absent || 0}
                         />
                         
-                        {/* Uncomment for Assignees Ring Chart */}
-                        
                         <AttendanceRing 
-                            title="Assignees" 
-                            total={assigneesSummary.total} 
-                            earlyPercentage={assigneesSummary.earlyPercentage} 
-                            latePercentage={assigneesSummary.latePercentage} 
-                            absentPercentage={assigneesSummary.absentPercentage} 
+                            title="Assignees"
+                            total={attendanceSummary?.totalDays || 0}
+                            earlyPercentage={assigneesSummary?.assignees?.early || 0}
+                            latePercentage={assigneesSummary?.assignees?.late || 0}
+                            absentPercentage={assigneesSummary?.assignees?.absent || 0}
                         />
                        
                         {/*
