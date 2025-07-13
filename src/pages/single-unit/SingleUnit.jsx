@@ -171,14 +171,6 @@ const SingleUnit = ({baseUrl}) => {
     const [attendanceSummary, setAttendanceSummary] = useState()
     const [unitSummary, setUnitSummary] = useState()
     const [toggleNav, setToggleNav] = useState(false)
-    
-    // Assignees data (sample - replace with actual data from your API)
-    const [assigneesSummary, setAssigneesSummary] = useState({
-        // total: 32,
-        earlyPercentage: 70,
-        latePercentage: 20,
-        absentPercentage: 10
-    })
 
     async function getUnitInfo(){
         const res = await fetch(`${baseUrl}/unit/${id}/subunits`,{
@@ -418,20 +410,10 @@ const SingleUnit = ({baseUrl}) => {
                         <AttendanceRing 
                             title="Assignees"
                             total={attendanceSummary?.totalDays || 0}
-                            earlyPercentage={assigneesSummary?.assignees?.early || 0}
-                            latePercentage={assigneesSummary?.assignees?.late || 0}
-                            absentPercentage={assigneesSummary?.assignees?.absent || 0}
+                            earlyPercentage={attendanceSummary?.assignees?.early || 0}
+                            latePercentage={attendanceSummary?.assignees?.late || 0}
+                            absentPercentage={attendanceSummary?.assignees?.absent || 0}
                         />
-                       
-                        {/*
-                        <AttendanceRing 
-                            title="Assignees" 
-                            total={assigneesSummary.total} 
-                            earlyPercentage={assigneesSummary.earlyPercentage} 
-                            latePercentage={assigneesSummary.latePercentage} 
-                            absentPercentage={assigneesSummary.absentPercentage} 
-                        />
-                        */}
                     </div>
                 </div>
 

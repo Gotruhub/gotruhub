@@ -129,6 +129,28 @@ const SingleOrder = ({baseUrl}) => {
                                             <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{item?.product?.price}</p>
                                         </div>
                                         <p className='text-[#828282] ml-[3.2rem]'>{item?.product?.category?.name}</p>
+                                        {
+                                            item?.product?.colors?.length > 0 &&
+                                            <div className='flex items-center gap-1 mt-[6px] text-[#828282] ml-[3.2rem] text-[14px]'>
+                                                <p>Colour:</p>
+                                                {
+                                                    item?.product?.colors?.map(color => (
+                                                        <p>{color}</p>
+                                                    ))
+                                                }
+                                            </div>
+                                        }
+                                        {
+                                            item?.product?.size?.length > 0 &&
+                                            <div className='flex items-center gap-1 text-[#828282] ml-[3.2rem] text-[14px]'>
+                                                <p>Size:</p>
+                                                {
+                                                    item?.product?.size?.map(siz => (
+                                                        <p>{siz}</p>
+                                                    ))
+                                                }
+                                            </div>
+                                        }
                                     </div>
                                 )
                             })

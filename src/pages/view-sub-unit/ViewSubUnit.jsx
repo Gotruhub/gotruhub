@@ -5,6 +5,135 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Alert from '../../components/alert/Alert'
 import { LuListTodo } from 'react-icons/lu'
 
+// Ring Chart Component
+const AttendanceRing = ({ title, total, earlyPercentage, latePercentage, absentPercentage }) => {
+  // Calculate the stroke-dasharray and stroke-dashoffset for each segment
+  const calculateSegments = () => {
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Convert percentages to arc lengths
+    const earlyLength = (earlyPercentage / 100) * circumference;
+    const lateLength = (latePercentage / 100) * circumference;
+    const absentLength = (absentPercentage / 100) * circumference;
+    
+    return {
+      circumference,
+      earlySegment: {
+        length: earlyLength,
+        offset: 0
+      },
+      lateSegment: {
+        length: lateLength,
+        offset: earlyLength
+      },
+      absentSegment: {
+        length: absentLength,
+        offset: earlyLength + lateLength
+      }
+    };
+  };
+
+  const segments = calculateSegments();
+
+  return (
+    <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
+      <div className="flex flex-col items-center">
+        <div className="text-lg font-bold">{title}</div>
+        
+        {/* Ring Chart */}
+        <div className="relative w-32 h-32 my-2">
+          <svg viewBox="0 0 200 200" className="w-full h-full">
+            {/* Early - Green Segment */}
+            {earlyPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#4ade80"
+                strokeWidth="20"
+                strokeDasharray={`${segments.earlySegment.length} ${segments.circumference - segments.earlySegment.length}`}
+                strokeDashoffset="0"
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Late - Yellow/Gold Segment */}
+            {latePercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#eab308"
+                strokeWidth="20"
+                strokeDasharray={`${segments.lateSegment.length} ${segments.circumference - segments.lateSegment.length}`}
+                strokeDashoffset={`-${segments.lateSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Absent - Red Segment */}
+            {absentPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#ef4444"
+                strokeWidth="20"
+                strokeDasharray={`${segments.absentSegment.length} ${segments.circumference - segments.absentSegment.length}`}
+                strokeDashoffset={`-${segments.absentSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Center Text */}
+            <text
+              x="100"
+              y="80"
+              textAnchor="middle"
+              fontSize="16"
+              fill="white"
+            >
+              Days
+            </text>
+            <text
+              x="100"
+              y="120"
+              textAnchor="middle"
+              fontSize="40"
+              fontWeight="bold"
+              fill="white"
+            >
+              {total}
+            </text>
+          </svg>
+        </div>
+
+        <div className="w-full flex justify-between text-sm">
+          <div className="flex flex-col items-center">
+            <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Early</div>
+            <div>{earlyPercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Late</div>
+            <div>{latePercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Absent</div>
+            <div>{absentPercentage?.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ViewSubUnit = ({baseUrl}) => {
 
     const navigate = useNavigate()
@@ -18,7 +147,37 @@ const ViewSubUnit = ({baseUrl}) => {
     const [subUnitStats, setSubUnitStats] = useState()
     const [staff, setStaff] = useState()
     const [members, setMembers] = useState([])
-    
+    const [attendanceSummary, setAttendanceSummary] = useState()
+
+    const [assigneesSummary, setAssigneesSummary] = useState({
+        // total: 32,
+        earlyPercentage: 70,
+        latePercentage: 20,
+        absentPercentage: 10
+    })
+
+    async function getAttendanceSummary(){
+        const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/${id}`,{
+            method:"GET",
+            headers:{
+                'Authorization':`Bearer ${user.data.access_token}`
+            }
+        })
+        const data = await res.json()
+        console.log(data);
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+        if(res.ok){
+            console.log(data.data);
+            
+            setAttendanceSummary(data.data.attendanceSummary);
+            setAlertType('success');
+            return;
+        }
+    }
 
     async function getSubUnitInfo(){
         const res = await fetch(`${baseUrl}/subunits/${id}`,{
@@ -120,9 +279,10 @@ const ViewSubUnit = ({baseUrl}) => {
     }
 
     useEffect(() => {
+        getAllMembers()
         getSubUnitInfo()
         getSubUnitStats()
-        getAllMembers()
+        getAttendanceSummary()
     },[])
 
 
@@ -170,6 +330,25 @@ const ViewSubUnit = ({baseUrl}) => {
                             <div>Members</div>
                             <div className="font-bold">{subUnitStats?.totalStudents}</div>
                         </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row w-full sm:w-1/2 gap-5 sm:gap-0">
+                        {/* Members Ring Chart */}
+
+                        <AttendanceRing
+                            title="Members"
+                            total={attendanceSummary?.totalDays || 0}
+                            earlyPercentage={attendanceSummary?.members?.early || 0}
+                            latePercentage={attendanceSummary?.members?.late || 0}
+                            absentPercentage={attendanceSummary?.members?.absent || 0}
+                        />
+                        
+                        <AttendanceRing 
+                            title="Assignees"
+                            total={attendanceSummary?.totalDays || 0}
+                            earlyPercentage={attendanceSummary?.assignees?.early || 0}
+                            latePercentage={attendanceSummary?.assignees?.late || 0}
+                            absentPercentage={attendanceSummary?.assignees?.absent || 0}
+                        />
                     </div>
                 </div>
 
