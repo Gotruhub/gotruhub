@@ -108,7 +108,7 @@ const Wallet = ({baseUrl}) => {
               </div>
               <div className='flex items-center gap-5'>
                 <button className="border border-[#1D1D1D] px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/bank-account')}>Bank Account</button>
-                {/* <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/wallet-restriction')}>Wallet Restriction</button> */}
+                <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/wallet-restriction')}>Wallet Restriction</button>
               </div>
           </div>
           <div className='ml-6'>
