@@ -24,9 +24,13 @@ const WalletRestriction = () => {
                     </div>
                 </div>
                 <div className='flex item-center justify-center flex-col w-[40%] mx-auto gap-8'>
-                    <div>
+                    {/* <div>
                         <p>Current maximum balance</p>
                         <p className='border border-[#25751E] rounded-[6px] py-3 px-5 bg-[#25751E26]'>United Bank for Africa</p>
+                    </div> */}
+                    <div>
+                        <p>Current maximum balance</p>
+                        <input type="text" placeholder='NGN 0' className='border border-[#25751E] rounded-[6px] outline-none py-3 px-5 bg-[#25751E26] w-full'/>
                     </div>
                     <div>
                         <p>New maximum balance</p>
