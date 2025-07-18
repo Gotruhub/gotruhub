@@ -149,13 +149,6 @@ const ViewSubUnit = ({baseUrl}) => {
     const [members, setMembers] = useState([])
     const [attendanceSummary, setAttendanceSummary] = useState()
 
-    const [assigneesSummary, setAssigneesSummary] = useState({
-        // total: 32,
-        earlyPercentage: 70,
-        latePercentage: 20,
-        absentPercentage: 10
-    })
-
     async function getAttendanceSummary(){
         const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/${id}`,{
             method:"GET",
