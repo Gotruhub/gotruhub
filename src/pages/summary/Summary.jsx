@@ -559,7 +559,7 @@ const Summary = ({baseUrl}) => {
                                         };
 
                                         return (
-                                            <tr className={item?.signin?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
+                                            <tr className={item?.signin?.flag.toString() === true ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                                 <td className='px-6  py-3'>{index + 1}</td>
                                                 <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
                                                 <td className='px-6 py-3'>{item?.member}</td>
@@ -618,7 +618,7 @@ const Summary = ({baseUrl}) => {
                                         };
 
                                         return (
-                                            <tr className={item?.signin?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
+                                            <tr className={item?.signin?.flag.toString() === true ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                                 <td className='px-6  py-3'>{index + 1}</td>
                                                 <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
                                                 <td className='px-6 py-3'>{item?.member}</td>
