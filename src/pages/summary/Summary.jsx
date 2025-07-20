@@ -561,13 +561,13 @@ const Summary = ({baseUrl}) => {
                                         return (
                                             <tr className={item?.signin?.flag.toString() === true ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                                 <td className='px-6  py-3'>{index + 1}</td>
-                                                <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
+                                                <td className='px-6 py-3 capitalize'>{item?.signin?.attendanceType}</td>
                                                 <td className='px-6 py-3'>{item?.member}</td>
                                                 <td className='px-6 py-3 capitalize'>{item?.signin?.remark}</td>
                                                 <td className='px-6 py-3'>{formatTime(item?.signin?.scannedTime)}</td>
                                                 <td className='px-6 py-3'>{new Date(item?.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                                <td className={item?.signin?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
-                                                <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
+                                                <td className={item?.signin?.isValid === true ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
+                                                <td className='px-6 py-3'>{item?.classSchedule[0]?.endTime - item?.classSchedule[0]?.startTime}Mins</td>
                                             </tr>
                                         )
                                     })
@@ -620,13 +620,13 @@ const Summary = ({baseUrl}) => {
                                         return (
                                             <tr className={item?.signin?.flag.toString() === true ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
                                                 <td className='px-6  py-3'>{index + 1}</td>
-                                                <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
+                                                <td className='px-6 py-3 capitalize'>{item?.signin?.attendanceType}</td>
                                                 <td className='px-6 py-3'>{item?.member}</td>
                                                 <td className='px-6 py-3 capitalize'>{item?.signin?.remark}</td>
                                                 <td className='px-6 py-3'>{formatTime(item?.signin?.scannedTime)}</td>
                                                 <td className='px-6 py-3'>{new Date(item?.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                                <td className={item?.signin?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
-                                                <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
+                                                <td className={item?.signin?.isValid === true ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
+                                                <td className='px-6 py-3'>{item?.classSchedule[0]?.endTime - item?.classSchedule[0]?.startTime}Mins</td>
                                             </tr>
                                         )
                                     })
