@@ -9,9 +9,142 @@ import { HiSearchCircle } from 'react-icons/hi';
 import Alert from '../../components/alert/Alert';
 import BtnLoader from '../../components/btn-loader/BtnLoader';
 
+
+
+
+// Ring Chart Component
+const AttendanceRing = ({ title, total, earlyPercentage, latePercentage, absentPercentage }) => {
+  // Calculate the stroke-dasharray and stroke-dashoffset for each segment
+  const calculateSegments = () => {
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Convert percentages to arc lengths
+    const earlyLength = (earlyPercentage / 100) * circumference;
+    const lateLength = (latePercentage / 100) * circumference;
+    const absentLength = (absentPercentage / 100) * circumference;
+    
+    return {
+      circumference,
+      earlySegment: {
+        length: earlyLength,
+        offset: 0
+      },
+      lateSegment: {
+        length: lateLength,
+        offset: earlyLength
+      },
+      absentSegment: {
+        length: absentLength,
+        offset: earlyLength + lateLength
+      }
+    };
+  };
+
+  const segments = calculateSegments();
+
+  return (
+    <div className="bg-blue-900 text-white p-4 rounded-lg shadow-md flex-1 mx-2">
+      <div className="flex flex-col items-center">
+        <div className="text-lg font-bold">{title}</div>
+        
+        {/* Ring Chart */}
+        <div className="relative w-32 h-32 my-2">
+          <svg viewBox="0 0 200 200" className="w-full h-full">
+            {/* Early - Green Segment */}
+            {earlyPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#4ade80"
+                strokeWidth="20"
+                strokeDasharray={`${segments.earlySegment.length} ${segments.circumference - segments.earlySegment.length}`}
+                strokeDashoffset="0"
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Late - Yellow/Gold Segment */}
+            {latePercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#eab308"
+                strokeWidth="20"
+                strokeDasharray={`${segments.lateSegment.length} ${segments.circumference - segments.lateSegment.length}`}
+                strokeDashoffset={`-${segments.lateSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Absent - Red Segment */}
+            {absentPercentage > 0 && (
+              <circle
+                cx="100"
+                cy="100"
+                r="80"
+                fill="none"
+                stroke="#ef4444"
+                strokeWidth="20"
+                strokeDasharray={`${segments.absentSegment.length} ${segments.circumference - segments.absentSegment.length}`}
+                strokeDashoffset={`-${segments.absentSegment.offset}`}
+                transform="rotate(-90 100 100)"
+              />
+            )}
+            
+            {/* Center Text */}
+            <text
+              x="100"
+              y="80"
+              textAnchor="middle"
+              fontSize="16"
+              fill="white"
+            >
+              Days
+            </text>
+            <text
+              x="100"
+              y="120"
+              textAnchor="middle"
+              fontSize="40"
+              fontWeight="bold"
+              fill="white"
+            >
+              {total}
+            </text>
+          </svg>
+        </div>
+
+        <div className="w-full flex justify-between text-sm">
+          <div className="flex flex-col items-center">
+            <div className="bg-green-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Early</div>
+            <div>{earlyPercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-yellow-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Late</div>
+            <div>{latePercentage?.toFixed(0)}%</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-red-500 h-2 w-2 rounded-full mb-1"></div>
+            <div>Absent</div>
+            <div>{absentPercentage?.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Summary = ({baseUrl}) => {
 
     const [searchText, setSearchText] = useState('')
+    const [searchStudentText, setSearchStudentText] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [allOrders, setAllOrders] = useState([])
     const [msg, setMsg] = useState('')
@@ -340,138 +473,169 @@ const Summary = ({baseUrl}) => {
                         allAttendanceSummary && allAttendanceSummary?.attendances.length < 1 &&
                         <p className='text-center p-5 text-[14px]'>No Attendance Summary for the selected unit, subunit and schedule</p>
                     } */}
-                    <div className='w-[500px] space-y-2 mb-12'>
-                        <div className='flex items-center gap-5'>
-                            <p className='font-[500]'>Assignment:</p>
-                            <p>{allAttendanceSummary?.courseCode}</p>
-                        </div>
-                        <div className='flex items-center gap-5'>
-                            <p className='font-[500]'>Total Assignees:</p>
-                            {/* coordinators */}
-                            <p>{allAttendanceSummary?.coordinators?.length}</p>
-                        </div>
-                        <div className='flex items-center gap-5'>
-                            <p className='font-[500]'>Days:</p>
-                            <div className='flex items-center gap-2'>
-                                {allAttendanceSummary?.days?.map(day => (
-                                    <p className='capitalize'>{day}</p>
-                                ))}
+                    <div className='flex flex-col md:flex-row justify-between gap-5 mb-5'>
+                        <div className='w-[500px] space-y-2 mb-12'>
+                            <div className='flex items-center gap-5'>
+                                <p className='font-[500]'>Assignment:</p>
+                                <p>{allAttendanceSummary?.courseCode}</p>
+                            </div>
+                            {/* <div className='flex items-center gap-5'>
+                                <p className='font-[500]'>Total Assignees:</p>
+                                <p>{allAttendanceSummary?.assignees?.length}</p>
+                            </div> */}
+                            <div className='flex items-center gap-5'>
+                                <p className='font-[500]'>Days:</p>
+                                <div className='flex items-center gap-2'>
+                                    {allAttendanceSummary?.days?.map(day => (
+                                        <p className='capitalize'>{day}</p>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className='flex items-center gap-5'>
+                                <p className='font-[500]'>Avg. Duration:</p>
+                                <p>{allAttendanceSummary?.avgDuration}Mins</p>
+                                {/* <p>{ allAttendanceSummary?.durations && allAttendanceSummary?.durations?.reduce((total, num) => total + num, 0) / allAttendanceSummary?.durations?.length}</p> */}
                             </div>
                         </div>
-                        <div className='flex items-center gap-5'>
-                            <p className='font-[500]'>Avg. Duration:</p>
-                            <p>{ allAttendanceSummary?.durations && allAttendanceSummary?.durations?.reduce((total, num) => total + num, 0) / allAttendanceSummary?.durations?.length}</p>
-                        </div>
-                    </div>
-                    {/* <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
-                        <CiSearch className='text-primary-color text-[20px]'/>
-                        <input type="text" placeholder='Search by remark, location, scaned date and scaned time' className='w-full outline-none text-[13px]' onChange={(e) => setSearchText(e.target.value)} />
-                    </div> */}
-                    <div className='mt-[5rem]'>
-                        <p className='font-[600]'>Staffs Attendance Records</p>
-                        <table class="w-full text-sm text-left rtl:text-left mt-3">
-                            <thead class="text-[12px] border-b">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Name</th>
-                                    {/* <th scope="col" class="px-6 py-3 font-[700]">Role</th> */}
-                                    <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Coordinate</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Alloted Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                allAttendanceSummary && allAttendanceSummary?.staffsAttendanceRecords?.length < 1 && <p className='mt-5'>No Record Found For Staffs</p>
-                            }
-                            {
-                                allAttendanceSummary && allAttendanceSummary?.staffsAttendanceRecords?.filter((item) => {
-                                    if (searchText === "") return item
-                                    else if (item?.remark.toLowerCase().includes(searchText.toLowerCase())
-                                            || item?.classScheduleId?.location?.lat.includes(searchText)
-                                            || item?.classScheduleId?.location?.long.includes(searchText)
-                                            || item?.scanned_time.toString().includes(searchText)
-                                            || new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).includes(searchText)
-                                        ) return item
-                                }).map((item, index) => {
-                                    const formatTime = (time) => {
-                                        const timeStr = String(time).padStart(4, '0'); // Convert time to a string
-                                        return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
-                                    };
+                        <div className="flex flex-col md:flex-row w-full md:w-1/2 gap-5 md:gap-0">
+                            {/* Members Ring Chart */}
 
-                                    return (
-                                        <tr className={item?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
-                                            <td className='px-6  py-3'>{index + 1}</td>
-                                            <td className='px-6 py-3'>{item?.attendanceType}</td>
-                                            <td className='px-6 py-3'>{item?.user?.fullName}</td>
-                                            <td className='px-6 py-3 capitalize'>{item?.remark}</td>
-                                            <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
-                                            <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                            <td className={item?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.location.lat}, {item?.location.long}</td>
-                                            <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                            </tbody>
-                        </table>
+                            <AttendanceRing
+                                title="Members"
+                                total={allAttendanceSummary?.students?.chartSummary?.totalDays || 0}
+                                earlyPercentage={allAttendanceSummary?.students?.chartSummary?.early || 0}
+                                latePercentage={allAttendanceSummary?.students?.chartSummary?.late || 0}
+                                absentPercentage={allAttendanceSummary?.students?.chartSummary?.absent || 0}
+                            />
+                            
+                            <AttendanceRing 
+                                title="Assignees"
+                                total={allAttendanceSummary?.assignees?.chartSummary?.totalDays || 0}
+                                earlyPercentage={allAttendanceSummary?.assignees?.chartSummary?.early || 0}
+                                latePercentage={allAttendanceSummary?.assignees?.chartSummary?.late || 0}
+                                absentPercentage={allAttendanceSummary?.assignees?.chartSummary?.absent || 0}
+                            />
+                        </div>
                     </div>
 
                     <div className='mt-[6rem]'>
-                        <p className='font-[600]'>Students Attendance Records</p>
-                        {
-                            allAttendanceSummary && allAttendanceSummary?.studentsAttendanceRecords?.length < 1 && <p className='text-center mt-6'>No Record Found For Students</p>
-                        }
-                        <table class="w-full text-sm text-left rtl:text-left mt-3">
-                            <thead class="text-[12px] border-b">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Name</th>
-                                    {/* <th scope="col" class="px-6 py-3 font-[700]">Role</th> */}
-                                    <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Scan Coordinate</th>
-                                    <th scope="col" class="px-6 py-3 font-[700]">Alloted Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                allAttendanceSummary && allAttendanceSummary?.studentsAttendanceRecords?.filter((item) => {
-                                    if (searchText === "") return item
-                                    else if (item?.remark.toLowerCase().includes(searchText.toLowerCase())
-                                            || item?.classScheduleId?.location?.lat.includes(searchText)
-                                            || item?.classScheduleId?.location?.long.includes(searchText)
-                                            || item?.scanned_time.toString().includes(searchText)
-                                            || new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).includes(searchText)
-                                        ) return item
-                                }).map((item, index) => {
-                                    const formatTime = (time) => {
-                                        const timeStr = String(time).padStart(4, '0'); // Convert time to a string
-                                        return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
-                                    };
+                        <p className='font-[600] mb-1'>Staffs Attendance Records</p>
+                        <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
+                            <CiSearch className='text-primary-color text-[20px]'/>
+                            <input type="text" placeholder='Search by remark, location, scaned date and scaned time' className='w-full outline-none text-[13px]' onChange={(e) => setSearchText(e.target.value)} />
+                        </div>
 
-                                    return (
-                                        <tr className={item?.flag !== false.toString() ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
-                                            <td className='px-6  py-3'>{index + 1}</td>
-                                            <td className='px-6 py-3'>{item?.attendanceType}</td>
-                                            <td className='px-6 py-3'>{item?.user?.fullName}</td>
-                                            <td className='px-6 py-3 capitalize'>{item?.remark}</td>
-                                            <td className='px-6 py-3'>{formatTime(item?.scanned_time)}</td>
-                                            <td className='px-6 py-3'>{new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-                                            <td className={item?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.location.lat}, {item?.location.long}</td>
-                                            <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                            </tbody>
-                        </table>
+                        <div className='mt-[7px]'>
+                            <table class="w-full text-sm text-left rtl:text-left mt-3">
+                                <thead class="text-[12px] border-b">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Name</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Coordinate</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Alloted Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    allAttendanceSummary && allAttendanceSummary?.assignees?.length < 1 && <p className='mt-5'>No Record Found For Staffs</p>
+                                }
+                                {
+                                    allAttendanceSummary && allAttendanceSummary?.assignees?.records?.filter((item) => {
+                                        if (searchText === "") return item
+                                        else if (item?.signin?.remark.toLowerCase().includes(searchText.toLowerCase())
+                                                || item?.signin?.location?.lat.includes(searchText)
+                                                || item?.signin?.location?.long.includes(searchText)
+                                                || item?.signin?.scannedTime.toString().includes(searchText)
+                                                || new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).includes(searchText)
+                                            ) return item
+                                    }).map((item, index) => {
+                                        const formatTime = (time) => {
+                                            const timeStr = String(time).padStart(4, '0'); // Convert time to a string
+                                            return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
+                                        };
+
+                                        return (
+                                            <tr className={item?.signin?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
+                                                <td className='px-6  py-3'>{index + 1}</td>
+                                                <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
+                                                <td className='px-6 py-3'>{item?.member}</td>
+                                                <td className='px-6 py-3 capitalize'>{item?.signin?.remark}</td>
+                                                <td className='px-6 py-3'>{formatTime(item?.signin?.scannedTime)}</td>
+                                                <td className='px-6 py-3'>{new Date(item?.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                                <td className={item?.signin?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
+                                                <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
+                    <div className='mt-[6rem]'>
+                        <p className='font-[600] mb-1'>Students Attendance Records</p>
+                        <div className='flex items-center gap-3 border max-w-[500px] py-2 px-2 rounded-full'>
+                            <CiSearch className='text-primary-color text-[20px]'/>
+                            <input type="text" placeholder='Search by remark, location, scaned date and scaned time' className='w-full outline-none text-[13px]' onChange={(e) => setSearchStudentText(e.target.value)} />
+                        </div>
+                        <div className='mt-[7px]'>
+                            <table class="w-full text-sm text-left rtl:text-left mt-3">
+                                <thead class="text-[12px] border-b">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 th1 font-[700]">S/N</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Attendance Type</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Name</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Remark</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Time</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Date</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Scan Coordinate</th>
+                                        <th scope="col" class="px-6 py-3 font-[700]">Alloted Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    allAttendanceSummary && allAttendanceSummary?.students?.length < 1 && <p className='mt-5'>No Record Found For Staffs</p>
+                                }
+                                {
+                                    allAttendanceSummary && allAttendanceSummary?.students?.records?.filter((item) => {
+                                        if (searchStudentText === "") return item
+                                        else if (item?.signin?.remark.toLowerCase().includes(searchStudentText.toLowerCase())
+                                                || item?.signin?.location?.lat.includes(searchStudentText)
+                                                || item?.signin?.location?.long.includes(searchStudentText)
+                                                || item?.signin?.scannedTime.toString().includes(searchStudentText)
+                                                || new Date(item?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).includes(searchStudentText)
+                                            ) return item
+                                    }).map((item, index) => {
+                                        const formatTime = (time) => {
+                                            const timeStr = String(time).padStart(4, '0'); // Convert time to a string
+                                            return timeStr.slice(0, 2) + ':' + timeStr.slice(2);
+                                        };
+
+                                        return (
+                                            <tr className={item?.signin?.flag.toString() !== false ? `text-[#19201D] bg-[#865C1D66]` : `text-[#19201D]`} key={index}>
+                                                <td className='px-6  py-3'>{index + 1}</td>
+                                                <td className='px-6 py-3'>{item?.signin?.attendanceType}</td>
+                                                <td className='px-6 py-3'>{item?.member}</td>
+                                                <td className='px-6 py-3 capitalize'>{item?.signin?.remark}</td>
+                                                <td className='px-6 py-3'>{formatTime(item?.signin?.scannedTime)}</td>
+                                                <td className='px-6 py-3'>{new Date(item?.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                                <td className={item?.signin?.isValid.toString() !== false ? `text-[#156140] px-6 py-3` : `text-[#c11a1a] px-6 py-3`}>{item?.signin?.location.lat}, {item?.signin?.location.long}</td>
+                                                <td className='px-6 py-3'>{item?.classScheduleId?.endTime - item?.classScheduleId?.startTime}mins</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
