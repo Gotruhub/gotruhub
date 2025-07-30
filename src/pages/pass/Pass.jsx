@@ -231,7 +231,7 @@ const Pass = ({baseUrl}) => {
                                             <p>{item?.user?.fullName}</p>
                                         </td>
                                         <td className='px-6'>{item?.scannedBy?.fullName}</td>
-                                        <td className='px-6'>{item?.approvalBy?.fullName}</td>
+                                        <td className='px-6'>{item?.approvalBy?.role}</td>
                                         <td className='px-6'>{item?.scannedBy?.role}</td>
                                         <td className='text-[#25751E] underline px-6'>{item?.coordinate?.lat}, {item?.coordinate?.long}</td>
                                         <td className='px-6'>{formattedTime}</td>

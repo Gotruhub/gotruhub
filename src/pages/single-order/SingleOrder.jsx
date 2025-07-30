@@ -126,9 +126,9 @@ const SingleOrder = ({baseUrl}) => {
                                                 <p>{index + 1}</p>
                                                 <p>{item?.product?.productName}</p>
                                             </div>
-                                            <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{item?.product?.price}</p>
+                                            <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{(item?.product?.price * item?.quantity).toLocaleString()}</p>
                                         </div>
-                                        <p className='text-[#828282] ml-[3.2rem]'>{item?.product?.category?.name}</p>
+                                        <p className='text-[#828282] ml-[3.2rem] text-[14px]'>Category: {item?.product?.category?.name}</p>
                                         {
                                             item?.product?.colors?.length > 0 &&
                                             <div className='flex items-center gap-1 mt-[6px] text-[#828282] ml-[3.2rem] text-[14px]'>
@@ -138,6 +138,18 @@ const SingleOrder = ({baseUrl}) => {
                                                         <p>{color}</p>
                                                     ))
                                                 }
+                                            </div>
+                                        }
+                                        {
+                                            <div className='flex items-center gap-1 mt-[6px] text-[#828282] ml-[3.2rem] text-[14px]'>
+                                                <p>Quantity:</p>
+                                                <p>{item?.quantity}</p>
+                                            </div>
+                                        }
+                                        {
+                                            <div className='flex items-center gap-1 mt-[6px] text-[#828282] ml-[3.2rem] text-[14px]'>
+                                                <p>Unit Price:</p>
+                                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[18px]"/>{item?.product?.price.toLocaleString()}</p>
                                             </div>
                                         }
                                         {
@@ -170,7 +182,7 @@ const SingleOrder = ({baseUrl}) => {
                         <div className='mt-5 flex gap-3 flex-col'>
                             <div className='flex items-center justify-between'>
                                 <p className='text-[#828282]'>Subtotal</p>
-                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{Number(subtotal).toFixed(2)}</p>
+                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{order?.totalAmount.toLocaleString()}</p>
                             </div>
                             <div className='flex items-center justify-between'>
                                 <p className='text-[#828282]'>Tax</p>
@@ -178,7 +190,8 @@ const SingleOrder = ({baseUrl}) => {
                             </div>
                             <div className='flex items-center justify-between'>
                                 <p className='text-[#828282]'>Total</p>
-                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{Number(subtotal).toFixed(2)}</p>
+                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{order?.totalAmount.toLocaleString()}</p>
+                                {/* <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{Number(subtotal).toFixed(2)}</p> */}
                             </div>
                         </div>
                     </div>
