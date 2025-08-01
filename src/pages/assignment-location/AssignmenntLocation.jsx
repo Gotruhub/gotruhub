@@ -89,7 +89,7 @@ const AssignmenntLocation = ({baseUrl}) => {
                                     <th scope="col" class="px-6 py-3 font-[700]">Name</th>
                                     <th scope="col" class="px-6 py-3 font-[700]">Start Coord.</th>
                                     {/* <th scope="col" class="px-6 py-3 font-[700]">End Coord.</th> */}
-                                    <th scope="col" class="px-6 py-3 font-[700]">Location Range</th>
+                                    {/* <th scope="col" class="px-6 py-3 font-[700]">Location Range</th> */}
                                     <th scope="col" class="px-6 py-3 font-[700]">Action</th>
                                 </tr>
                             </thead>
@@ -108,9 +108,9 @@ const AssignmenntLocation = ({baseUrl}) => {
                                                     <span>{location?.endlocation?.lat}</span>,
                                                     <span className='ml-2'>{location?.endlocation?.long}</span>
                                                 </td> */}
-                                                <td class="px-6 py-4">
+                                                {/* <td class="px-6 py-4">
                                                     <span className='ml-2'>{location?.location_range}</span>
-                                                </td>
+                                                </td> */}
                                                 <td className='px-6 py-4 flex items-center gap-3'>
                                                     <FaRegEdit className="text-gray-500 font-[600] text-[20px] cursor-pointer" onClick={() => {
                                                         navigate(`/edit-assignment-location/${location._id}`)

@@ -190,7 +190,7 @@ const SingleOrder = ({baseUrl}) => {
                             </div>
                             <div className='flex items-center justify-between'>
                                 <p className='text-[#828282]'>Total</p>
-                                <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{order?.totalAmount.toLocaleString()}</p>
+                                <p className='flex items-center gap-[1px] font-[600] text-lg'><TbCurrencyNaira className="text-[20px]"/>{order?.totalAmount.toLocaleString()}</p>
                                 {/* <p className='flex items-center gap-[1px]'><TbCurrencyNaira className="text-[20px]"/>{Number(subtotal).toFixed(2)}</p> */}
                             </div>
                         </div>
