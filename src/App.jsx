@@ -91,6 +91,7 @@ import NotificationInfo from './pages/notification-info/NotificationInfo'
 import CreateUserImageCrop from './pages/create-user-image-crop/CreateUserImageCrop'
 import TermsOfUse from './pages/terms-of-use/TermsOfUse'
 import Referral from './pages/referral/Referral'
+import AllUnitSummary from './pages/all-unit-summary/AllUnitSummary'
 
 function App() {
 
@@ -154,7 +155,7 @@ function App() {
             <Route path='/create-assignment' element={<CreateAssignment baseUrl={baseUrl}/>} />
             <Route path='/orgz-profile' element={<OrgzProfile baseUrl={baseUrl}/>} />
             <Route path='/attendance-summary/:id' element={<AttendanceSummary baseUrl={baseUrl}/>} />
-            <Route path='/summary' element={<Summary baseUrl={baseUrl}/>} />
+            <Route path='/summary-display' element={<Summary baseUrl={baseUrl}/>} />
             <Route path='/grading-system' element={<GradingSystem baseUrl={baseUrl}/>} />
             <Route path='/co-ordinator/:id' element={<CoOrdinator baseUrl={baseUrl}/>} />
             <Route path='/view-assignment-summary' element={<UnitAssignmentSummary baseUrl={baseUrl}/>} />
@@ -187,6 +188,7 @@ function App() {
             <Route path="/assign-pickup" element={<AssignPickup baseUrl={baseUrl}/>} />
             <Route path="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
             <Route path="/create-user-image-crop" element={<CreateUserImageCrop baseUrl={baseUrl}/>} />
+            <Route path="/all-attendance-summary" element={<AllUnitSummary baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>
