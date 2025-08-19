@@ -92,6 +92,8 @@ import CreateUserImageCrop from './pages/create-user-image-crop/CreateUserImageC
 import TermsOfUse from './pages/terms-of-use/TermsOfUse'
 import Referral from './pages/referral/Referral'
 import AllUnitSummary from './pages/all-unit-summary/AllUnitSummary'
+import Promotions from './pages/promotions/Promotions'
+import SubUnitPromotions from './pages/sub-unit-promotions/SubUnitPromotions'
 
 function App() {
 
@@ -189,6 +191,8 @@ function App() {
             <Route path="/member-profile/:id" element={<MemberProfile baseUrl={baseUrl}/>} />
             <Route path="/create-user-image-crop" element={<CreateUserImageCrop baseUrl={baseUrl}/>} />
             <Route path="/all-attendance-summary" element={<AllUnitSummary baseUrl={baseUrl}/>} />
+            <Route path="/promotion" element={<Promotions baseUrl={baseUrl}/>} />
+            <Route path="/promotion/:subUnitId/:sessionId" element={<SubUnitPromotions baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>

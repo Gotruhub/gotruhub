@@ -58,6 +58,12 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                 <p className="">Calendar</p>
             </div>
           </Link>
+          <Link to='/promotion' className={ location.pathname === '/promotion' || location.pathname.includes('promotion') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
+            <div className="flex items-center">
+                <img src="./images/teacher.svg" className="mr-[15.67px]" alt="" />
+                <p className="">Promotion</p>
+            </div>
+          </Link>
         </div>
         <div className="px-[32px] my-10 text-white">
           <p className="text-[12px] text-[#6F7975] mb-2">FEATURES</p>
