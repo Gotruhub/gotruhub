@@ -2,9 +2,6 @@ import {useEffect, useState} from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SideNav from '../../components/side-nav/SideNav';
 import TopNav from '../../components/top-nav/TopNav';
-import { BiChevronDown } from 'react-icons/bi';
-import { IoCloseOutline } from 'react-icons/io5';
-import BtnLoader from '../../components/btn-loader/BtnLoader';
 import Alert from '../../components/alert/Alert';
 
 const Promotions = ({baseUrl}) => {
@@ -30,6 +27,11 @@ const Promotions = ({baseUrl}) => {
     const data = await res.json()
     console.log(data);
     setAllPromotions(data.data)
+  }
+
+  const saveIdsToLocalstorage = (sessionId, unitId, subUnitId) =>{
+    localStorage.setItem('promotioIds', JSON.stringify({ sessionId, unitId, subUnitId }))
+    navigate(`/promotion/${subUnitId}/${sessionId}`)
   }
 
   return (
@@ -66,7 +68,7 @@ const Promotions = ({baseUrl}) => {
                                     <td class="px-6 py-4">{promotion.totalStudents}</td>
                                     <td class="px-6 py-4">{promotion.sessionName}</td>
                                     <td class="py-4">
-                                        <button className='bg-[#1D2522] text-white px-5 py-2 rounded-md' onClick={() => navigate(`/promotion/${promotion.subUnitId}/${promotion.sessionId}`)}>Promote</button>
+                                        <button className='bg-[#1D2522] text-white px-5 py-2 rounded-md' onClick={() => saveIdsToLocalstorage(promotion.sessionId, promotion.termId, promotion.subUnitId)}>Promote</button>
                                     </td>
                                 </tr>
                             )

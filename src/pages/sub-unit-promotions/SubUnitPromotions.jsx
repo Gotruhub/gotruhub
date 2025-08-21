@@ -15,13 +15,26 @@ const SubUnitPromotions = ({ baseUrl }) => {
     parseInt(searchParams.get('page') || 1)
   );
   const [totalPages, setTotalPages] = useState(1);
+  const [subUnitDetails, setSubUnitDetails] = useState(null);
 
   // Checkbox selection
   const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
     getAllSubUnitsForPromotions();
+    getSubUnitDetails()
   }, [currentPage]);
+
+  async function getSubUnitDetails() {
+    const res = await fetch(`${baseUrl}/my-orgnz-summary/subunit-summary/${subUnitId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.data.access_token}`,
+      },
+    });
+    const data = await res.json();
+    setSubUnitDetails(data.data);
+  }
 
   async function getAllSubUnitsForPromotions() {
     const res = await fetch(
@@ -83,7 +96,7 @@ const SubUnitPromotions = ({ baseUrl }) => {
         <div className="bg-[#F2FCF7] lg:px-[30px] px-[10px] py-[1rem]">
           <div className="flex items-center justify-between">
             <p className="text-[22px] lg:text-[28px] text-primary-color font-[600]">
-              Promote
+              Promote {subUnitDetails?.name}
             </p>
           </div>
         </div>
@@ -160,8 +173,10 @@ const SubUnitPromotions = ({ baseUrl }) => {
                   <td className="py-4">
                     <button
                       className="bg-[#1D2522] text-white px-5 py-2 rounded-md"
-                      onClick={() =>
-                        navigate(`/promotion/${subUnitId}/${sessionId}`)
+                      onClick={() =>{
+                        navigate(`/promote-student`)
+                        localStorage.setItem('studentsId', JSON.stringify(selectedIds))
+                        }
                       }
                     >
                       Promote
