@@ -25,7 +25,6 @@ const ManageUsers = ({baseUrl}) => {
   }, [currentPage, searchParams]);
 
   async function getAllUsers(page){
-    console.log(`${baseUrl}/users/get-users/role?page=${page}`);
     
     const res = await fetch(`${baseUrl}/users/get-users/role?page=${page}`,{
         headers:{

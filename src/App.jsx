@@ -95,6 +95,7 @@ import AllUnitSummary from './pages/all-unit-summary/AllUnitSummary'
 import Promotions from './pages/promotions/Promotions'
 import SubUnitPromotions from './pages/sub-unit-promotions/SubUnitPromotions'
 import PromoteStudents from './pages/promote-students/PromoteStudents'
+import SubAdmin from './pages/sub-admin/SubAdmin'
 
 function App() {
 
@@ -195,6 +196,7 @@ function App() {
             <Route path="/promotion" element={<Promotions baseUrl={baseUrl}/>} />
             <Route path="/promotion/:subUnitId/:sessionId" element={<SubUnitPromotions baseUrl={baseUrl}/>} />
             <Route path="/promote-student" element={<PromoteStudents baseUrl={baseUrl}/>} />
+            <Route path="/sub-admin" element={<SubAdmin baseUrl={baseUrl}/>} />
             <Route path='*' element={<div>404</div>} />
         </Routes>
       </HashRouter>

@@ -11,6 +11,7 @@ import { IoIosLogOut } from 'react-icons/io';
 import { RiAiGenerate } from "react-icons/ri";
 import { BiLocationPlus } from 'react-icons/bi';
 import { FaUsersRays } from 'react-icons/fa6';
+import { GrUserAdmin } from 'react-icons/gr';
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
@@ -155,6 +156,10 @@ const SideNav = ({toggleNav, setToggleNav}) => {
           <div className='flex items-center my-4 cursor-pointer' onClick={() => navigate('/generate-id')}>
             <RiAiGenerate className="mr-[15.67px]"/>
             <p className={ location.pathname.includes("/generate") || location.pathname.includes("/student-id") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Generate ID</p>
+          </div>
+          <div className='flex items-center my-4 cursor-pointer' onClick={() => navigate('/sub-admin')}>
+            <GrUserAdmin className="mr-[15.67px]"/>
+            <p className={ location.pathname.includes("/sub-admin") || location.pathname.includes("/sub-admin") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Assign Sub Admin</p>
           </div>
           <div className='flex items-center my-4 cursor-pointer' onClick={() => navigate('/recover-id')}>
             <IoIdCardOutline className="mr-[15.67px]"/>

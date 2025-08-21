@@ -318,7 +318,8 @@ const AllUnitSummary = ({baseUrl}) => {
       const start = new Date(firstDate);
       const end = new Date(lastDate);
       
-      return `Weekly (${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })})`;
+      return `Quartely (${start.toLocaleDateString('en-US', { month: 'long' })} - ${end.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })})`;
+      // return `Weekly (${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })})`;
     }
     return 'Weekly Summary';
   };
