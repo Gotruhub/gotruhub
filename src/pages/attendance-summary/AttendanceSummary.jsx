@@ -14,9 +14,9 @@ const AttendanceSummary = ({baseUrl}) => {
     const filterArray = ['All', "Admin sales", "Admin Purchases"]
     const user = JSON.parse(localStorage.getItem('user'))
     const { id } = useParams()
-    const navigate = useNavigate()
     const [allAttendanceSummary, setAllAttendanceSummary] = useState([])
     const [toggleNav, setToggleNav] = useState(false)
+    const navigate = useNavigate()
 
     async function getAllAttendanceSummary(){
         const res = await fetch(`${baseUrl}/attendance/schedule/${id}`,{
@@ -51,7 +51,7 @@ const AttendanceSummary = ({baseUrl}) => {
             <div className="">
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
-                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
+                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/dashboard')} className='cursor-pointer' />
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Attendance Summary.</p>
                     </div>
                     <div className='relative flex items-center gap-[10px]'>

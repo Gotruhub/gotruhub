@@ -88,13 +88,9 @@ const CreateUser = ({baseUrl}) => {
             label:'guardian',
             info1:'This user is a guardian/supervisor of a member e.g a parent',
             info2:'*To create this user category, you are required to have created a member to which this user can be linked'
-        },
-        // {
-        //     label:'admin',
-        //     info1:'This user has admin level access to one or more of the features on gotruhub e.g a staff',
-        //     info2:''
-        // }
+        }
     ]
+    
     const [userType, setUserType] = useState(userTypeArray[0].label)
     const listOfGuardians = [ 'Celestine Ojiakor', 'Baron White', 'Kasiemobe Egu', 'Jane Doe' ]
     const linkToMemberArray = ['Brother', 'Sister', 'Father', 'Mother', 'Uncle', 'Teacher']

@@ -6,7 +6,6 @@ import SideNav from "../../components/side-nav/SideNav";
 import { PiStudentDuotone } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
 
-
 const Dashboard = ({ baseUrl }) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [orgzHistory, setOrgzHistory] = useState();
@@ -19,11 +18,13 @@ const Dashboard = ({ baseUrl }) => {
   const [unitsArray, setUnitsArray] = useState([])
 
   useEffect(() => {
-    getPassHistory();
-    getOrgzHistory();
-    getAllWithdrawals()
-    getAllProductsInStock()
-    getAllUnits()
+    if(user.data.details.role === 'admin'){
+      getPassHistory();
+      getOrgzHistory();
+      getAllWithdrawals()
+      getAllProductsInStock()
+      getAllUnits()
+    }
   }, []);
 
   useEffect(() => {

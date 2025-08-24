@@ -3,12 +3,14 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { FiFilter } from 'react-icons/fi';
 import SideNav from '../../components/side-nav/SideNav';
 import TopNav from '../../components/top-nav/TopNav';
+import { useNavigate } from 'react-router-dom';
 
 const AllUnitSummary = ({baseUrl}) => {
 
     const [toggleNav, setToggleNav] = useState(false)
     const [apiData, setApiData] = useState()
     const user = JSON.parse(localStorage.getItem('user'))
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log("Hello from AllUnitSummary");
@@ -384,7 +386,7 @@ const AllUnitSummary = ({baseUrl}) => {
             <div>
                 <div className="flex justify-between md:items-center flex-col gap-3 sm:flex-row mb-[1rem] bg-[#F2FCF7] px-[10px] lg:px-[30px] py-[1rem]">
                     <div className="flex items-center gap-2">
-                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/units')} className='cursor-pointer' />
+                        <img src="./images/arrow-left.svg" alt="" onClick={() => navigate('/dashboard')} className='cursor-pointer' />
                         <p className="text-[20px] lg:text-[28px] text-primary-color font-[600]">Attendance Summary</p>
                     </div>
                     {/* <div className="flex items-center gap-4">

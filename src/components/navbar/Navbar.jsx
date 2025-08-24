@@ -16,8 +16,7 @@ const Navbar = () => {
         <FiMenu className='md:hidden block text-white cursor-pointer text-[26px]' onClick={() => setOpenNav(!openNav)}/>
         {
             openNav &&
-            <ul className='flex items-center gap-[50px] md:text-white fixed md:relative md:flex-row flex-col right-0 md:bg-transparent bg-white text-black md:top-[0] top-[75px] md:p-0 p-[4rem] shadow-lg border md:border-none md:shadow-none'>
-
+            <ul className='flex items-center gap-[50px] md:text-white fixed md:relative md:flex-row flex-col right-0 md:bg-transparent bg-white text-black md:top-[0] z-[100] top-[75px] md:p-0 p-[4rem] shadow-lg border md:border-none md:shadow-none'>
                 <li>
                     <Link to='/contact-us'>Contact Us</Link>
                 </li>

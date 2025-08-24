@@ -68,7 +68,7 @@ const Promotions = ({baseUrl}) => {
                                     <td class="px-6 py-4">{promotion.totalStudents}</td>
                                     <td class="px-6 py-4">{promotion.sessionName}</td>
                                     <td class="py-4">
-                                        <button className='bg-[#1D2522] text-white px-5 py-2 rounded-md' onClick={() => saveIdsToLocalstorage(promotion.sessionId, promotion.termId, promotion.subUnitId)}>Promote</button>
+                                        <button className='bg-[#1D2522] text-white px-5 py-2 rounded-md' onClick={() => saveIdsToLocalstorage(promotion.sessionId, promotion.unitId, promotion.subUnitId)}>Promote</button>
                                     </td>
                                 </tr>
                             )

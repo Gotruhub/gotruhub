@@ -96,6 +96,7 @@ import Promotions from './pages/promotions/Promotions'
 import SubUnitPromotions from './pages/sub-unit-promotions/SubUnitPromotions'
 import PromoteStudents from './pages/promote-students/PromoteStudents'
 import SubAdmin from './pages/sub-admin/SubAdmin'
+import SubAdminLogin from './pages/login/SubAdminLogin'
 
 function App() {
 
@@ -110,6 +111,7 @@ function App() {
             <Route path='/about' element={<About />}/>
             <Route path='/contact-us' element={<Contact />}/>
             <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
+            <Route path='/sub-admin-login' element={<SubAdminLogin baseUrl={baseUrl}/>} />
             <Route path='/register' element={<Register />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/terms-of-use' element={<TermsOfUse />} />

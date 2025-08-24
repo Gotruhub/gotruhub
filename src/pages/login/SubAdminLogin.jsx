@@ -1,0 +1,132 @@
+import React,{ useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Alert from '../../components/alert/Alert'
+import BtnLoader from '../../components/btn-loader/BtnLoader'
+import Navbar from '../../components/navbar/Navbar'
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
+
+const SubAdminLogin = ({baseUrl}) => {
+
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [encrypted, setEncrypted] = useState(true);
+  const [msg, setMsg] = useState('')
+  const [alertType, setAlertType] = useState()
+
+  const [verificationMsg, setVerificationMsg] = useState('')
+
+  const body = {
+    email,
+    password
+  };
+  const [loading, setLoading] = useState(false)
+
+  async function login() {
+    if (!email || !password) {
+      setMsg("Email and Password are required!!");
+      setAlertType('error');
+      return;
+    }
+    console.log(body);
+    setLoading(true)
+    const resp = await fetch(`${baseUrl}/login`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { 
+          "Content-type": "application/json" 
+        }
+      }
+    );
+    const apiResponse = await resp.json();
+    // 4854_dexcripter+IG@gmail.com
+    // Password#123
+    const formattedResponse = {
+        ...apiResponse,
+        data: {
+            ...apiResponse.data.responseData
+        }
+    };
+    console.log(resp, formattedResponse);
+    if(resp) setLoading(false)
+    if (!resp.ok) {
+      setMsg(data.message);
+      setAlertType('error')
+      // return;
+    }
+
+    if(resp.ok) {
+      localStorage.setItem("user", JSON.stringify(formattedResponse));
+      // window.location.href = '/#/dashboard'
+      navigate("/manage-users");
+    }
+    // if(data.organization) {
+    //   setAgent(data.organization);
+    //   localStorage.setItem("agent", JSON.stringify(data.organization));
+    // }
+    // localStorage.setItem("token", data.token);
+  }
+
+
+  return (
+    <>
+      <Navbar />
+      <div className='w-[100%] mx-auto text-center my-[4rem]'>
+        <div className='md:w-[40%] sm:w-[60%] w-[90%] mx-auto'>
+          <p className='text-[28px] mb-[40px]'>Sub Admin Login</p>
+          <div>
+            <label className='block text-left mb-2'>Email Address</label>
+            <input placeholder='hello@company.com' type="text" onChange={e => setEmail(e.target.value)} className='px-4 py-3 outline-none border w-full rounded-[4px]'/>
+          </div>
+          <div className='mt-7 relative'>
+            <label className='block text-left mb-2'>Password</label>
+            <div className='px-4 py-3 outline-none border w-full rounded-[4px]'>
+              <input placeholder='Your Password' type={encrypted ? "password" : "text"} onChange={e => setPassword(e.target.value)} className='outline-none w-full rounded-[4px]'/>
+              {
+                encrypted ? 
+                <BsEye className='absolute right-5 top-[50%] translate-y-[25%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} />
+                :
+                <BsEyeSlash className='absolute right-5 top-[50%] translate-y-[25%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} />
+              }
+              {/* < src={encrypted ? "./images/eye-off.svg" : "./images/eye-on.svg"} alt="" className='absolute right-5 top-[50%] translate-y-[-50%] cursor-pointer' onClick={() => setEncrypted(!encrypted)} /> */}
+            </div>
+          </div>
+          {/* <p className='text-left mt-5'>Forgot Your Password? <span className='text-secondary-color cursor-pointer' onClick={() => navigate('/reset-password')}>Reset</span> </p> */}
+          {
+              loading ? 
+              <BtnLoader bgColor="#191f1c"/>
+              :
+              <button onClick={login} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Login</button>
+          }
+          {/* <p className='mt-10'>New to Gotru? <span className='text-secondary-color  cursor-pointer' onClick={() => navigate('/register')}>Sign up</span> </p> */}
+        </div>
+        <div className='text-[#6F7975] mt-[10rem]'>
+          <p>&copy; 2022 Gotruhub and Gotruhub logo are trademarks of the company.</p>
+          <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
+        </div>
+
+        {
+          msg && <Alert msg={msg} setMsg={setMsg} alertType={alertType}/>
+        }
+
+        { verificationMsg && 
+          <>
+              <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => {
+                setVerificationMsg('')
+                }}>
+              </div>
+              <div className="flex items-center flex-col text-center justify-center gap-3 bg-white w-[450px] fixed top-[50%] left-[50%] py-[50px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
+                  <img src="./images/failed.svg" alt="" />
+                  <p className='text-text-color font-[500]'>Account Verification Failed</p>
+                  <p className='text-[#6F7975] text-[14px]'>{verificationMsg}</p>
+                  <button className='text-white bg-primary-color rounded-[4px] mt-[1.5rem] px-[35px] py-[16px] text-center mx-auto' onClick={() => navigate('/verify-account')} >Complete verification</button>
+              </div>
+          </>
+        }
+
+      </div>
+    </>
+  )
+}
+
+export default SubAdminLogin
