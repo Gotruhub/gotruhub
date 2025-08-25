@@ -61,7 +61,7 @@ const SubUnitPromotions = ({ baseUrl }) => {
   };
 
   // Header "Select All" checkbox
-  const idsOnPage = allPromotions.map((p) => p._id);
+  const idsOnPage = allPromotions.map((p) => p.studentId);
   const selectAll = idsOnPage.length > 0 && idsOnPage.every((id) => selectedIds.includes(id));
 
   const handleSelectAll = () => {
@@ -155,13 +155,13 @@ const SubUnitPromotions = ({ baseUrl }) => {
               {allPromotions.map((promotion, index) => (
                 <tr
                   style={{ borderBottom: '1px solid #dcdcdc' }}
-                  key={promotion._id}
+                  key={promotion.studentId}
                 >
                   <td className="px-6 py-4">
                     <input
                       type="checkbox"
-                      checked={selectedIds.includes(promotion._id)}
-                      onChange={() => handleCheckboxChange(promotion._id)}
+                      checked={selectedIds.includes(promotion.studentId)}
+                      onChange={() => handleCheckboxChange(promotion.studentId)}
                       className="mr-1"
                     />
                     {index + 1}
