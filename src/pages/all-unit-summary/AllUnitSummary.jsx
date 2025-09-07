@@ -452,7 +452,7 @@ const AllUnitSummary = ({baseUrl}) => {
                                         <td className="py-4 text-gray-900">{record.student}</td>
                                         <td className="py-4 text-gray-900">{record.duration}</td>
                                         <td className="py-4">
-                                        <button className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                                        <button onClick={ () => navigate(`/unit/${record.unitId}`) } className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
                                             View
                                         </button>
                                         </td>

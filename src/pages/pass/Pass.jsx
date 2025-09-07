@@ -230,7 +230,7 @@ const Pass = ({baseUrl}) => {
                                             <img src={item?.user?.profileImage?.file} className='w-[30px] rounded-full h-[30px] object-cover' alt="" />
                                             <p>{item?.user?.fullName}</p>
                                         </td>
-                                        <td className='px-6'>{item?.scannedBy?.role}</td>
+                                        <td className='px-6'>{item?.scannedBy?.fullName}</td>
                                         <td className='px-6'>{item?.approvalBy?.role}</td>
                                         <td className='px-6'>{item?.intermediaryName}</td>
                                         <td className='text-[#25751E] underline px-6'>{item?.coordinate?.lat}, {item?.coordinate?.long}</td>
