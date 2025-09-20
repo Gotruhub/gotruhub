@@ -417,63 +417,73 @@ const SingleUnit = ({baseUrl}) => {
                     </div>
                 </div>
 
-                <div className="relative overflow-x-auto mx-5 mt-10">
+                <div className="relative overflow-x-auto mx-5 mt-10 min-h-screen">
                     <div className='flex items-center justify-between mb-2'>
                         <div className='flex items-center gap-2 text-[18px]'>
-                            <LuListTodo />
-                            <p className='text-[#1D1D1D] font-[600]'>List of Sub-units</p>
+                        <LuListTodo />
+                        <p className='text-[#1D1D1D] font-[600]'>List of Sub-units</p>
                         </div>
                         <p className='text-[#828282] font-[600]'>Total - {allSubUnits?.length}</p>
                     </div>
-                    <table className="w-full text-sm text-left rtl:text-left text-[#1D1D1D]">
-                        <thead className="text-[14px] border-b">
-                            <tr>
-                                <th scope="col" className="py-3 th1 font-[700]">S/N</th>
-                                <th scope="col" className="py-3 font-[700]">Sub-unit</th>
-                                <th scope="col" className="py-3 font-[700]">Assignments</th>
-                                <th scope="col" className="py-3 font-[700]">Members</th>
-                                <th scope="col" className="py-3 font-[700]">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                allSubUnits && allSubUnits?.map((item, index) => {
-                                    return (
-                                        <tr className='relative' key={item.id}>
-                                            <td className='py-3'>{index + 1}</td>
-                                            <td>{item?.name}</td>
-                                            <td>{item?.totalAssignments}</td>
-                                            <td>{item?.totalStudents}</td>
-                                            <td> <BsThreeDotsVertical className="cursor-pointer" onClick={() => 
-                                                {
-                                                    setSubUnitId(item.id)
-                                                    console.log(item.id);
-                                                }}/> </td>
 
-                                            {subUnitId === item.id &&
-                                                <div className='z-[1] absolute right-[110px] w-[200px] top-0 py-3 bg-white border rounded-[10px]'>
-                                                    <div className='my-2 mr-4 flex justify-end'>
-                                                        <MdOutlineClose className='text-lg cursor-pointer mt-[-5px]' onClick={() => setSubUnitId('')} />
-                                                    </div>
-                                                    <div className='flex flex-col'>
-                                                        <div onClick={() => navigate(`/view-sub-unit/${item.id}`)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                            <BsEye />
-                                                            <p>View sub-unit</p>
-                                                        </div>
-                                                        <div onClick={() => setDeleteSubUnit(item.id)} className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'>
-                                                            <BiTrash />
-                                                            <p>Delete sub-unit</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </tr>
-                                    )
-                                })
-                            }
+                    <table className="w-full text-sm text-left rtl:text-left text-[#1D1D1D] min-h-full">
+                        <thead className="text-[14px] border-b">
+                        <tr>
+                            <th scope="col" className="py-3 th1 font-[700]">S/N</th>
+                            <th scope="col" className="py-3 font-[700]">Sub-unit</th>
+                            <th scope="col" className="py-3 font-[700]">Assignments</th>
+                            <th scope="col" className="py-3 font-[700]">Members</th>
+                            <th scope="col" className="py-3 font-[700]">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody className="min-h-[500px]">
+                        {allSubUnits?.map((item, index) => (
+                            <tr className='relative' key={item.id}>
+                            <td className='py-3'>{index + 1}</td>
+                            <td>{item?.name}</td>
+                            <td>{item?.totalAssignments}</td>
+                            <td>{item?.totalStudents}</td>
+                            <td>
+                                <BsThreeDotsVertical
+                                className="cursor-pointer"
+                                onClick={() => {
+                                    setSubUnitId(item.id)
+                                    console.log(item.id)
+                                }}
+                                />
+                            </td>
+                            {subUnitId === item.id && (
+                                <div className='z-[1] absolute right-[110px] w-[200px] top-0 py-3 bg-white border rounded-[10px]'>
+                                <div className='my-2 mr-4 flex justify-end'>
+                                    <MdOutlineClose
+                                    className='text-lg cursor-pointer mt-[-5px]'
+                                    onClick={() => setSubUnitId('')}
+                                    />
+                                </div>
+                                <div className='flex flex-col'>
+                                    <div
+                                    onClick={() => navigate(`/view-sub-unit/${item.id}`)}
+                                    className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'
+                                    >
+                                    <BsEye />
+                                    <p>View sub-unit</p>
+                                    </div>
+                                    <div
+                                    onClick={() => setDeleteSubUnit(item.id)}
+                                    className='flex items-center gap-2 cursor-pointer px-4 py-2 hover:bg-[#F2FCF7]'
+                                    >
+                                    <BiTrash />
+                                    <p>Delete sub-unit</p>
+                                    </div>
+                                </div>
+                                </div>
+                            )}
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
 

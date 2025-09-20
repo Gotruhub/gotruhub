@@ -62,10 +62,6 @@ const TimeTable = ({ baseUrl }) => {
         getAllSchedules();
     }, []);
 
-    async function shceduleInfo() {
-        // Implement schedule info logic here
-    }
-
     async function deleleteScheduleFn(schedule) {
         setLoading(true);
         const res = await fetch(`${baseUrl}/schedule/single/${schedule._id}`, {

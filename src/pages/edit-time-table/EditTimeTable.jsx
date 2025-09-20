@@ -40,51 +40,60 @@ const EditTimeTable = ({baseUrl}) => {
 
     const [locationId, setLocationId] = useState()
 
-    const [latStart, setLatStart] = useState()
-    const [lngStart, setLngStart] = useState()
+    // Fixed: Use separate state variables for coordinates
+    const [latStart, setLatStart] = useState('')
+    const [lngStart, setLngStart] = useState('')
+    const [latEnd, setLatEnd] = useState('')
+    const [lngEnd, setLngEnd] = useState('')
 
-    const [latEnd, setLatEnd] = useState()
-    const [lngEnd, setLngEnd] = useState()
+    // Fixed: Added onChange handlers for coordinate inputs
+    const handleStartLatChange = (e) => {
+      const value = e.target.value;
+      setLatStart(value);
+      setLocations({
+        ...locations,
+        location: {
+          ...locations.location,
+          lat: value
+        }
+      });
+    };
 
-    // const handleStartLatChange = (e) => {
-    //   setLocations({
-    //     ...locations,
-    //     location: {
-    //       ...locations.location,
-    //       lat: e.target.value
-    //     }
-    //   });
-    // };
-
-    // const handleStartLongChange = (e) => {
-    //   setLocations({
-    //     ...locations,
-    //     location: {
-    //       ...locations.location,
-    //       long: e.target.value
-    //     }
-    //   });
-    // };
+    const handleStartLongChange = (e) => {
+      const value = e.target.value;
+      setLngStart(value);
+      setLocations({
+        ...locations,
+        location: {
+          ...locations.location,
+          long: value
+        }
+      });
+    };
   
-    // const handleEndLatChange = (e) => {
-    //   setLocations({
-    //     ...locations,
-    //     endLocation: {
-    //       ...locations.endLocation,
-    //       lat: e.target.value
-    //     }
-    //   });
-    // };
+    const handleEndLatChange = (e) => {
+      const value = e.target.value;
+      setLatEnd(value);
+      setLocations({
+        ...locations,
+        endLocation: {
+          ...locations.endLocation,
+          lat: value
+        }
+      });
+    };
   
-    // const handleEndLongChange = (e) => {
-    //   setLocations({
-    //     ...locations,
-    //     endLocation: {
-    //       ...locations.endLocation,
-    //       long: e.target.value
-    //     }
-    //   });
-    // };
+    const handleEndLongChange = (e) => {
+      const value = e.target.value;
+      setLngEnd(value);
+      setLocations({
+        ...locations,
+        endLocation: {
+          ...locations.endLocation,
+          long: value
+        }
+      });
+    };
 
     async function getScheduleInfo(){
       console.log(scheduleId);
@@ -97,29 +106,44 @@ const EditTimeTable = ({baseUrl}) => {
       const data = await res.json()
       console.log(data);
       console.log(data?.data);
-    //   setDay(data.data.day)
-    //   setLocations({
-    //     location: {
-    //       lat: data?.data?.location?.lat,
-    //       long: data?.data?.location?.long
-    //     },
-    //     endLocation: {
-    //       lat: data?.data?.endlocation?.lat,
-    //       long: data?.data?.endlocation?.lat
-    //     }
-    //   })
+      console.log('API Coordinators:', data?.data?.coordinators);
+      
       setCourse(data?.data?.course)
       setStartTime(data?.data?.startTime)
       setEndTime(data?.data?.endTime)
-      setCoordinators(data?.data?.coordinators)
-      setDay(data?.data?.day)
-      setName(data?.data?.name)
-      setLatStart(data?.data?.location?.lat)
-      setLngStart(data?.data?.location?.long)
-      setLngEnd(data?.data?.endlocation?.lat)
-      setLatEnd(data?.data?.endlocation?.long)
-      // setAllStaffs(data.data.users)
+
+      // Fixed: Transform coordinators to match our local state structure
+      const apiCoordinators = data?.data?.coordinators || [];
+      const transformedCoordinators = apiCoordinators.map(coordinator => ({
+        id: coordinator._id || coordinator.id,
+        fullName: coordinator.fullName || coordinator.name
+      }));
+      setCoordinators(transformedCoordinators);
       
+      setDay(data?.data?.day)
+      setName(data?.data?.locationId?.name)
+      
+      // Fixed: Properly set coordinate values and locations state
+      const startLat = data?.data?.location?.lat || '';
+      const startLong = data?.data?.location?.long || '';
+      const endLat = data?.data?.endlocation?.lat || '';
+      const endLong = data?.data?.endlocation?.long || '';
+      
+      setLatStart(startLat)
+      setLngStart(startLong)
+      setLatEnd(endLat)
+      setLngEnd(endLong)
+      
+      setLocations({
+        location: {
+          lat: startLat,
+          long: startLong
+        },
+        endLocation: {
+          lat: endLat,
+          long: endLong
+        }
+      });
     }
 
 
@@ -156,16 +180,23 @@ const EditTimeTable = ({baseUrl}) => {
       }
   }
 
-  // const [selectedIds, setSelectedIds] = useState([]);
-
-  // const [coordinators, setCoordinators] = useState([]);
-
-  const handleCheckboxChange = (id, name) => {
+  // Fixed: Improved handleCheckboxChange function with better debugging
+  const handleCheckboxChange = (id, fullName) => {
+      console.log('Checkbox clicked:', { id, fullName });
+      console.log('Current coordinators:', coordinators);
+      
       setCoordinators((prevCoordinators) => {
-        if (prevCoordinators.some(coordinator => coordinator.id === id)) {
-          return prevCoordinators.filter(coordinator => coordinator.id !== id);
+        const isAlreadySelected = prevCoordinators.some(coordinator => coordinator.id === id);
+        console.log('Is already selected:', isAlreadySelected);
+        
+        if (isAlreadySelected) {
+          const filtered = prevCoordinators.filter(coordinator => coordinator.id !== id);
+          console.log('After removal:', filtered);
+          return filtered;
         } else {
-          return [...prevCoordinators, { id, name }];
+          const added = [...prevCoordinators, { id, fullName }];
+          console.log('After addition:', added);
+          return added;
         }
       });
   };
@@ -177,63 +208,57 @@ const EditTimeTable = ({baseUrl}) => {
   },[])
 
   async function updateSchedule(){
-  const ids = [];
-  for (let i = 0; i < coordinators.length; i++) {
-      ids.push(coordinators[i].id);
-  }
+    // Fixed: Filter out any null/undefined values and extract IDs properly
+    const ids = coordinators
+      .filter(coordinator => coordinator && coordinator.id)
+      .map(coordinator => coordinator.id);
 
-  console.log({
-      course: course?.course?._id,
-      day,
-      startTime,
-      // startTime: parseInt(startTime?.replace(":", "")),
-      // endTime:  parseInt(endTime?.replace(":", "")),
-      coordinators:ids,
-      location: locations.location,
-      endlocation: locations.endLocation
-  });
-  if(!course ||!day ||!startTime ||!endTime){
-      setMsg("Please fill in the fields!");
-      setAlertType('error');
-      return;
-  }else if(typeof startTime === 'number' && !isNaN(startTime) || typeof endTime === 'number' && !isNaN(endTime)){
-    setMsg("Start and end time should be provided");
-    setAlertType('error');
-    return;
-  }else{
-      setLoading(true)
-      const res = await fetch(`${baseUrl}/schedule/single/${scheduleId}`,{
-          method:"PUT",
-          headers:{
-              'Content-Type':'application/json',
-              Authorization:`Bearer ${user.data.access_token}`
-          },
-          body:JSON.stringify({
-              course: course?._id,
-              day,
-              startTime: parseInt(startTime.replace(":", "")),
-              endTime:  parseInt(endTime.replace(":", "")),
-              coordinators:ids,
-              location: locations.location,
-              endlocation: locations.endLocation
-          })
-      })
-      const data = await res.json()
-      if(res) setLoading(false)
-      console.log(data);
-      if(!res.ok){
-          setMsg(data.message);
-          setAlertType('error');
-          return;
-      }
-      if(res.ok){
-          setMsg("Schedule created successfully");
-          setAlertType('success');
-          // navigate(`/time-table/${id}`)
-          return;
-      }
+    console.log({
+        course: course?.course?._id || course?._id,
+        day,
+        startTime,
+        endTime,
+        coordinators: ids,
+        location: locations.location,
+        endlocation: locations.endLocation
+    });
+
+    if(!course ||!day ||!startTime ||!endTime){
+        setMsg("Please fill in the fields!");
+        setAlertType('error');
+        return;
+    } else {
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/schedule/single/${scheduleId}`,{
+            method:"PUT",
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${user.data.access_token}`
+            },
+            body:JSON.stringify({
+                course: course?._id || course?.course?._id,
+                day,
+                startTime: parseInt(startTime.replace(":", "")),
+                endTime:  parseInt(endTime.replace(":", "")),
+                coordinators: ids,
+                location: locations.location,
+                endlocation: locations.endLocation
+            })
+        })
+        const data = await res.json()
+        if(res) setLoading(false)
+        console.log(data);
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+        if(res.ok){
+            setMsg("Schedule updated successfully");
+            setAlertType('success');
+            return;
+        }
     }
-
   }
 
   async function getAssignmentLocations(){
@@ -257,10 +282,28 @@ const EditTimeTable = ({baseUrl}) => {
     setLocationId(data._id)
     setDropDown(false)
     setName(data.name)
-    setLatStart(data.location.lat)
-    setLngStart(data.location.long)
-    setLngEnd(data.endlocation.lat)
-    setLatEnd(data.endlocation.long)
+    
+    // Fixed: Update both state variables and locations object
+    const startLat = data.location?.lat || '';
+    const startLong = data.location?.long || '';
+    const endLat = data.endlocation?.lat || '';
+    const endLong = data.endlocation?.long || '';
+    
+    setLatStart(startLat)
+    setLngStart(startLong)
+    setLatEnd(endLat)
+    setLngEnd(endLong)
+    
+    setLocations({
+      location: {
+        lat: startLat,
+        long: startLong
+      },
+      endLocation: {
+        lat: endLat,
+        long: endLong
+      }
+    });
 }
 
 return (
@@ -272,33 +315,29 @@ return (
               <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[30px] py-[1rem]">
                   <div>
                       <div className="flex items-center gap-2">
-                          <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/time-table/${scheduleId}`)} className='cursor-pointer' />
+                          <img src="./images/arrow-left.svg" alt="" onClick={() => navigate(`/time-table/${subUnitId}`)} className='cursor-pointer' />
                           <p className="lg:text-[28px] text-[20px] text-primary-color font-[600]">Edit Schedule</p>
                       </div>
-                      {/* <p className='text-[#4F4F4F]'>Enter your preferred bank account for wallet deposits</p> */}
                   </div>
-                  {/* <div className='flex items-center gap-5'>
-                      <button className="bg-[#2D3934] text-white px-5 py-3 rounded-[8px] text-[14px]" onClick={() => navigate('/update-bank-account')}>Update Account</button>
-                  </div> */}
               </div>
               <div className='flex item-center justify-center flex-col w-[90%] mx-auto'>
                   <div className='flex flex-col sm:flex-row items-center gap-5 w-full my-[1rem]'>
                       <div className='w-full relative'>
                           <label className='block text-left mb-2'>Select assignment</label>
                           <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                              <input type="text" value={course?.course?.name} onChange={e => setCourse(e.target.value)} className='capitalize outline-none w-full rounded-[4px]'/>
+                              <input type="text" value={course?.course?.name || course?.name || ''} readOnly className='capitalize outline-none w-full rounded-[4px]'/>
                               <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === "assignment" ? false : "assignment")} />
                           </div>
                           {
                               dropDown === "assignment" &&
                               <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      allAssignments?.map(assignment => {
+                                      allAssignments?.map((assignment, index) => {
                                           return (
-                                              <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                              <p key={index} className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                   setDropDown(false)
                                                   setCourse(assignment)
-                                              }}>{assignment?.course.name}</p>
+                                              }}>{assignment?.course?.name}</p>
                                           )
                                       })
                                   }
@@ -308,9 +347,6 @@ return (
                       <div className='w-full relative'>
                           <label className='block text-left mb-2'>Select assignee(s)</label>
                           <div className='flex items-center justify-between border rounded-[6px] py-3 px-2 w-full'>
-                              {/* <input type="text" value={
-                                          coordinators.coordinator? coordinators.coordinator?.join(', ') : 'What position(s) are you applying for?'
-                                      } className='capitalize outline-none w-full rounded-[4px]'/> */}
                               <ul className="flex items-center gap-1 pl-[2px]">
                                   {coordinators?.map((coordinator, index) => (
                                       <li key={coordinator.id} className="inline text-[12px]">
@@ -324,23 +360,23 @@ return (
                               dropDown === "assignee" &&
                               <div className=' p-[8px] absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      allStaffs?.map(staff => {
+                                      allStaffs?.map((staff, index) => {
+                                          // Fixed: Better checking logic for selected state
+                                          const isSelected = coordinators.some(coordinator => 
+                                            coordinator.id === staff._id
+                                          );
+                                          
                                           return (
-                                              <div className='flex items-center gap-1 my-2'>
+                                              <div key={staff._id || index} className='flex items-center gap-1 my-2'>
                                                   <input
                                                       type="checkbox"
                                                       id={staff._id}
                                                       className="mr-2"
-                                                      checked={coordinators.some(coordinator => coordinator.id === staff._id)}
+                                                      checked={isSelected}
                                                       onChange={() => handleCheckboxChange(staff._id, staff.fullName)}
                                                   />
-                                                  <p>{staff.fullName}</p>
+                                                  <label htmlFor={staff._id} className="cursor-pointer">{staff.fullName}</label>
                                               </div>
-                                              // <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
-                                              //     setDropDown(false)
-                                              //     // setBankDropDown(!bankDropDown)
-                                              //     // setBankCode(bank.code)
-                                              // }}>{staff.fullName}</p>
                                           )
                                       })
                                   }
@@ -353,19 +389,19 @@ return (
                       <div className='w-full relative'>
                           <label className='block text-left mb-2'>Select day</label>
                           <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                              <input type="text" value={day} onChange={e => setDay(e.target.value)} className='outline-none w-full rounded-[4px] capitalize'/>
+                              <input type="text" value={day || ''} readOnly className='outline-none w-full rounded-[4px] capitalize'/>
                               <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'days' ? false : 'days')} />
                           </div>
                           {
                               dropDown === 'days' &&
                               <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
                                   {
-                                      days?.map(day => {
+                                      days?.map((dayOption, index) => {
                                           return (
-                                              <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
-                                                  setDay(day)
+                                              <p key={index} className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                                  setDay(dayOption)
                                                   setDropDown(false)
-                                              }}>{day}</p>
+                                              }}>{dayOption}</p>
                                           )
                                       })
                                   }
@@ -376,44 +412,28 @@ return (
                           <label className='block text-left mb-2'>Time - range</label>
                           <div className='flex items-center gap-5'>
                               <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                                  <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} className='outline-none w-full rounded-[4px]'/>
+                                  <input type="time" value={startTime || ''} onChange={e => setStartTime(e.target.value)} className='outline-none w-full rounded-[4px]'/>
                               </div>
                               <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                                  <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} className='outline-none w-full rounded-[4px]'/>
+                                  <input type="time" value={endTime || ''} onChange={e => setEndTime(e.target.value)} className='outline-none w-full rounded-[4px]'/>
                               </div>
                           </div>
-                          {/* {
-                              bankDropDown &&
-                              <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[350px] overflow-y-scroll'>
-                                  {
-                                      allBanks.map(bank => {
-                                          return (
-                                              <p className='cursor-pointer hover:bg-gray-300 p-2' onClick={() => {
-                                                  setSelectedBank(bank.name)
-                                                  setBankDropDown(!bankDropDown)
-                                                  setBankCode(bank.code)
-                                              }}>{bank.name}</p>
-                                          )
-                                      })
-                                  }
-                              </div>
-                          } */}
                       </div>
                   </div>
                   <label className='block text-left mb-2'>Assignment location</label>
                     <div className='w-full relative mb-5'>
                         <label className='block text-left mb-2'>Select Assignment location</label>
                         <div className='flex items-center justify-between border rounded-[6px] py-3 px-5 w-full'>
-                            <input type="text" value={name} className='outline-none w-full rounded-[4px] capitalize'/>
+                            <input type="text" value={name || ''} readOnly className='outline-none w-full rounded-[4px] capitalize'/>
                             <IoChevronDownOutline className='cursor-pointer' onClick={() => setDropDown(dropDown === 'locations' ? false : 'locations')} />
                         </div>
                         {
                             dropDown === 'locations' &&
                             <div className='absolute z-10 top-[80px] border rounded-[5px] bg-white w-full h-[180px] overflow-y-scroll'>
                                 {
-                                    allAssignmentLocations?.map(location => {
+                                    allAssignmentLocations?.map((location, index) => {
                                         return (
-                                            <p className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
+                                            <p key={index} className='cursor-pointer hover:bg-gray-300 p-2 capitalize' onClick={() => {
                                                 selectedLocation(location)
                                             }}>{location.name}</p>
                                         )
@@ -432,14 +452,14 @@ return (
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Latitude'
                             value={latStart}
-                            // onChange={handleStartLatChange}
+                            onChange={handleStartLatChange}
                         />
                         <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
                             value={lngStart}
-                            // onChange={handleStartLongChange}
+                            onChange={handleStartLongChange}
                         />
                         </div>
                     </div>
@@ -453,14 +473,14 @@ return (
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Latitude'
                             value={latEnd}
-                            // onChange={handleEndLatChange}
+                            onChange={handleEndLatChange}
                         />
                         <input
                             type="text"
                             className='border py-3 px-3 rounded mt-1 w-full'
                             placeholder='Longitude'
                             value={lngEnd}
-                            // onChange={handleEndLongChange}
+                            onChange={handleEndLongChange}
                         />
                         </div>
                     </div>
