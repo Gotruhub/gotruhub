@@ -4,6 +4,7 @@ import SideNav from '../../components/side-nav/SideNav'
 import { useNavigate, useParams } from 'react-router-dom'
 import BtnLoader from '../../components/btn-loader/BtnLoader'
 import Alert from '../../components/alert/Alert'
+import { IoCloseOutline } from 'react-icons/io5'
 
 const EditStaff = ({baseUrl}) => {
 
@@ -20,6 +21,24 @@ const EditStaff = ({baseUrl}) => {
   const [alertTitle, setAlertTitle] = useState('')
   const [fileUploadLoader, setfileUploadLoader] = useState(false)
   const [toggleNav, setToggleNav] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [monitor, setMonitor] = useState(false);
+  const [pass, setPass] = useState(false);
+  const [trade, setTrade] = useState(false);
+  const [appPermissions, setAppPermissions] = useState([])
+
+  // Helper function to handle checkbox changes
+  const handlePermissionChange = (permission, isChecked) => {
+    if (isChecked) {
+      // Add permission if not already in array
+      if (!appPermissions.includes(permission)) {
+        setAppPermissions([...appPermissions, permission]);
+      }
+    } else {
+      // Remove permission from array
+      setAppPermissions(appPermissions.filter(p => p !== permission));
+    }
+  };
   
 
   async function getStaffInfo(){
@@ -29,11 +48,18 @@ const EditStaff = ({baseUrl}) => {
       }
     })
     const data = await res.json()
-    setStaff(data?.data?.user)
-    setProfileImage(data?.data?.user?.profileImage)
-    setEmail(data?.data?.user?.email)
-    setFullName(data?.data?.user?.fullName)
-    console.log(data?.data?.user);
+    const userData = data?.data?.user;
+    
+    setStaff(userData)
+    setProfileImage(userData?.profileImage)
+    setEmail(userData?.email)
+    setFullName(userData?.fullName)
+    
+    // Auto-populate appPermissions array
+    const permissions = userData?.appPermissions || [];
+    setAppPermissions(permissions);
+    
+    console.log(userData);
   }
 
   async function handleFileUpload(file){
@@ -100,6 +126,34 @@ const EditStaff = ({baseUrl}) => {
       console.log(data);
   }
 
+  async function updatePermissions(e){
+    console.log({appPermissions:appPermissions});
+    e.preventDefault();
+    setLoading(true);
+
+    const res = await fetch(`${baseUrl}/users/staff/${id}/app-permissions`,{
+      method:"PUT",
+      headers:{
+          'Content-Type':'application/json',
+          Authorization:`Bearer ${user.data.access_token}`
+      },
+      body:JSON.stringify({appPermissions:appPermissions})
+    });
+    const data = await res.json();
+    if(res) setLoading(false);
+      if(res.ok) {
+        setMsg("Staff's permissions updated successfully");
+        setAlertType('success');
+        setModal(false);
+        getStaffInfo(); // Refresh staff info to reflect changes
+      }
+      if(!res.ok){
+        setMsg("Staff's permissions wasn't updated successfully");
+        setAlertType('error');
+      }
+      console.log(data);
+  }
+
   useEffect(() => {
     getStaffInfo()
   },[])
@@ -118,6 +172,7 @@ const EditStaff = ({baseUrl}) => {
                       </div>
                       {/* <p className='text-[#4F4F4F]'>Set maximum amount that should be in a user’s wallet</p> */}
                   </div>
+                  <button onClick={() => setModal(true)} className='bg-primary-color text-white py-2 px-4 rounded-md'>Staff Permission</button>
               </div>
               <div className='flex item-center justify-center flex-col w-[90%] lg:w-[40%] mx-auto gap-8'>
                 <div className="">
@@ -203,6 +258,54 @@ const EditStaff = ({baseUrl}) => {
                       <img src='./images/loader.gif' style={{ height:'40px', width:'40px', margin:'12px auto 30px' }} />
                       <p className='text-gray-500 text-[15px] mb-2 text-center'>File Upload in progress, please do not refresh the page</p>
                   </div>
+              </div>
+          </div>
+      }
+
+      {
+          modal &&
+          <div>
+              <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setModal(false)}></div>
+              <div className="bg-white sm:max-w-[650px] w-[95%] fixed top-[50%] left-[50%] pt-[20px] md:px-[2rem] px-[16px] z-[100] pb-[20px]" style={{ transform: "translate(-50%, -50%)" }}>
+                  <div className="flex items-center justify-between border-b pb-[5px]">
+                      <p className="text-[px]">Update Staff Permission</p>
+                      <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setModal(false)}/>
+                  </div>
+                  <div className='flex items-center gap-[6rem] w-full px-5 py-[1.5rem] text-center justify-center'>
+                    <div className='flex items-center gap-2'>
+                      <input 
+                        type="checkbox" 
+                        checked={appPermissions.includes('monitor')}
+                        onChange={(e) => handlePermissionChange('monitor', e.target.checked)}
+                      />
+                      <p>Monitor</p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <input 
+                        type="checkbox" 
+                        checked={appPermissions.includes('pass')}
+                        onChange={(e) => handlePermissionChange('pass', e.target.checked)}
+                      />
+                      <p>Pass</p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <input 
+                        type="checkbox" 
+                        checked={appPermissions.includes('trade')}
+                        onChange={(e) => handlePermissionChange('trade', e.target.checked)}
+                      />
+                      <p>Trade</p>
+                    </div>
+                  </div>
+                  {
+                      loading ? 
+                      <BtnLoader bgColor="#191f1c"/>
+                      :
+                      <div className='flex items-center gap-5 justify-center'>
+                          <button onClick={() => setModal(false)} className=' border border-primary-color bg-white w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Cancel</button>
+                          <button onClick={updatePermissions} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Confirm</button>
+                      </div>
+                  }
               </div>
           </div>
       }

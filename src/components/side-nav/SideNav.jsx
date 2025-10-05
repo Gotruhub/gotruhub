@@ -12,6 +12,8 @@ import { RiAiGenerate } from "react-icons/ri";
 import { BiLocationPlus } from 'react-icons/bi';
 import { FaUsersRays } from 'react-icons/fa6';
 import { GrUserAdmin } from 'react-icons/gr';
+import { GrUpgrade } from "react-icons/gr";
+import { MdDisplaySettings } from "react-icons/md";
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
@@ -115,7 +117,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   {monitorDropDown &&
                     <div className='mt-3 ml-4'>
                       <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/summary-display')}>
-                        <RxDashboard />
+                        <MdDisplaySettings />
                         <p className={ location.pathname.includes("/summary-display") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Attendance Display</p>
                       </div>
                       <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/all-attendance-summary')}>
@@ -131,7 +133,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                         <p className={ location.pathname.includes("assignment") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Assignments</p>
                       </div>
                       <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/grading-system')}>
-                        <BiLocationPlus />
+                        <GrUpgrade />
                         <p className={ location.pathname.includes("/grading-system") ? `flex items-center justify-between text-[#25751E]` : `flex items-center justify-between`}>Grading System</p>
                       </div>
                       <div className='flex items-center gap-2 my-4 cursor-pointer' onClick={() => navigate('/assignment-location')}>

@@ -69,6 +69,9 @@ const GradingSystem = ({baseUrl}) => {
     const [alertType, setAlertType] = useState()
     const user = JSON.parse(localStorage.getItem('user'))
 
+    const [minVal, setMinVal] = useState('')
+    const [maxVal, setMaxVal] = useState('')
+
     async function createPerformanceTag(){
         console.log(JSON.stringify({name, value, time, type:monitorType}));
         if(!name || !value || !time){
@@ -172,6 +175,60 @@ const GradingSystem = ({baseUrl}) => {
           setAlertType('error');
           return;
         }
+      }
+
+      async function getRecord(id){
+        const res = await fetch(`${baseUrl}/threshold-value/${id}`,{
+            method:"GET",
+            headers:{
+              "Content-Type":"application/json",
+              'Authorization':`Bearer ${user.data.access_token}`
+          }
+        })
+        const data = await res.json()
+        console.log(data);
+        
+        if(res.ok){
+          console.log(data);
+          setName(data.data.name)
+          setType(data.data.type)
+          setMinVal(data.data.minVal)
+          setMaxVal(data.data.maxVal)
+          return;
+        }
+        if(!res.ok){
+          setMsg(data.message);
+          setAlertType('error');
+          return;
+        }
+      }
+
+      async function updateRecord(){
+        console.log({name, type, minVal:Number(minVal), maxVal:Number(maxVal)});
+        setLoading(true)
+        const res = await fetch(`${baseUrl}/threshold-value/${selectedId}`,{
+            method:"PUT",
+            body: JSON.stringify({name, type, minVal:Number(minVal), maxVal:Number(maxVal)}),
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization':`Bearer ${user.data.access_token}`
+          }
+        })
+        if(res) setLoading(false)
+        const data = await res.json()
+        if(res.ok){
+            setMsg(data.message);
+            setAlertType('success');
+            getGradingSystem()
+            setModal('')
+            return;
+        }
+        if(!res.ok){
+            setMsg(data.message);
+            setAlertType('error');
+            return;
+        }
+        console.log(data);
       }
 
   return (
@@ -646,11 +703,12 @@ const GradingSystem = ({baseUrl}) => {
                                                         <td className='px-6'>{item.maxVal}</td>
                                                         <td className='px-6'>{item.minVal}</td>
                                                         <td className='px-6'>
-                                                            <div className='flex items-center gap-3'>
+                                                            <div className='flex items-center gap-5'>
                                                                 <button
                                                                     onClick={() => {
                                                                         setSelectedId(item._id)
                                                                         setModal('edit')
+                                                                        getRecord(item._id)
                                                                     }}
                                                                 >
                                                                     <TbPencilDiscount className="w-5 h-5 text-gray-600 cursor-pointer" />
@@ -753,6 +811,7 @@ const GradingSystem = ({baseUrl}) => {
                 </div>
             </div>
         }
+
         {
             modal === "create-threshold" &&
             <div>
@@ -805,6 +864,7 @@ const GradingSystem = ({baseUrl}) => {
                 </div>
             </div>
         }
+
         {
             modal === 'reset' &&
             <div>
@@ -868,7 +928,7 @@ const GradingSystem = ({baseUrl}) => {
                     </div>
                     <div className='mt-5'>
                         <p>Select Tag Type</p>
-                        <div className='cursor-pointer border rounded-[4px] px-[6px] py-3 relative'>
+                        <div className='cursor-pointer border rounded-[4px] px-[6px] py-2 mt-1 relative'>
                             <div className='flex items-center justify-between' onClick={() => setDropDown(dropDown === 'tag-type' ? false : 'tag-type')}>
                                 <p className='capitalize px-3 rounded mt-1 w-full outline-none'>{type}</p>
                                 <BiChevronDown />
@@ -893,7 +953,7 @@ const GradingSystem = ({baseUrl}) => {
 
                     <div className='mt-5'>
                         <p>Select Tag Name</p>
-                        <div className='cursor-pointer border rounded-[4px] px-[6px] py-3 relative'>
+                        <div className='cursor-pointer border rounded-[4px] px-[6px] py-2 mt-1 relative'>
                             <div className='flex items-center justify-between' onClick={() => setDropDown(dropDown === 'tag-name' ? false : 'tag-name')}>
                                 <p className='capitalize px-3 rounded mt-1 w-full outline-none'>{name}</p>
                                 <BiChevronDown />
@@ -902,7 +962,7 @@ const GradingSystem = ({baseUrl}) => {
                                 dropDown === 'tag-name' &&
                                 <div className='rounded-[4px] border absolute left-0 top-[45px] bg-white z-[10] w-full'>
                                     {
-                                        tagName?.map((type, index) => {
+                                        thresholdTagName?.map((type, index) => {
                                             return (
                                             <p className='text-[14px] p-2 hover:bg-gray-100 capitalize' onClick={() => {
                                                 setDropDown(false)
@@ -917,11 +977,11 @@ const GradingSystem = ({baseUrl}) => {
                     </div>
                     <div className='mt-5'>
                         <p>Range in percentage (Maximum)</p>
-                        <input type="text" className='outline-none w-full border border-gray py-2 px-2 rounded-[4px]' />
+                        <input type="number" onChange={e => setMaxVal(e.target.value)} value={maxVal} className='outline-none w-full border border-gray py-2 px-2 rounded-[4px] mt-1' />
                     </div>
                     <div className='mt-5'>
                         <p>Range in percentage (Minimum)</p>
-                        <input type="text" className='outline-none w-full border border-gray py-2 px-2 rounded-[4px]' />
+                        <input type="number" onChange={e => setMinVal(e.target.value)} value={minVal} className='outline-none w-full border border-gray py-2 px-2 rounded-[4px] mt-1' />
                     </div>
                     {
                         loading ? 
@@ -929,7 +989,7 @@ const GradingSystem = ({baseUrl}) => {
                         :
                         <div className='flex items-center gap-5 justify-center'>
                             <button onClick={() => setModal(false)} className=' border border-primary-color bg-white w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Cancel</button>
-                            <button onClick={deleteRecord} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Confirm</button>
+                            <button onClick={updateRecord} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Confirm</button>
                         </div>
                     }
                 </div>
