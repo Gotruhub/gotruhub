@@ -230,7 +230,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
       }
 
       {
-        user.data.details.subAdmin === true &&
+        user?.data?.details?.subAdmin === true &&
         <div className={!toggleNav ? `bg-[#19201D] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#19201D] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
             <div className='px-5 pb-5 flex items-center justify-between'>
                 <img src="./images/logo-white.svg" alt="" />

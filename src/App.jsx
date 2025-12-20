@@ -101,7 +101,8 @@ import SubAdminLogin from './pages/login/SubAdminLogin'
 function App() {
 
   // const baseUrl = 'https://test.yamltech.com'
-  const baseUrl = 'https://go-tru-hub-api.onrender.com'
+  // const baseUrl = 'https://go-tru-hub-api.onrender.com'
+  const baseUrl = 'https://api.gotruhub.online'
   const user = localStorage.getItem('user')
 
     return (
