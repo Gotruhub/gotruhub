@@ -178,7 +178,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                       <p className="">Notification</p>
                   </div>
                 </Link>
-                <Link to='/referral' className={ location.pathname === '/settings' || location.pathname === "/update-orgs" || location.pathname === "/orgz-profile" ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
+                <Link to='/referral' className={ location.pathname.includes('referral') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
                   <div className="flex items-center">
                     <FaUsersRays className="mr-[15.67px]"/>
                     <p className="">Referral</p>
