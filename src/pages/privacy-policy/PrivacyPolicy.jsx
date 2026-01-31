@@ -14,7 +14,8 @@ const PrivacyPolicy = () => {
                 This Privacy Notice for AC & AC RESOURCES (doing business as AC & AC RESOURCES ) ('we', 'us', or 'our'), describes how and why we might access, collect, store, use, and/or share ('process') your personal information when you use our services ('Services'), including when you:
                 Download and use our mobile application (Gotruhub ), or any other application of ours that links to this Privacy Notice
                 Engage with us in other related ways, including any sales, marketing, or events <br />
-                Questions or concerns? Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a className='text-blue-600 font-bold' href="mailto:acandacdomain@gmail.com">acandacdomain@gmail.com</a>
+                Please note that bank account details and other sensitive financial information are not collected directly through the Gotruhub mobile application. Such information is collected by authorised institutions through our web-based application, and the mobile application only accesses and uses the data via a shared backend infrastructure to facilitate approved activities and service delivery. <br />
+                Questions or concerns? Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a className='text-blue-600 font-bold' href="mailto:office@gotruhub.online">office@gotruhub.online</a>
             </p>
         </div>
 
@@ -25,37 +26,37 @@ const PrivacyPolicy = () => {
                 This summary provides key points from our Privacy Notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for.
             </p>
             <p className="text-gray-700 mb-4">
-                What personal information do we process? When you visit, use, or navigate our Services, we may process personal information depending on how you interact with us and the Services, the choices you make, and the products and features you use. Learn more about personal information you disclose to us.
+                <span className='font-[600]'>What personal information do we process?</span> <br /> When you visit, use, or navigate our Services, we may process personal information depending on how you interact with us and the Services, the choices you make, and the products and features you use. Personal and financial information, including bank account details where applicable, are primarily collected through our web-based platforms by authorized institutions, not directly through our mobile application. Learn more about personal information you disclose to us. Learn more about personal information you disclose to us.
             </p>
             <p className="text-gray-700 mb-4">
-                Do we process any sensitive personal information? Some of the information may be considered 'special' or 'sensitive' in certain jurisdictions, for example your racial or ethnic origins, sexual orientation, and religious beliefs. We may process sensitive personal information when necessary with your consent or as otherwise permitted by applicable law. Learn more about sensitive information we process.
+                <span className='font-[600]'>Do we process any sensitive personal information?</span> <br /> Some of the information may be considered 'special' or 'sensitive' in certain jurisdictions, for example your racial or ethnic origins, sexual orientation, and religious beliefs. We may process sensitive personal information when necessary with your consent or as otherwise permitted by applicable law. The Gotruhub mobile application does not directly collect sensitive personal or bank account information; it only accesses such data via a shared backend infrastructure to facilitate approved services. Learn more about sensitive information we process.
             </p>
             <p className="text-gray-700 mb-4">
-                Do we collect any information from third parties? We may collect information from public databases, marketing partners, social media platforms, and other outside sources. Learn more about information collected from other sources.
+                <span className='font-[600]'>Do we collect any information from third parties?</span> <br /> We may collect information from public databases, marketing partners, social media platforms, and other outside sources. Learn more about information collected from other sources.
             </p>
             <p className="text-gray-700 mb-4">
-                How do we process your information? We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Learn more about how we process your information.
+                <span className='font-[600]'>How do we process your information?</span> <br /> We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Learn more about how we process your information.
             </p>
             <p className="text-gray-700 mb-4">
-                In what situations and with which types of parties do we share personal information? We may share information in specific situations and with specific categories of third parties. Learn more about when and with whom we share your personal information.
+                <span className='font-[600]'>In what situations and with which types of parties do we share personal information?</span> We may share information in specific situations and with specific categories of third parties. Learn more about when and with whom we share your personal information.
+            </p>
+            {/* <p className="text-gray-700 mb-4">
+                <span className='font-[600]'>How do we keep your information safe?</span> <br />  We have adequate organisational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorised third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Learn more about how we keep your information safe.
+            </p> */}
+            {/* <p className="text-gray-700 mb-4">
+                <span className='font-[600]'>In what situations and with which types of parties do we share personal information?</span> <br /> We may share information in specific situations and with specific categories of third parties. Learn more about when and with whom we share your personal information.
+            </p> */}
+            {/* <p className="text-gray-700 mb-4">
+                <span className='font-[600]'>How do we keep your information safe?</span> <br /> We have adequate organisational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorised third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Learn more about how we keep your information safe.
+            </p> */}
+            <p className="text-gray-700 mb-4">
+                <span className='font-[600]'>What are your rights?</span> <br /> Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Learn more about your privacy rights.
             </p>
             <p className="text-gray-700 mb-4">
-                How do we keep your information safe? We have adequate organisational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorised third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Learn more about how we keep your information safe.
+                <span className='font-[600]'>How do you exercise your rights?</span> <br /> The easiest way to exercise your rights is by visiting <a target='_blank' className='text-blue-600 font-bold' href="https://www.acandac.online/">https://www.acandac.online/</a> , or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
             </p>
             <p className="text-gray-700 mb-4">
-                In what situations and with which types of parties do we share personal information? We may share information in specific situations and with specific categories of third parties. Learn more about when and with whom we share your personal information.
-            </p>
-            <p className="text-gray-700 mb-4">
-                How do we keep your information safe? We have adequate organisational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorised third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Learn more about how we keep your information safe.
-            </p>
-            <p className="text-gray-700 mb-4">
-                What are your rights? Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Learn more about your privacy rights.
-            </p>
-            <p className="text-gray-700 mb-4">
-                How do you exercise your rights? The easiest way to exercise your rights is by visiting <a target='_blank' className='text-blue-600 font-bold' href="https://acandacresources.com/">https://acandacresources.com</a> , or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
-            </p>
-            <p className="text-gray-700 mb-4">
-                Want to learn more about what we do with any information we collect? Review the Privacy Notice in full.
+                <span className='font-[600]'>Want to learn more about what we do with any information we collect?</span> <br /> Review the Privacy Notice in full.
             </p>
         </div>
 
@@ -85,10 +86,10 @@ const PrivacyPolicy = () => {
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-xl font-semibold mb-3">Personal information you disclose to us</h3>
-                        <p className="italic mb-4">In Short: We collect personal information that you provide to us.</p>
+                        <p className="italic mb-4">In Short: We collect personal information that you provide to us. This information is primarily collected through our web-based platforms and related services, not directly through the Gotruhub mobile application.</p>
                         
                         <div className="space-y-4">
-                            <p className="text-gray-700">We collect personal information that you voluntarily provide to us when you register on the Services, express an interest in obtaining information about us or our products and Services, when you participate in activities on the Services, or otherwise when you contact us</p>
+                            <p className="text-gray-700">We collect personal information that you voluntarily provide to us when you register on the Services, Where the mobile application is used, it accesses such information through a shared backend infrastructure to facilitate approved activities.</p>
                         </div>
 
                         <div className="mt-6">
@@ -100,44 +101,55 @@ const PrivacyPolicy = () => {
                                 <li>Job titles</li>
                                 <li>Usernames</li>
                                 <li>Contact or authentication data</li>
-                                <li>Debit/credit card numbers</li>
                                 <li>Sensitive Information </li> When necessary, with your consent or as otherwise permitted by applicable law, 
                                     we process the following categories of sensitive information:
                                 <li>Biometric data</li>
                                 <li>Student data</li>
-                                <li>Payment Data</li>
                             </ul>
                         </div>
-                        <div>
-                            <p className="text-gray-700">We may collect data necessary to process your payment if you choose to make purchases, such as your payment instrument number, and the security code associated with your payment instrument. All payment data is handled and stored by Paystack . You may find their privacy notice link(s) here:</p>
+                        <div className='mt-6'>
+                            <p className="font-semibold">Payment Data</p>
+                            <p className="text-gray-700">We may collect data necessary to process your payment if you choose to make purchases, such as your payment instrument number, and the security code associated with your payment instrument. This payment information is collected and processed through our web-based platforms and is not collected directly through the Gotruhub mobile application. All payment data is handled and stored by Paystack . You may find their privacy notice link(s) here:</p>
                             <a target='_blank' className='text-blue-500' href="https://paystack.com/privacy/merchant#:~:text=Paystack%20does%20not%20sell%2C%20trade,Service%20providers">Paystack privacy policy</a>
                         </div>
 
-                        <div className="mt-6">
+                        {/* <div className="mt-6">
                             <p>
                                 Social Media Login Data. We may provide you with the option to register with us using your existing social media account details, like your Facebook, X, or other social media account. If you choose to register in this way, we will collect certain profile information about you from the social media provider, as described in the section called 'HOW DO WE HANDLE YOUR SOCIAL LOGINS?' below.
                             </p>
-                        </div>
+                        </div> */}
                         <div className="mt-6 space-y-3">
                             <p>
-                                Application Data. If you use our application(s), we also may collect the following information if you choose to provide us with access or permission:
+                                <span className='font-[600]'>Application Data.</span> <br /> If you use our application(s), we also may collect the following information if you choose to provide us with access or permission:
                             </p>
                             <p>
-                                Geolocation Information. We may request access or permission to track location-based information from your mobile device, either continuously or while you are using our mobile application(s), to provide certain location-based services. If you wish to change our access or permissions, you may do so in your device's settings.
+                                Geolocation Information. We may request access or permission to track location-based information from your mobile device, either continuously or while you are using our mobile application(s), to provide certain location-based services. We do not use geolocation data to collect or infer bank account details or other sensitive financial information. If you wish to change our access or permissions, you may do so in your device's settings.
                             </p>
                             <p>
-                                Mobile Device Access. We may request access or permission to certain features from your mobile device, including your mobile device's camera, storage, and other features. If you wish to change our access or permissions, you may do so in your device's settings.
+                                Mobile Device Access. We may request access or permission to certain features from your mobile device, including your mobile device's camera, storage, and other features. Access to these features does not include access to banking applications, financial credentials, or payment instruments. If you wish to change our access or permissions, you may do so in your device's settings.
                             </p>
                             <p>
                                 Push Notifications. We may request to send you push notifications regarding your account or certain features of the application(s). If you wish to opt out from receiving these types of communications, you may turn them off in your device's settings.
                             </p>
                             <p>
-                                This information is primarily needed to maintain the security and operation of our application(s), for troubleshooting, and for our internal analytics and reporting purposes.
+                                This information is primarily needed to maintain the security and operation of our application(s), for troubleshooting, and for our internal analytics and reporting purposes. It is not used to collect, store, or process bank account details or sensitive financial information.
                             </p>
                             <p>
                                 All personal information that you provide to us must be true, complete, and accurate, and you must notify us of any changes to such personal information.
                             </p>
                             <div>
+                                <p className='font-semibold'>
+                                    Institutional Bank Account Information
+                                </p>
+                                <p>
+                                    Authorized institutions using our web-based services may provide bank account details for the purpose of receiving payments and settlements. This information is collected and stored through our web platform and is not collected through the Gotruhub mobile application.
+                                </p>
+                                <br />
+                                <p>
+                                    Such bank account information is used solely for payment settlement purposes and is not shared with unauthorized parties. We do not collect or store end-user (student or parent) bank account details.
+                                </p>
+                            </div>
+                            {/* <div>
                                 <p className='font-semibold'>
                                     Google API
                                 </p>
@@ -158,7 +170,7 @@ const PrivacyPolicy = () => {
                             </p>
                             <p>
                                 If you interact with us on a social media platform using your social media account (e.g. Facebook or X), we receive personal information about you from such platforms such as your name, email address, and gender. You may have the right to withdraw your consent to processing your personal information. Learn more about withdrawing your consent. Any personal information that we collect from your social media account depends on your social media account's privacy settings. Please note that their own use of your information is not governed by this Privacy Notice.
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>

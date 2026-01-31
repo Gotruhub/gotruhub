@@ -18,7 +18,7 @@ const Dashboard = ({ baseUrl }) => {
   const [unitsArray, setUnitsArray] = useState([])
 
   useEffect(() => {
-    if(user.data.details.role === 'admin'){
+    if(user?.data?.details?.role === 'admin'){
       getPassHistory();
       getOrgzHistory();
       getAllWithdrawals()
