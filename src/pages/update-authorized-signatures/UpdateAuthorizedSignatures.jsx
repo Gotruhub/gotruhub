@@ -105,7 +105,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
       role: 'guardian',
       email: guardian.guardians.email,
       children: guardian.guardians.children,
-      profileImage: guardian.profileImage._id,
+      profileImage: guardian.guardians.profileImage._id,
       relationImage:relationImage._id,
       signature:signatureImage._id
     });
@@ -120,7 +120,7 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
         fullName: guardian.guardians.fullName,
         role: 'guardian',
         children: guardian.guardians.children,
-        profileImage: guardian.profileImage._id,
+        profileImage: guardian.guardians.profileImage._id,
         relationImage:relationImage._id,
         signature:signatureImage._id
       })
@@ -162,11 +162,11 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
               </div>
               <div className='flex item-center justify-center flex-col lg:flex-row w-[90%] lg:w-[80%] mx-auto gap-8'>
                 <div className='xl:w-[1200px] flex items-center justify-center flex-col'>
-                  <label className='block text-text-color text-left mb-2'>Relation image</label>
+                  <label className='block mb-2 text-left text-text-color'>Relation image</label>
                   <div className='border border-dashed p-3 rounded max-w-[500px]'>
                     <img src={relationImage ? relationImage.file : guardian?.guardians?.relationImage?.file} className='' alt="" />
                   </div>
-                  <div className='bg-red-500 relative mt-4 cursor-pointer'>
+                  <div className='relative mt-4 bg-red-500 cursor-pointer'>
                     <input type="file" onChange={e => handleFileUpload(e.target.files[0])} className='cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
                     <button className='text-white bg-primary-color text-[12px] rounded-[4px] px-[28px] py-[10px] text-center mx-auto cursor-pointer'>Change Image</button>
                   </div>
@@ -174,25 +174,25 @@ const UpdateAuthorizedSignatures = ({baseUrl}) => {
                   {/* <button className='bg-gray-800 text-white p-2 rounded text-[12px] mt-3'>Change Image</button> */}
               </div>
                 <div className='xl:w-[1200px] flex items-center justify-center flex-col'>
-                  <label className='block text-text-color text-left mb-2'>Signature image</label>
+                  <label className='block mb-2 text-left text-text-color'>Signature image</label>
                   <div className='border border-dashed p-3 rounded max-w-[500px]'>
                     <img src={signatureImage ? signatureImage.file : guardian?.guardians?.relationImage?.file} className='w-[100%]' alt="" />
                   </div>
-                  <div className='bg-red-500 relative mt-4 cursor-pointer'>
+                  <div className='relative mt-4 bg-red-500 cursor-pointer'>
                     <input type="file" onChange={e => handleSignatureUpload(e.target.files[0])} className='cursor-pointer absolute opacity-0 h-full outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
                     <button className='text-white bg-primary-color text-[12px] rounded-[4px] px-[28px] py-[10px] text-center mx-auto cursor-pointer'>Change Image</button>
                   </div>
               </div>
             </div>
             <div className="flex justify-between items-center mt-6 px-[30px]">
-                <button onClick={() => navigate(`/user/${id}`)} type="button" className="bg-white text-black border border-black py-2 px-4 rounded">
+                <button onClick={() => navigate(`/user/${id}`)} type="button" className="px-4 py-2 text-black bg-white border border-black rounded">
                     Back
                 </button>
                 {
                     loading ? 
                     <BtnLoader bgColor="#191f1c"/>
                     :
-                    <button type="submit" className="bg-primary-color text-white py-2 px-4 rounded" onClick={handleSubmit}>Save changes</button>
+                    <button type="submit" className="px-4 py-2 text-white rounded bg-primary-color" onClick={handleSubmit}>Save changes</button>
                 }
             </div>
           </div>

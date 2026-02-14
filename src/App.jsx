@@ -102,6 +102,7 @@ function App() {
 
   // const baseUrl = 'https://test.yamltech.com'
   // const baseUrl = 'https://go-tru-hub-api.onrender.com'
+  // const baseUrl = 'http://localhost:8080'
   const baseUrl = 'https://api.gotruhub.online'
   const user = localStorage.getItem('user')
 
