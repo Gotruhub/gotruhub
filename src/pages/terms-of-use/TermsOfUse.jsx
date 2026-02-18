@@ -10,7 +10,7 @@ const TermsOfUse = () => {
           <div className="mb-10">
               <h1 className="mb-6 text-3xl font-bold">GOTRUHUB APP TERMS OF USE</h1>
               <div>
-                <p className='font-[600] text-[20px]'>AGREEMENT TO TERMS</p>
+                <p className='font-[600] text-[20px]'>AGREEMENT TO TERMS.</p>
                 <div className='mt-1 space-y-4'>
                   <p>
                     These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and AC & AC resources (“we,” “us” or “our”), concerning your access to and use of the <a target='_blank' className='text-blue-500 font-[500]' href="https://www.acandac.online/">acandac.online</a> website, <a target='_blank' className='text-blue-500 font-[500]' href="https://www.gotruhub.online/">gotruhub.online</a> domain as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY. 
