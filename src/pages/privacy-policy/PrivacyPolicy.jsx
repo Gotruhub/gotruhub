@@ -73,7 +73,6 @@ const PrivacyPolicy = () => {
             <li><a className="hover:text-blue-600">What Information Do We Collect?</a></li>
             <li><a className="hover:text-blue-600">How Do We Process Your Information?</a></li>
             <li><a className="hover:text-blue-600">When and With Whom Do We Share Your Personal Information?</a></li>
-            <li><a className="hover:text-blue-600">How Do We Handle Your Social Logins?</a></li>
             <li><a className="hover:text-blue-600">How Long Do We Keep Your Information?</a></li>
             <li><a className="hover:text-blue-600">How Do We Keep Your Information Safe?</a></li>
             <li><a className="hover:text-blue-600">What Are Your Privacy Rights?</a></li>
