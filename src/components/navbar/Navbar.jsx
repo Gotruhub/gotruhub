@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <nav className='flex items-center justify-between bg-primary-color py-5 lg:px-[100px] md:px-[60px] px-[16px]'>
         <Link to='/'>
-            <img src="./images/logo-white.svg" alt="" />
+            <img src="/images/synchrohub-logo.png" alt="SynchroHub" className='h-[54px] w-[150px] object-contain' />
         </Link>
         <FiMenu className='md:hidden block text-white cursor-pointer text-[26px]' onClick={() => setOpenNav(!openNav)}/>
         {

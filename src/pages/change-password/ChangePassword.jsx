@@ -120,7 +120,7 @@ const ChangePassword = ({baseUrl}) => {
             </div>
         </div>
         <div className='text-[#6F7975] mt-[10rem] text-center text-[14px] mb-7'>
-            <p>&copy; 2022 Gotruhub and Gotruhub logo are trademarks of the company.</p>
+            <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
             <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
         </div>
         {

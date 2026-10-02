@@ -41,7 +41,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
         user?.data?.details?.role === "admin" &&
           <div className={!toggleNav ? `bg-[#19201D] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#19201D] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
               <div className='px-5 pb-5 flex items-center justify-between'>
-                  <img src="./images/logo-white.svg" alt="" />
+                  <img src="/images/synchrohub-logo.png" alt="SynchroHub" className='h-[64px] w-[150px] object-contain' />
                   <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
               </div>
               <div className="px-[32px] my-10 text-white">
@@ -233,7 +233,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
         user?.data?.details?.subAdmin === true &&
         <div className={!toggleNav ? `bg-[#19201D] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#19201D] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
             <div className='px-5 pb-5 flex items-center justify-between'>
-                <img src="./images/logo-white.svg" alt="" />
+                <img src="/images/synchrohub-logo.png" alt="SynchroHub" className='h-[64px] w-[150px] object-contain' />
                 <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
             </div>
             <div className="px-[32px] my-10 text-white">

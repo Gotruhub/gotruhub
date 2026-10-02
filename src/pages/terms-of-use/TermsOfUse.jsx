@@ -8,12 +8,12 @@ const TermsOfUse = () => {
         <Navbar/>
         <div className="lg:px-[100px] md:px-[60px] px-[16px] py-8">
           <div className="mb-10">
-              <h1 className="mb-6 text-3xl font-bold">GOTRUHUB APP TERMS OF USE</h1>
+              <h1 className="mb-6 text-3xl font-bold">SYNCHROHUB TERMS OF USE</h1>
               <div>
                 <p className='font-[600] text-[20px]'>AGREEMENT TO TERMS.</p>
                 <div className='mt-1 space-y-4'>
                   <p>
-                    These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and AC & AC resources (“we,” “us” or “our”), concerning your access to and use of the <a target='_blank' className='text-blue-500 font-[500]' href="https://www.acandac.online/">acandac.online</a> website, <a target='_blank' className='text-blue-500 font-[500]' href="https://www.gotruhub.online/">gotruhub.online</a> domain as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY. 
+                    These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and SYNCHROHUB SOLUTIONS LTD (“we,” “us” or “our”), concerning your access to and use of the <a target='_blank' rel='noreferrer' className='text-blue-500 font-[500]' href="https://synchrohub.online/">synchrohub.online</a> website and domain as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.
                   </p>
                   <p>
                     Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms and Conditions at any time and for any reason. We will inform you about any changes by updating the “Last updated” date of these Terms and Conditions and you waive any right to receive specific notice of each of such change. It is your responsibility to periodically review these Terms and Conditions to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms and Conditions by your continued use of the Site after the date such revised Terms are posted. 
@@ -313,19 +313,19 @@ const TermsOfUse = () => {
               <div className='mt-12'>
                 <p className='font-[600] text-[20px]'>BILLING INFORMATION</p>
                 <div className='mt-1 space-y-4'>
-                  <p className='font-[600] my-2'>Gotrutrade:</p>
+                  <p className='font-[600] my-2'>SynchroTrade:</p>
                   <p>
                     This requires a non-refundable, prepaid access token, which will be made available to you through your organization. Your access token will automatically end when the paid period expires. All available access token amounts, and duration options will be presented to your organization for selection. You will also have the ability to fund your wallet account through the App. You are responsible for any data charges or fees that may apply to third-party service providers facilitating the collection of fees and payments.
                   </p>
                 </div>
                 <div className='mt-5 space-y-4'>
-                  <p className='font-[600] my-2'>Gotrupass:</p>
+                  <p className='font-[600] my-2'>SynchroPass:</p>
                   <p>
                     This requires a non-refundable, prepaid access token, which you will pay for a specified period of time. Your access token will automatically terminate at the end of the paid duration. All access token, amounts, and duration options will be made available for you to choose from. You are responsible for any data charges or fees associated with third-party service providers involved in collecting your payments.
                   </p>
                 </div>
                 <div className='mt-5 space-y-4'>
-                  <p className='font-[600] my-2'>Gotrumonitor:</p>
+                  <p className='font-[600] my-2'>SynchroMonitor:</p>
                   <div>
                     <p className='font-[500] mb-1'>Monitor end</p>
                     <p>
@@ -338,7 +338,7 @@ const TermsOfUse = () => {
                   </div>
                 </div>
                 <div className='mt-5 space-y-4'>
-                  <p className='font-[600] my-2'>Result Check:</p>
+                  <p className='font-[600] my-2'>SynchroResults:</p>
                   <p>
                     This requires a non-refundable, prepaid access token, which you will pay for a specified period of time. Your access token will automatically terminate when the paid duration expires. All access token amounts, and duration options will be presented to your organization for selection. You are responsible for any data charges or fees related to third-party service providers involved in collecting your payments.
                   </p>
@@ -539,16 +539,10 @@ const TermsOfUse = () => {
                     To resolve any complaints regarding the Site or for more information about using the Site, please contact us at:
                   </p>
                   <p>
-                    AC & AC RESOURCES
+                    SYNCHROHUB SOLUTIONS LTD
                   </p>
-                  <p>
-                    Registered Office: Nō 1 Ike Nduba Road, Igbakwu, Ayamelum L.G.A, Anambra State.
-                  </p>
-                  <p>
-                    Operational Office: Block D, Flat 3, Ogochukwu Estate, Ifite Awka, Awka South L.G.A, Anambra State.
-                  </p>
-                  <p>08033288394/09020060037</p>
-                  <p>office@gotruhub.online</p>
+                  {/* TODO: Add confirmed SYNCHROHUB SOLUTIONS LTD registered office, operational office and telephone details. */}
+                  <p>office@synchrohub.online</p>
                 </div>
               </div>
 

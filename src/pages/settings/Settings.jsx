@@ -230,7 +230,7 @@ const Settings = ({baseUrl}) => {
                 <div className="flex items-center flex-col text-center justify-center gap-3 bg-white w-[450px] fixed top-[50%] left-[50%] py-[50px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
                     <img src="./images/approval.svg" alt="" />
                     <p className='text-text-color font-[500]'>Delete organization</p>
-                    <p className='text-[#6F7975] text-[14px]'>Are you sure you want to delete this organization? This action cannot be undone and all users created by your organization will lose access to Gotruhub</p>
+                    <p className='text-[#6F7975] text-[14px]'>Are you sure you want to delete this organization? This action cannot be undone and all users created by your organization will lose access to SynchroHub</p>
                     {
                         isLoading ? 
                         <BtnLoader />

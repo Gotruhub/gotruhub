@@ -98,10 +98,10 @@ const SubAdminLogin = ({baseUrl}) => {
               :
               <button onClick={login} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Login</button>
           }
-          {/* <p className='mt-10'>New to Gotru? <span className='text-secondary-color  cursor-pointer' onClick={() => navigate('/register')}>Sign up</span> </p> */}
+          {/* <p className='mt-10'>New to SynchroHub? <span className='text-secondary-color  cursor-pointer' onClick={() => navigate('/register')}>Sign up</span> </p> */}
         </div>
         <div className='text-[#6F7975] mt-[10rem]'>
-          <p>&copy; 2022 Gotruhub and Gotruhub logo are trademarks of the company.</p>
+          <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
           <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
         </div>
 

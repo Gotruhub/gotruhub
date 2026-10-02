@@ -11,11 +11,11 @@ const PrivacyPolicy = () => {
         <div className="mb-10">
             <h1 className="mb-6 text-3xl font-bold">Privacy Notice</h1>
             <p className="mb-4 text-gray-600">
-                This Privacy Notice for AC & AC RESOURCES (doing business as AC & AC RESOURCES ) ('we', 'us', or 'our'), describes how and why we might access, collect, store, use, and/or share ('process') your personal information when you use our services ('Services'), including when you:
-                Download and use our mobile application (Gotruhub ), or any other application of ours that links to this Privacy Notice
+                This Privacy Notice for SYNCHROHUB SOLUTIONS LTD (doing business as SynchroHub) ('we', 'us', or 'our'), describes how and why we might access, collect, store, use, and/or share ('process') your personal information when you use our services ('Services'), including when you:
+                Download and use our mobile application (SynchroHub), or any other application of ours that links to this Privacy Notice
                 Engage with us in other related ways, including any sales, marketing, or events <br />
-                Please note that bank account details and other sensitive financial information are not collected directly through the Gotruhub mobile application. Such information is collected by authorised institutions through our web-based application, and the mobile application only accesses and uses the data via a shared backend infrastructure to facilitate approved activities and service delivery. <br />
-                Questions or concerns? Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a className='font-bold text-blue-600' href="mailto:office@gotruhub.online">office@gotruhub.online</a>
+                Please note that bank account details and other sensitive financial information are not collected directly through the SynchroHub mobile applications. Such information is collected by authorised institutions through our web-based application, and the mobile application only accesses and uses the data via a shared backend infrastructure to facilitate approved activities and service delivery. <br />
+                Questions or concerns? Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a className='font-bold text-blue-600' href="mailto:office@synchrohub.online">office@synchrohub.online</a>
             </p>
         </div>
 
@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
                Depending on your location, you may have rights regarding your personal information under applicable data protection laws.
             </p>
             <p className="mb-4 text-gray-700">
-                <span className='font-[600]'>How do you exercise your rights?</span> <br /> You may exercise your rights by visiting <a target='_blank' className='font-bold text-blue-600' href=" https://gotruhub.online ">https://gotruhub.online</a> , or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
+                <span className='font-[600]'>How do you exercise your rights?</span> <br /> You may exercise your rights by visiting <a target='_blank' className='font-bold text-blue-600' href=" https://synchrohub.online ">https://synchrohub.online</a> , or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
             </p>
             <p className="mb-4 text-gray-700">
                 <span className='font-[600]'>Want to learn more about what we do with any information we collect?</span> <br /> Review the Privacy Notice in full.

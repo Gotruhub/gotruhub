@@ -121,7 +121,7 @@ const Subscribe = ({baseUrl}) => {
                 <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] md:px-[30px] py-[1rem] flex-col md:flex-row">
                     <div className="mb-4">
                         <p className="text-[28px] text-primary-color font-[600]">Subscription</p>
-                        <p className='text-[#4F4F4F]'>Select the subscription plan that is perfect for your organization to get the best of Gotruhub.</p>
+                        <p className='text-[#4F4F4F]'>Select the subscription plan that is perfect for your organization to get the best of SynchroHub.</p>
                         <p className='text-[#25751E] underline font-[500] cursor-pointer' onClick={() => setAboutFeatureModal(!aboutFeatureModal)} >Learn more about our features</p>
                     </div>
                     <div className='flex items-center gap-3 w-full justify-end'>
@@ -176,7 +176,7 @@ const Subscribe = ({baseUrl}) => {
                     <div className='w-full relative'>
                         <label className='block text-left mb-2 text-text-color'>What features would you like to subscribe for?</label>
                         <div className='flex items-center justify-between px-4 py-3 border w-full rounded-[4px]'>
-                            <input type="text" value={selectedFeature} placeholder='Gotrupass, Gotrumonitor' className='outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
+                            <input type="text" value={selectedFeature} placeholder='SynchroPass, SynchroMonitor' className='outline-none w-full rounded-[4px] bg-transparent text-[14px]'/>
                             <IoChevronDownOutline color="d7d7d7" cursor='pointer' onClick={() => setFeaturesDropDown(!featuresDropDown)}/>
                         </div>
                         {featuresDropDown &&
@@ -247,7 +247,7 @@ const Subscribe = ({baseUrl}) => {
                             </div>
                             <div>
                                 <p className='text-[#19201D] font-[600]'>Pass</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>GotruPass streamlines member sign-in/sign-out management, providing accurate location tracking and enhanced security. It identifies authorized personnel, enables real-time presence tracking, and maintains precise records of who's signed in and who hasn't.</p>
+                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroPass streamlines member sign-in/sign-out management, providing accurate location tracking and enhanced security. It identifies authorized personnel, enables real-time presence tracking, and maintains precise records of who's signed in and who hasn't.</p>
                             </div>
                         </div>
                         <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 my-10 items-start flex-col md:flex-row'>
@@ -260,7 +260,7 @@ const Subscribe = ({baseUrl}) => {
                             </div>
                             <div>
                                 <p className='text-[#19201D] font-[600]'>Monitor</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>GotruMonitor enables comprehensive attendance tracking by monitoring the location and time of sign-in and sign-out for students and teachers. Using a unique QR code for each course, GotruMonitor provides an accurate and secure way to track attendance. This feature allows organizations to maintain precise records of who is present or absent, enhancing accountability and security. With GotruMonitor, attendance management is simplified, providing valuable insights to improve student and teacher engagement.</p>
+                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroMonitor enables comprehensive attendance tracking by monitoring the location and time of sign-in and sign-out for students and teachers. Using a unique QR code for each course, SynchroMonitor provides an accurate and secure way to track attendance. This feature allows organizations to maintain precise records of who is present or absent, enhancing accountability and security. With SynchroMonitor, attendance management is simplified, providing valuable insights to improve student and teacher engagement.</p>
                             </div>
                         </div>
                         <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 items-start flex-col md:flex-row'>
@@ -273,7 +273,7 @@ const Subscribe = ({baseUrl}) => {
                             </div>
                             <div>
                                 <p className='text-[#19201D] font-[600]'>Trade</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>GotruTrade enables organizations to conduct sales efficiently with a user-friendly app that allows students to shop effortlessly and pay securely through the app's wallet. Students enjoy a seamless shopping experience, while institutions can manage sales effectively. GotruTrade also facilitates direct deposit of funds into the institution's account, providing instant access to capital to boost trading capacity. This innovative solution streamlines sales management, enhances financial control, and fosters a cashless campus ecosystem.</p>
+                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroTrade enables organizations to conduct sales efficiently with a user-friendly app that allows students to shop effortlessly and pay securely through the app's wallet. Students enjoy a seamless shopping experience, while institutions can manage sales effectively. SynchroTrade also facilitates direct deposit of funds into the institution's account, providing instant access to capital to boost trading capacity. This innovative solution streamlines sales management, enhances financial control, and fosters a cashless campus ecosystem.</p>
                             </div>
                         </div>
                         <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 mt-10 items-start flex-col md:flex-row'>

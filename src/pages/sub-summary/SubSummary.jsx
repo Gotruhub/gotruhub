@@ -58,7 +58,7 @@ const SubSummary = ({baseUrl}) => {
     //     if(res.ok){
     //         setConfirmPurchase(false)
     //         payNow()
-    //         // setMsg('You have successfully subscribed to Gotruhub. Share the token received with your members to have access to the mobile app.')
+    //         // setMsg('You have successfully subscribed to SynchroHub. Share the token received with your members to have access to the mobile app.')
     //         // setAlertType('success')
     //         // setAlertTitle('Successful')
     //         // localStorage.removeItem('itemsInCart')

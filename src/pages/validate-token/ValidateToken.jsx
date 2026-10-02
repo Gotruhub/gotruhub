@@ -104,7 +104,7 @@ const ValidateToken = ({baseUrl}) => {
                 <p className='text-center'>Did not get a code? <span className='text-secondary-color cursor-pointer' onClick={() => resendCode()}>Resend code</span> </p>
             </div>
             <div className='text-[#6F7975] mt-[10rem] text-center text-[14px]'>
-                <p>&copy; 2022 Gotruhub and Gotruhub logo are trademarks of the company.</p>
+                <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
                 <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
             </div>
         </div>

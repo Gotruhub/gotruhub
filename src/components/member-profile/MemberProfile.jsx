@@ -262,7 +262,7 @@ const MemberProfile = ({baseUrl, currentUser, id, passSummary, walletSummary}) =
             </div>
 
             <div className='w-[100%] shadow-md rounded-[6px] p-[20px] mt-10'>
-                <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>Gotrupass summary</p>
+                <p className='text-[#1D1D1D] text-[18px] font-[600] mb-5'>SynchroPass summary</p>
                 {/* <div className='w-full'>
                     <div className='w-full'>
                         <div className='flex items-center justify-between mb-3 w-full'>

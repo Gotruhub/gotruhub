@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 :root {
-    --primary-color: #191f1c;
-    --secondary-color: #40916C;
-    --text-color: #19201D;
+    --primary-color: #173F2B;
+    --secondary-color: #2F7D4D;
+    --text-color: #171A18;
+    --soft-background: #BDC4B4;
+    --muted-eucalyptus: #9CA78F;
   }
 
   label {

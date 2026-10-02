@@ -31,15 +31,15 @@ const CreateUserImageCrop = ({baseUrl}) => {
 
     const adminAccessArray = [
         {
-            label:'Gotru Pass',
+            label:'SynchroPass',
             value:'pass'
         },
         {
-            label:'Gotru Monitor',
+            label:'SynchroMonitor',
             value:'monitor'
         },
         {
-            label:'Gotru Trade',
+            label:'SynchroTrade',
             value:'trade'
         }
     ]
@@ -78,7 +78,7 @@ const CreateUserImageCrop = ({baseUrl}) => {
         },
         {
             label:'student',
-            info1:'This user is the direct recipient of the gotruhub tokens e.g a student',
+            info1:'This user is the direct recipient of the SynchroHub tokens e.g a student',
             info2:'*To create this user category, you are required to create units in monitor first which this user can belong to.'
         },
         {
@@ -88,7 +88,7 @@ const CreateUserImageCrop = ({baseUrl}) => {
         },
         // {
         //     label:'admin',
-        //     info1:'This user has admin level access to one or more of the features on gotruhub e.g a staff',
+        //     info1:'This user has admin-level access to one or more platform features, e.g. a staff member',
         //     info2:''
         // }
     ]
@@ -911,7 +911,7 @@ const CreateUserImageCrop = ({baseUrl}) => {
                             </div>
                         }
                         {userType === "guardian" && 
-                            <p className='text-[#4F4F4F] text-[14px] mt-4'>For the purpose of gotrupass, a member can have multiple authorities allowed to sign them in/out, upload the images of those authorities below. <span className='cursor-pointer text-secondary-color underline'>Learn more about gotrupass</span> </p>
+                            <p className='text-[#4F4F4F] text-[14px] mt-4'>For the purpose of SynchroPass, a member can have multiple authorities allowed to sign them in/out, upload the images of those authorities below. <span className='cursor-pointer text-secondary-color underline'>Learn more about SynchroPass</span> </p>
                         }
                     </div>
 
