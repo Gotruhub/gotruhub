@@ -102,10 +102,8 @@ const CreatePassword = ({baseUrl}) => {
   return (
     <div>
       <Navbar />
-      <div
-        className="className='w-[100%] mx-auto my-[4rem]"
-      >
-            <div className='md:w-[40%] sm:w-[60%] w-[90%] mx-auto'>
+      <div className='w-[100%] min-h-[calc(100vh-72px)] mx-auto py-[4rem] bg-background-primary'>
+            <div className='md:w-[40%] sm:w-[60%] w-[90%] max-w-[560px] mx-auto bg-background-neutral border border-border-soft rounded-[12px] p-6 md:p-9'>
                 <h3 className='text-center mx-[20px] text-[30px] mb-[3rem]'>Create Password</h3>
                 <div className="" style={{marginBottom:"30px"}}>
                   <p style={{marginBottom:"5px"}}>Enter Password</p>

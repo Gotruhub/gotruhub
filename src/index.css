@@ -3,17 +3,52 @@
 @tailwind utilities;
 
 :root {
-    --primary-color: #173F2B;
-    --secondary-color: #2F7D4D;
-    --text-color: #171A18;
-    --soft-background: #BDC4B4;
-    --muted-eucalyptus: #9CA78F;
+    /* SynchroHub's calm, institutional colour language. */
+    --background-primary: #eef3ef;
+    --background-neutral: #fffdf8;
+    --text-primary: #183a31;
+    --text-secondary: #566760;
+    --brand-primary: #39a96b;
+    --accent-deep: #153f34;
+    --surface-green: #abc4af;
+    --border-soft: #d7e2da;
+
+    /* Existing utility aliases keep shared application screens stable. */
+    --primary-color: var(--accent-deep);
+    --secondary-color: #2d7653;
+    --text-color: var(--text-primary);
+    --soft-background: var(--surface-green);
+    --muted-eucalyptus: #8fa38f;
+  }
+
+  body {
+    background: var(--background-neutral);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: var(--surface-green);
+    color: var(--text-primary);
+  }
+
+  a, button {
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--brand-primary) 45%, transparent);
+    outline-offset: 3px;
+  }
+
+  .sidebar-shell .text-\[\#25751E\] {
+    color: #a9e6bd;
   }
 
   label {
-    @apply text-[12px] text-[#828282]
+    @apply text-[12px] text-[#828282];
   }
 
   thead tr th{
-    @apply font-[500]
+    @apply font-[500];
   }

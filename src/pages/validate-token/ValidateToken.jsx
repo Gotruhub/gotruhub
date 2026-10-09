@@ -68,8 +68,8 @@ const ValidateToken = ({baseUrl}) => {
   return (
     <>
         <Navbar />
-        <div className='w-[100%] mx-auto my-[7rem]'>
-        <div className='w-[100%] md:w-[70%] mx-auto'>
+        <div className='w-[100%] min-h-[calc(100vh-72px)] mx-auto py-[5rem] bg-background-primary'>
+        <div className='w-[92%] md:w-[70%] max-w-[760px] mx-auto bg-background-neutral border border-border-soft rounded-[12px] py-8'>
             <div
                 className="center"
                 style={{ padding: "0 8vw", position: "relative" }}
@@ -103,7 +103,7 @@ const ValidateToken = ({baseUrl}) => {
                 </div>
                 <p className='text-center'>Did not get a code? <span className='text-secondary-color cursor-pointer' onClick={() => resendCode()}>Resend code</span> </p>
             </div>
-            <div className='text-[#6F7975] mt-[10rem] text-center text-[14px]'>
+            <div className='text-text-secondary mt-[5rem] text-center text-[14px]'>
                 <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
                 <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
             </div>

@@ -118,15 +118,15 @@ const Subscribe = ({baseUrl}) => {
         <div className="w-full lg:w-[78%] ml-auto pb-5">
         <TopNav toggleNav={toggleNav} setToggleNav={setToggleNav} baseUrl={baseUrl}/>
             <div className="">
-                <div className="flex justify-between items-start mb-[3rem] bg-[#F2FCF7] px-[10px] md:px-[30px] py-[1rem] flex-col md:flex-row">
+                <div className="flex justify-between items-start mb-[3rem] bg-background-primary px-[10px] md:px-[30px] py-[1rem] flex-col md:flex-row">
                     <div className="mb-4">
                         <p className="text-[28px] text-primary-color font-[600]">Subscription</p>
-                        <p className='text-[#4F4F4F]'>Select the subscription plan that is perfect for your organization to get the best of SynchroHub.</p>
-                        <p className='text-[#25751E] underline font-[500] cursor-pointer' onClick={() => setAboutFeatureModal(!aboutFeatureModal)} >Learn more about our features</p>
+                        <p className='text-text-secondary'>Select the subscription plan that is perfect for your organization to get the best of SynchroHub.</p>
+                        <p className='text-secondary-color underline font-[500] cursor-pointer' onClick={() => setAboutFeatureModal(!aboutFeatureModal)} >Learn more about our features</p>
                     </div>
                     <div className='flex items-center gap-3 w-full justify-end'>
-                        <button className="bg-[#19201D] text-white px-5 py-3 rounded-[8px] text-[14px] md:w-[140px] w-full" onClick={() => navigate('/token')}>Token</button>
-                        <button className="border-[#646464] text-[#969696] font-[600] border px-5 py-3 rounded-[8px] text-[14px] md:w-[140px] w-full" onClick={()=> navigate('/sub-summary')}>Cart</button>
+                        <button className="bg-accent-deep text-white px-5 py-3 rounded-[8px] text-[14px] md:w-[140px] w-full" onClick={() => navigate('/token')}>Token</button>
+                        <button className="border-border-soft text-text-secondary font-[600] border px-5 py-3 rounded-[8px] text-[14px] md:w-[140px] w-full" onClick={()=> navigate('/sub-summary')}>Cart</button>
                     </div>
                 </div>
                 <div className='px-[10px] md:px-[30px]'>
@@ -218,8 +218,8 @@ const Subscribe = ({baseUrl}) => {
                     </div>
                 </div>
                 <div className='w-full mt-7 px-[30px] flex items-center gap-5 '>
-                    <button className='bg-[#2D3934] rounded-[4px] px-5 py-3 text-[#FAFAFA] font-[600]' onClick={()=> navigate('/sub-summary')}>View Summary</button>
-                    <button className='border border-[#2D3934] rounded-[4px] py-3 px-6 text-[#2D3934] font-[600]' onClick={handleSubscription}>Add to cart</button>
+                    <button className='bg-accent-deep rounded-[4px] px-5 py-3 text-[#FAFAFA] font-[600]' onClick={()=> navigate('/sub-summary')}>View Summary</button>
+                    <button className='border border-accent-deep rounded-[4px] py-3 px-6 text-accent-deep font-[600]' onClick={handleSubscription}>Add to cart</button>
                 </div> */}
             </div>
         </div>
@@ -231,14 +231,14 @@ const Subscribe = ({baseUrl}) => {
             aboutFeatureModal &&
             <>
                 <div className="h-full w-full fixed top-0 left-0 z-[99]" style={{ background:"rgba(14, 14, 14, 0.58)" }} onClick={() => setAboutFeatureModal(false)}></div>
-                <div className="gap-3 bg-white w-[95%] lg:w-[75%] h-[600px] overflow-y-scroll fixed top-[50%] left-[50%] py-[20px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
+                <div className="gap-3 bg-background-primary border border-border-soft rounded-[12px] w-[95%] lg:w-[75%] h-[600px] overflow-y-scroll fixed top-[50%] left-[50%] py-[20px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
                     <div className="flex items-center justify-between border-b pb-[5px] mb-5">
                         <p className="text-[22px]">Features</p>
                         <IoCloseOutline fontSize={"20px"} cursor={"pointer"} onClick={() => setAboutFeatureModal(false)}/>
                     </div>
                     <div>
-                        <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 items-start flex-col md:flex-row'>
-                            <div className='rounded-[4px] bg-[#119353] py-[2rem] px-[3rem] text-center text-white'>
+                        <div className='flex gap-9 bg-background-neutral border border-border-soft rounded-[12px] md:px-9 px-4 py-5 items-start flex-col md:flex-row'>
+                            <div className='rounded-[4px] bg-surface-green text-primary py-[2rem] px-[3rem] text-center'>
                                 <div className='bg-white inline-flex p-3 rounded-full items-center justify-center'>
                                     <img src="./images/scan.svg" alt="" className='w-[20px]' />
                                 </div>
@@ -246,25 +246,32 @@ const Subscribe = ({baseUrl}) => {
                                 {/* <p className='font-[600]'>#400/Month</p> */}
                             </div>
                             <div>
-                                <p className='text-[#19201D] font-[600]'>Pass</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroPass streamlines member sign-in/sign-out management, providing accurate location tracking and enhanced security. It identifies authorized personnel, enables real-time presence tracking, and maintains precise records of who's signed in and who hasn't.</p>
+                                <p className='text-primary font-[600]'>Pass</p>
+                                <p className='text-text-secondary text-[14px] mt-2'>SynchroPass streamlines member sign-in/sign-out management, providing accurate location tracking and enhanced security. It identifies authorized personnel, enables real-time presence tracking, and maintains precise records of who's signed in and who hasn't.</p>
                             </div>
                         </div>
-                        <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 my-10 items-start flex-col md:flex-row'>
-                            <div className='rounded-[4px] bg-[#119353] py-[2rem] px-[2.3rem] text-center text-white'>
+                        <div className='flex gap-9 bg-background-neutral border border-border-soft rounded-[12px] md:px-9 px-4 py-5 my-10 items-start flex-col md:flex-row'>
+                            <div className='rounded-[4px] bg-surface-green text-primary py-[2rem] px-[2.3rem] text-center'>
                                 <div className='bg-white inline-flex p-3 rounded-full items-center justify-center'>
                                     <img src="./images/Tick-Square.svg" alt="" className='w-[20px]' />
                                 </div>
-                                <p className='font-[600] my-2'>Monitor</p>
+                                <p className='font-[600] my-2'>SynchroMonitor</p>
                                 {/* <p className='font-[600]'>#400/Month</p> */}
                             </div>
                             <div>
-                                <p className='text-[#19201D] font-[600]'>Monitor</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroMonitor enables comprehensive attendance tracking by monitoring the location and time of sign-in and sign-out for students and teachers. Using a unique QR code for each course, SynchroMonitor provides an accurate and secure way to track attendance. This feature allows organizations to maintain precise records of who is present or absent, enhancing accountability and security. With SynchroMonitor, attendance management is simplified, providing valuable insights to improve student and teacher engagement.</p>
+                                <p className='text-primary font-[600]'>SynchroMonitor</p>
+                                <div className='text-text-secondary text-[14px] mt-2 space-y-3'>
+                                    <p className='font-[600] text-primary'>Academic Operations, Information & GPS Monitoring</p>
+                                    <p className='font-[600] text-primary'>The Operational Intelligence Engine</p>
+                                    <p>SynchroMonitor manages the day-to-day academic and operational activities of an institution through two connected monitoring layers.</p>
+                                    <p><span className='font-[600] text-primary'>Monitor Source</span> monitors staff members — the source of the educational service. It provides visibility into teacher and staff attendance, presence, punctuality, activity and operational performance.</p>
+                                    <p><span className='font-[600] text-primary'>Monitor End</span> monitors students — the end receivers and beneficiaries of the educational service. It provides visibility into student attendance, presence, lateness, academic information and related performance records.</p>
+                                    <p>Together, Monitor Source and Monitor End provide a connected view of both service delivery and service reception, combining GPS-supported attendance verification, academic information management, timetable management, reporting, analytics and performance monitoring within one intelligent operational platform.</p>
+                                </div>
                             </div>
                         </div>
-                        <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 items-start flex-col md:flex-row'>
-                            <div className='rounded-[4px] bg-[#119353] py-[2rem] px-[2.7rem] text-center text-white'>
+                        <div className='flex gap-9 bg-background-neutral border border-border-soft rounded-[12px] md:px-9 px-4 py-5 items-start flex-col md:flex-row'>
+                            <div className='rounded-[4px] bg-surface-green text-primary py-[2rem] px-[2.7rem] text-center'>
                                 <div className='bg-white inline-flex p-3 rounded-full items-center justify-center'>
                                     <img src="./images/Wallet-dark.svg" alt="" className='w-[20px]' />
                                 </div>
@@ -272,21 +279,21 @@ const Subscribe = ({baseUrl}) => {
                                 {/* <p className='font-[600]'>#400/Month</p> */}
                             </div>
                             <div>
-                                <p className='text-[#19201D] font-[600]'>Trade</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>SynchroTrade enables organizations to conduct sales efficiently with a user-friendly app that allows students to shop effortlessly and pay securely through the app's wallet. Students enjoy a seamless shopping experience, while institutions can manage sales effectively. SynchroTrade also facilitates direct deposit of funds into the institution's account, providing instant access to capital to boost trading capacity. This innovative solution streamlines sales management, enhances financial control, and fosters a cashless campus ecosystem.</p>
+                                <p className='text-primary font-[600]'>Trade</p>
+                                <p className='text-text-secondary text-[14px] mt-2'>SynchroTrade enables organizations to conduct sales efficiently with a user-friendly app that allows students to shop effortlessly and pay securely through the app's wallet. Students enjoy a seamless shopping experience, while institutions can manage sales effectively. SynchroTrade also facilitates direct deposit of funds into the institution's account, providing instant access to capital to boost trading capacity. This innovative solution streamlines sales management, enhances financial control, and fosters a cashless campus ecosystem.</p>
                             </div>
                         </div>
-                        <div className='flex gap-9 bg-[#F2F2F2] rounded-[12px] md:px-9 px-4 py-5 mt-10 items-start flex-col md:flex-row'>
-                            <div className='rounded-[4px] bg-[#119353] py-[2rem] px-[2.5rem] text-center text-white'>
+                        <div className='flex gap-9 bg-background-neutral border border-border-soft rounded-[12px] md:px-9 px-4 py-5 mt-10 items-start flex-col md:flex-row'>
+                            <div className='rounded-[4px] bg-surface-green text-primary py-[2rem] px-[2.5rem] text-center'>
                                 <div className='bg-white inline-flex p-3 rounded-full items-center justify-center'>
                                     <img src="./images/printrep.svg" alt="" className='w-[20px]' />
                                 </div>
-                                <p className='font-[600] my-2'>Result</p>
+                                <p className='font-[600] my-2'>SynchroResults</p>
                                 {/* <p className='font-[600]'>#400/Month</p> */}
                             </div>
                             <div>
-                                <p className='text-[#19201D] font-[600]'>Result</p>
-                                <p className='text-[#4F4F4F] text-[14px] mt-2'>The Result feature enables institutions to easily upload and share student results, allowing students to access and download their results in a convenient and secure manner. With this feature, institutions can streamline result management, while students can access their complete result records in a single downloadable file, providing a clear and comprehensive overview of their academic performance.</p>
+                                <p className='text-primary font-[600]'>SynchroResults</p>
+                                <p className='text-text-secondary text-[14px] mt-2'>The SynchroResults feature enables institutions to easily upload and share student results, allowing students to access and download their results in a convenient and secure manner. With this feature, institutions can streamline result management, while students can access their complete result records in a single downloadable file, providing a clear and comprehensive overview of their academic performance.</p>
                             </div>
                         </div>
                     </div>

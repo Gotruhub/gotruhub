@@ -122,8 +122,8 @@ const RegisterPersonalBiz = ({baseUrl}) => {
   return (
     <div>
         <Navbar />
-        <div className='w-[100%] mx-auto my-[4rem]'>
-            <div className='lg:w-[55%] w-[90%] mx-auto'>
+        <div className='w-[100%] mx-auto py-[4rem] bg-background-primary'>
+            <div className='lg:w-[55%] w-[90%] max-w-[900px] mx-auto bg-background-neutral border border-border-soft rounded-[12px] p-5 md:p-9'>
                 <div className='flex items-center justify-between'>
                     <div className='sm:flex items-center gap-1 cursor-pointer hidden' onClick={() => navigate('/register')}>
                         <GoChevronLeft />

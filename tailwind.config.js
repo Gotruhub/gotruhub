@@ -9,7 +9,15 @@ export default {
         colors: {
           "primary-color": "var(--primary-color)",
           "secondary-color": "var(--secondary-color)",
-          "text-color":"var(--text-color)"
+          "text-color":"var(--text-color)",
+          "background-primary":"var(--background-primary)",
+          "background-neutral":"var(--background-neutral)",
+          "text-primary":"var(--text-primary)",
+          "text-secondary":"var(--text-secondary)",
+          "brand-primary":"var(--brand-primary)",
+          "accent-deep":"var(--accent-deep)",
+          "surface-green":"var(--surface-green)",
+          "border-soft":"var(--border-soft)"
       },
     },
   },

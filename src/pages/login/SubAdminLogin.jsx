@@ -71,8 +71,8 @@ const SubAdminLogin = ({baseUrl}) => {
   return (
     <>
       <Navbar />
-      <div className='w-[100%] mx-auto text-center my-[4rem]'>
-        <div className='md:w-[40%] sm:w-[60%] w-[90%] mx-auto'>
+      <div className='w-[100%] min-h-[calc(100vh-72px)] mx-auto text-center py-[4rem] bg-background-primary'>
+        <div className='md:w-[40%] sm:w-[60%] w-[90%] max-w-[560px] mx-auto bg-background-neutral border border-border-soft rounded-[12px] p-6 md:p-9'>
           <p className='text-[28px] mb-[40px]'>Sub Admin Login</p>
           <div>
             <label className='block text-left mb-2'>Email Address</label>
@@ -100,7 +100,7 @@ const SubAdminLogin = ({baseUrl}) => {
           }
           {/* <p className='mt-10'>New to SynchroHub? <span className='text-secondary-color  cursor-pointer' onClick={() => navigate('/register')}>Sign up</span> </p> */}
         </div>
-        <div className='text-[#6F7975] mt-[10rem]'>
+        <div className='text-text-secondary mt-[5rem]'>
           <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
           <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
         </div>

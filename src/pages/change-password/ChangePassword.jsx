@@ -62,10 +62,8 @@ const ChangePassword = ({baseUrl}) => {
   return (
     <div>
       <Navbar />
-      <div
-        className="className='w-[100%] mx-auto my-[4rem]"
-      >
-            <div className='md:w-[40%] sm:w-[60%] w-[90%] mx-auto'>
+      <div className='w-[100%] min-h-[calc(100vh-72px)] mx-auto py-[4rem] bg-background-primary'>
+            <div className='md:w-[40%] sm:w-[60%] w-[90%] max-w-[560px] mx-auto bg-background-neutral border border-border-soft rounded-[12px] p-6 md:p-9'>
                 <h3 className='text-center mx-[20px] text-[30px] mb-[3rem]'>Reset Password</h3>
                 <div className="" style={{marginBottom:"30px"}}>
                   <p style={{marginBottom:"5px"}}>Enter Password</p>
@@ -119,7 +117,7 @@ const ChangePassword = ({baseUrl}) => {
               {/* <button onClick={verifyAccount} className='text-white bg-primary-color w-full rounded-[4px] mt-[2.5rem] px-[35px] py-[16px] text-center mx-auto'>Proceed</button> */}
             </div>
         </div>
-        <div className='text-[#6F7975] mt-[10rem] text-center text-[14px] mb-7'>
+        <div className='text-text-secondary mt-[5rem] text-center text-[14px] mb-7'>
             <p>&copy; 2026 SYNCHROHUB SOLUTIONS LTD. SynchroHub and the SynchroHub logo are trademarks of the company.</p>
             <p>Please visit our <span className='text-secondary-color cursor-pointer'>Terms of service</span> for more details.</p>
         </div>

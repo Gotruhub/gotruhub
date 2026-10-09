@@ -14,6 +14,7 @@ import { FaUsersRays } from 'react-icons/fa6';
 import { GrUserAdmin } from 'react-icons/gr';
 import { GrUpgrade } from "react-icons/gr";
 import { MdDisplaySettings } from "react-icons/md";
+import BrandLogo from '../brand-logo/BrandLogo'
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
@@ -39,9 +40,9 @@ const SideNav = ({toggleNav, setToggleNav}) => {
     <>
       {
         user?.data?.details?.role === "admin" &&
-          <div className={!toggleNav ? `bg-[#19201D] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#19201D] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
+          <div className={!toggleNav ? `sidebar-shell bg-accent-deep scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `sidebar-shell bg-accent-deep z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
               <div className='px-5 pb-5 flex items-center justify-between'>
-                  <img src="/images/synchrohub-logo.png" alt="SynchroHub" className='h-[64px] w-[150px] object-contain' />
+                  <BrandLogo variant='dark' fallbackPath='/images/logo-white.svg' className='h-[46px] max-w-[220px]' />
                   <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
               </div>
               <div className="px-[32px] my-10 text-white">
@@ -76,7 +77,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                 <Link to='/pass' className={ location.pathname.includes('pass') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
                   <div className="flex items-center">
                     <img src="./images/scan-white.svg" className="mr-[15.67px]"/>
-                    <p className="">Pass</p>
+                    <p className="">SynchroPass</p>
                   </div>
                 </Link>
 
@@ -84,7 +85,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   <div className="flex items-center justify-between w-full cursor-pointer" onClick={() => setTradeDropDown(!tradeDropDown)}>
                     <div className="flex items-center">
                         <img src="./images/wallet-active.svg" className="mr-[15.67px]" alt="" />
-                        <p className={ location.pathname.includes("/wallet") || location.pathname.includes('/orders') || location.pathname.includes('/transaction-history') || location.pathname.includes('bank') || location.pathname.includes('order') ? `flex items-center justify-between text-[#25751E]` :`flex items-center justify-between`}>Trade</p>
+                        <p className={ location.pathname.includes("/wallet") || location.pathname.includes('/orders') || location.pathname.includes('/transaction-history') || location.pathname.includes('bank') || location.pathname.includes('order') ? `flex items-center justify-between text-[#25751E]` :`flex items-center justify-between`}>SynchroTrade</p>
                     </div>
                     <IoChevronDownOutline color="d7d7d7"/>
                   </div>
@@ -110,7 +111,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   <div className="flex items-center justify-between w-full cursor-pointer" onClick={() => setMonitorDropDown(!monitorDropDown)}>
                     <div className="flex items-center">
                         <LuScanLine className="mr-[15.67px]"/>
-                        <p className={ location.pathname.includes("unit") || location.pathname.includes('assignment') || location.pathname.includes('/grading') || location.pathname.includes('summary') || location.pathname.includes('time-table') ? `flex items-center justify-between text-[#25751E]` :`flex items-center justify-between`}>Monitor</p>
+                        <p className={ location.pathname.includes("unit") || location.pathname.includes('assignment') || location.pathname.includes('/grading') || location.pathname.includes('summary') || location.pathname.includes('time-table') ? `flex items-center justify-between text-[#25751E]` :`flex items-center justify-between`}>SynchroMonitor</p>
                     </div>
                     <IoChevronDownOutline color="d7d7d7"/>
                   </div>
@@ -147,7 +148,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                 <Link to='/result' className={ location.pathname.includes("result") ? `flex items-center justify-between text-[#25751E] py-[10px]` : `flex items-center justify-between py-[10px]`}>
                   <div className="flex items-center">
                     <PiFileArrowUpThin color="d7d7d7" className="mr-[15.67px]"/>
-                    <p className="">Result</p>
+                    <p className="">SynchroResults</p>
                   </div>
                 </Link>
               </div>
@@ -231,9 +232,9 @@ const SideNav = ({toggleNav, setToggleNav}) => {
 
       {
         user?.data?.details?.subAdmin === true &&
-        <div className={!toggleNav ? `bg-[#19201D] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#19201D] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
+        <div className={!toggleNav ? `sidebar-shell bg-accent-deep scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `sidebar-shell bg-accent-deep z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
             <div className='px-5 pb-5 flex items-center justify-between'>
-                <img src="/images/synchrohub-logo.png" alt="SynchroHub" className='h-[64px] w-[150px] object-contain' />
+                <BrandLogo variant='dark' fallbackPath='/images/logo-white.svg' className='h-[46px] max-w-[220px]' />
                 <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
             </div>
             <div className="px-[32px] my-10 text-white">

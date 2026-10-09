@@ -31,7 +31,7 @@ useEffect(() => {
 }, [])
 
   return (
-    <div className='bg-[#1D2522] flex items-center justify-between w-[100%] py-[1.2rem] top-0 right-0 z-[99] px-5'>
+    <div className='bg-accent-deep flex items-center justify-between w-[100%] py-[1.2rem] top-0 right-0 z-[99] px-5'>
       <div className='flex items-center gap-5'>
         {
           user?.data?.details?.logo?.file ?
@@ -40,7 +40,7 @@ useEffect(() => {
           <img src="./images/admin-profile-icon.png" onClick={() => navigate('/orgz-profile')} className='w-[40px] h-[40px] cursor-pointer' alt="" />
         }
         {/* <img src="./images/admin-profile-icon.png" onClick={() => navigate('/orgz-profile')} className='w-[40px] h-[40px] cursor-pointer' alt="" /> */}
-        <div onClick={() => navigate('/notification')} className='bg-[#C3FAE2] text-[20px] text-[#19201D] w-[40px] h-[40px] flex relative items-center justify-center cursor-pointer rounded-full'>
+        <div onClick={() => navigate('/notification')} className='bg-surface-green text-[20px] text-primary w-[40px] h-[40px] flex relative items-center justify-center cursor-pointer rounded-full'>
           <IoNotificationsOutline />
           <div className='absolute top-[-10px] text-[14px] right-[-8px] border-2 border-[#1E2522] bg-gray-200 px-[6px] rounded-full'>
             {
@@ -59,7 +59,7 @@ useEffect(() => {
         </div> */}
         <div onClick={() => {
           setLogoutModal(true)
-        }} className='text-[#19201D] items-center gap-3 bg-[#C3FAE2] py-[9px] px-[16px] rounded-[4px] cursor-pointer hidden lg:flex'>
+        }} className='text-primary items-center gap-3 bg-surface-green py-[9px] px-[16px] rounded-[4px] cursor-pointer hidden lg:flex'>
           <IoIosLogOut fontSize={"20px"}/>
           <p>Logout</p>
         </div>
