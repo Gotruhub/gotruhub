@@ -45,6 +45,9 @@
     color: #a9e6bd;
   }
 
+  .sidebar-shell a:hover, .sidebar-shell .cursor-pointer:hover { background-color: #8FEA5A; border-radius: 6px; color: #153f34; }
+  .sidebar-shell a:hover .text-\[\#25751E\], .sidebar-shell .cursor-pointer:hover .text-\[\#25751E\] { color: #153f34; }
+  @media (prefers-reduced-motion: reduce) { a, button { transition: none; } }
   label {
     @apply text-[12px] text-[#828282];
   }

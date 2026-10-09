@@ -4,11 +4,6 @@ import Footer from '../../components/footer/Footer'
 import Navbar from '../../components/navbar/Navbar'
 
 const services = {
-    SynchroTrade: {
-        image: './trade_img.svg',
-        subtitle: 'School Payments, Digital Commerce & Inventory',
-        description: 'Bring school payments, student purchases, inventory and transaction records into one secure service. SynchroTrade helps schools manage commerce efficiently while giving families a simpler way to pay.'
-    },
     SynchroPass: {
         image: './images/go-tru-pass.svg',
         subtitle: 'Student Security & GPS-Verified Digital Identity',
@@ -19,6 +14,11 @@ const services = {
         subtitle: 'Academic Operations, Information & GPS Monitoring',
         description: 'The Operational Intelligence Engine'
     },
+    SynchroTrade: {
+        image: './trade_img.svg',
+        subtitle: 'School Payments, Digital Commerce & Inventory',
+        description: 'Bring school payments, student purchases, inventory and transaction records into one secure service. SynchroTrade helps schools manage commerce efficiently while giving families a simpler way to pay.'
+    },
     SynchroResults: {
         image: './images/go-tru-pass.svg',
         subtitle: 'Secure Academic Results Access',
@@ -27,8 +27,8 @@ const services = {
 }
 
 const Home = () => {
-    const tabArray = Object.keys(services)
-    const [selectedTab, setSelectedTab] = useState('SynchroTrade')
+    const tabArray = ['SynchroPass', 'SynchroMonitor', 'SynchroTrade', 'SynchroResults']
+    const [selectedTab, setSelectedTab] = useState('SynchroPass')
     const navigate = useNavigate()
     const user = localStorage.getItem('user')
     const selectedService = services[selectedTab]
@@ -72,12 +72,28 @@ const Home = () => {
             <section className='bg-background-neutral text-center py-[6rem]'>
                 <h1 className='text-primary-color font-[500] text-[18px] sm:text-[32px] md:text-[48px] lg:w-[70%] md:px-[1rem] mx-auto'>One connected platform for the way modern schools operate</h1>
                 <p className='leading-[1.6] w-[90%] sm:w-[700px] mx-auto mt-8'>The Web Administration Dashboard is the central hub for school operations and records. SynchroLink connects students, parents and guardians with their school, while SynchroStaff equips teachers and staff for day-to-day operations.</p>
-                <div className='flex flex-wrap items-center justify-center gap-[20px] mt-10'>
-                    {tabArray.map((tab) => (
-                        <button key={tab} className={selectedTab === tab ? 'text-secondary-color font-[600] border-b-2 border-secondary-color pb-1' : 'text-[#6F7975] pb-1'} onClick={() => setSelectedTab(tab)}>{tab}</button>
-                    ))}
+                <div className='flex flex-wrap items-center justify-center gap-3 mt-10' role='tablist' aria-label='SynchroHub services'>
+                    {tabArray.map((tab) => {
+                        const isSelected = selectedTab === tab
+
+                        return (
+                        <button
+                            key={tab}
+                            type='button'
+                            role='tab'
+                            aria-selected={isSelected}
+                            aria-controls='service-details'
+                            className={isSelected
+                                ? 'relative rounded-[8px] bg-[#153f34] px-5 py-3 font-[600] text-white shadow-sm motion-reduce:transition-none after:absolute after:bottom-[6px] after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-[#8FEA5A]'
+                                : 'rounded-[8px] bg-[#eef3ef] px-5 py-3 font-[500] text-[#566760] hover:bg-[#8FEA5A] hover:text-[#153f34] motion-reduce:transition-none'}
+                            onClick={() => setSelectedTab(tab)}
+                        >
+                            {tab}<span className='sr-only'>{isSelected ? ' selected' : ''}</span>
+                        </button>
+                        )
+                    })}
                 </div>
-                <div className='flex justify-between lg:items-center gap-[3rem] lg:text-left text-center w-[90%] max-w-[1200px] flex-col lg:flex-row items-center mx-auto mt-[5rem]'>
+                <div id='service-details' role='tabpanel' aria-label={`${selectedTab} details`} className='flex justify-between lg:items-center gap-[3rem] lg:text-left text-center w-[90%] max-w-[1200px] flex-col lg:flex-row items-center mx-auto mt-[5rem]'>
                     <img src={selectedService.image} className='w-full max-w-[560px] lg:w-[48%]' alt="" />
                     <div className='lg:w-[48%] w-[95%]'>
                         <p className='text-[32px] font-[500] mb-2'>{selectedTab}</p>

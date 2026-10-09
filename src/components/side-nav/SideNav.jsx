@@ -72,7 +72,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   </div>
                 </Link>
               </div>
-              <div className="px-[32px] my-10 text-white">
+              <div className="px-[32px] my-10 text-white flex flex-col">
                 <p className="text-[12px] text-[#6F7975] mb-2">FEATURES</p>
                 <Link to='/pass' className={ location.pathname.includes('pass') ? `flex items-center justify-between py-[10px] text-[#25751E]` :`flex items-center justify-between py-[10px]`}>
                   <div className="flex items-center">
@@ -81,7 +81,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   </div>
                 </Link>
 
-                <div className="flex flex-col justify-between py-[10px]">
+                <div className="order-2 flex flex-col justify-between py-[10px]">
                   <div className="flex items-center justify-between w-full cursor-pointer" onClick={() => setTradeDropDown(!tradeDropDown)}>
                     <div className="flex items-center">
                         <img src="./images/wallet-active.svg" className="mr-[15.67px]" alt="" />
@@ -107,7 +107,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   }
                 </div>
 
-                <div className="flex flex-col justify-between py-[10px]">
+                <div className="order-1 flex flex-col justify-between py-[10px]">
                   <div className="flex items-center justify-between w-full cursor-pointer" onClick={() => setMonitorDropDown(!monitorDropDown)}>
                     <div className="flex items-center">
                         <LuScanLine className="mr-[15.67px]"/>
@@ -145,7 +145,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                   }
                 </div>
 
-                <Link to='/result' className={ location.pathname.includes("result") ? `flex items-center justify-between text-[#25751E] py-[10px]` : `flex items-center justify-between py-[10px]`}>
+                <Link to='/result' className={ location.pathname.includes("result") ? `order-3 flex items-center justify-between text-[#25751E] py-[10px]` : `order-3 flex items-center justify-between py-[10px]`}>
                   <div className="flex items-center">
                     <PiFileArrowUpThin color="d7d7d7" className="mr-[15.67px]"/>
                     <p className="">SynchroResults</p>

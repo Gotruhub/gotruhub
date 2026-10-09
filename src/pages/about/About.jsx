@@ -18,7 +18,7 @@ const About = () => {
             SynchroHub is a Digital School Infrastructure Platform designed to bring school administration, student and guardian engagement, staff operations, academic information, security, attendance, results and school commerce into one connected ecosystem.
           </p>
           <p className='leading-[1.8] mt-4'>
-            Through the Web Administration Dashboard, SynchroLink Mobile App and SynchroStaff Mobile App, every part of the school community can access the tools and information relevant to them. SynchroPass, SynchroMonitor, SynchroResults and SynchroTrade provide four connected services for the way modern schools operate.
+            Through the Web Administration Dashboard, SynchroLink Mobile App and SynchroStaff Mobile App, every part of the school community can access the tools and information relevant to them. SynchroPass, SynchroMonitor, SynchroTrade and SynchroResults provide four connected services for the way modern schools operate.
           </p>
           <p className='mt-5 font-[600]'>One connected platform. Built for the way modern schools operate.</p>
         </div></div>
