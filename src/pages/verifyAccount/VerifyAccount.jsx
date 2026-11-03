@@ -9,6 +9,8 @@ import Navbar from '../../components/navbar/Navbar'
 const VerifyAccount = ({baseUrl}) => {
 
     const [otp, setOtp] = useState('')
+    const registrationEmail = JSON.parse(localStorage.getItem('reg-email') || '""')
+    const maskedEmail = maskEmail(registrationEmail)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [msg, setMsg] = useState('')
@@ -81,7 +83,7 @@ const VerifyAccount = ({baseUrl}) => {
                     <p className='text-[#19201D] text-[22px] font-[500]'>Verify your Email Address</p>
                     <p></p>
                 </div>
-                <p className='text-[14px] text-[#828282] mb-[35px] mt-[4.5rem]'>A verification code has been sent to your email address ce*****ft@gmail.com Enter the code below to complete your registration.</p>
+                <p className='text-[14px] text-[#828282] mb-[35px] mt-[4.5rem]'>A verification code has been sent to {maskedEmail}. Enter the code below to complete your registration.</p>
                 <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
                     <OTPInput
                     value={otp}
@@ -109,6 +111,17 @@ const VerifyAccount = ({baseUrl}) => {
     </div>
     </>
   )
+}
+
+function maskEmail(email) {
+    if (!email || typeof email !== 'string') return 'your email address'
+    const [localPart, domain] = email.split('@')
+    if (!localPart || !domain) return 'your email address'
+
+    const visibleLocalPart = localPart.length === 1
+        ? localPart
+        : `${localPart[0]}${'*'.repeat(Math.max(localPart.length - 2, 1))}${localPart.at(-1)}`
+    return `${visibleLocalPart}@${domain}`
 }
 
 export default VerifyAccount
